@@ -1,0 +1,9 @@
+fastapi               # Framework HTTP para exponer endpoints
+uvicorn[standard]     # Servidor ASGI para FastAPI
+langchain             # Orquestación de LLM, RAG, agents
+openai                # Compatibilidad con API schemas para OpenRouter
+httpx                 # Cliente HTTP async para llamar APIs
+pydantic              # Validación de inputs/outputs
+python-dotenv         # Gestión de variables .env
+sentence-transformers # Creación de embeddings
+chromadb              # Vector DB local para RAG
