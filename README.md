@@ -99,7 +99,7 @@ source .venv/bin/activate      # mac / linux
 ### 2) Instalar dependencias
 
 ```bash
-pip install --upgrade pip
+pip install --upgrade pip # opcional
 pip install -r requirements.txt
 ```
 
@@ -111,13 +111,14 @@ Crea tu archivo desde la plantilla:
 cp .env.example .env
 ```
 
-Edita:
+Edita OPENROUTER_API_KEY:
+
+Puedes editar también DEFAULT_MODEL si deseas usar otro modelo de OpenRouter.
 
 ```
-OPENROUTER_API_KEY=tu_clave_aquí
+OPENROUTER_API_KEY=API_KEY_HERE
 OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
-FASTAPI_PORT=8000
-VECTOR_DB=chroma
+DEFAULT_MODEL=meta-llama/llama-3.3-8b-instruct:free
 ```
 
 > La API key se obtiene en: [https://openrouter.ai/keys](https://openrouter.ai/keys)
@@ -134,6 +135,7 @@ Probamos:
 
 ```
 GET http://localhost:8000/health
+GET http://localhost:8000/test-llm
 ```
 
 ---
