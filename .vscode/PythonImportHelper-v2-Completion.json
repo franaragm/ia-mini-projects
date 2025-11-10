@@ -1,0 +1,208 @@
+[
+    {
+        "label": "AsyncOpenAI",
+        "importPath": "openai",
+        "description": "openai",
+        "isExtraImport": true,
+        "detail": "openai",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "importPath": "projects.A1_chat_structured.main",
+        "description": "projects.A1_chat_structured.main",
+        "isExtraImport": true,
+        "detail": "projects.A1_chat_structured.main",
+        "documentation": {}
+    },
+    {
+        "label": "PromptTemplate",
+        "importPath": "langchain_core.prompts",
+        "description": "langchain_core.prompts",
+        "isExtraImport": true,
+        "detail": "langchain_core.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "llm",
+        "importPath": "app.services.llm_client",
+        "description": "app.services.llm_client",
+        "isExtraImport": true,
+        "detail": "app.services.llm_client",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "OPENROUTER_API_KEY",
+        "kind": 5,
+        "importPath": "app.services.llm_client",
+        "description": "app.services.llm_client",
+        "peekOfCode": "OPENROUTER_API_KEY = get_env(\"OPENROUTER_API_KEY\")\nOPENROUTER_BASE_URL = get_env(\"OPENROUTER_BASE_URL\", \"https://openrouter.ai/api/v1\")\nOPENROUTER_DEFAULT_MODEL = get_env(\"DEFAULT_MODEL\", \"meta-llama/llama-3.3-8b-instruct:free\")\n# Cliente compatible con OpenAI, apuntado a OpenRouter\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str):\n    response = await client.chat.completions.create(",
+        "detail": "app.services.llm_client",
+        "documentation": {}
+    },
+    {
+        "label": "OPENROUTER_BASE_URL",
+        "kind": 5,
+        "importPath": "app.services.llm_client",
+        "description": "app.services.llm_client",
+        "peekOfCode": "OPENROUTER_BASE_URL = get_env(\"OPENROUTER_BASE_URL\", \"https://openrouter.ai/api/v1\")\nOPENROUTER_DEFAULT_MODEL = get_env(\"DEFAULT_MODEL\", \"meta-llama/llama-3.3-8b-instruct:free\")\n# Cliente compatible con OpenAI, apuntado a OpenRouter\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str):\n    response = await client.chat.completions.create(\n        model=OPENROUTER_DEFAULT_MODEL,",
+        "detail": "app.services.llm_client",
+        "documentation": {}
+    },
+    {
+        "label": "OPENROUTER_DEFAULT_MODEL",
+        "kind": 5,
+        "importPath": "app.services.llm_client",
+        "description": "app.services.llm_client",
+        "peekOfCode": "OPENROUTER_DEFAULT_MODEL = get_env(\"DEFAULT_MODEL\", \"meta-llama/llama-3.3-8b-instruct:free\")\n# Cliente compatible con OpenAI, apuntado a OpenRouter\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str):\n    response = await client.chat.completions.create(\n        model=OPENROUTER_DEFAULT_MODEL,\n        messages=[{\"role\": \"user\", \"content\": prompt}],",
+        "detail": "app.services.llm_client",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "app.services.llm_client",
+        "description": "app.services.llm_client",
+        "peekOfCode": "client = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str):\n    response = await client.chat.completions.create(\n        model=OPENROUTER_DEFAULT_MODEL,\n        messages=[{\"role\": \"user\", \"content\": prompt}],\n        max_tokens=400,\n        temperature=0.7,",
+        "detail": "app.services.llm_client",
+        "documentation": {}
+    },
+    {
+        "label": "get_env",
+        "kind": 2,
+        "importPath": "app.services.utils",
+        "description": "app.services.utils",
+        "peekOfCode": "def get_env(name: str, default=None):\n    value = os.getenv(name, default)\n    if value is None:\n        raise ValueError(f\"❌ Variable de entorno no encontrada: {name}\")\n    return value",
+        "detail": "app.services.utils",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app.main",
+        "description": "app.main",
+        "peekOfCode": "app = FastAPI(title=\"Mini Projects LangChain - Base Server\")\napp.include_router(router)",
+        "detail": "app.main",
+        "documentation": {}
+    },
+    {
+        "label": "health",
+        "kind": 2,
+        "importPath": "app.routes",
+        "description": "app.routes",
+        "peekOfCode": "def health():\n    return {\"status\": \"ok\"}\n@router.get(\"/test-llm\")\nasync def test_llm():\n    answer = await llm(\"Dime una frase corta divertida como un astronauta para confirmar conexión.\")\n    return {\"response\": answer}\n# Rutas de los mini-proyectos\nrouter.include_router(a1_router)",
+        "detail": "app.routes",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "app.routes",
+        "description": "app.routes",
+        "peekOfCode": "router = APIRouter()\n@router.get(\"/health\")\ndef health():\n    return {\"status\": \"ok\"}\n@router.get(\"/test-llm\")\nasync def test_llm():\n    answer = await llm(\"Dime una frase corta divertida como un astronauta para confirmar conexión.\")\n    return {\"response\": answer}\n# Rutas de los mini-proyectos\nrouter.include_router(a1_router)",
+        "detail": "app.routes",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "projects.A1_chat_structured.main",
+        "description": "projects.A1_chat_structured.main",
+        "peekOfCode": "router = APIRouter()\nrouter.include_router(a1_router)",
+        "detail": "projects.A1_chat_structured.main",
+        "documentation": {}
+    },
+    {
+        "label": "chat_template",
+        "kind": 5,
+        "importPath": "projects.A1_chat_structured.prompts",
+        "description": "projects.A1_chat_structured.prompts",
+        "peekOfCode": "chat_template = PromptTemplate(\n    input_variables=[\"user_message\"],\n    template=\"\"\"\nEres un asistente útil y preciso. Debes responder SIEMPRE en formato JSON válido.\nResponde al usuario manteniendo un tono educativo y claro.\nInstrucciones estrictas:\n- No agregues texto fuera del JSON.\n- No expliques ni describas el JSON, solo devuélvelo.\n- No incluyas comentarios.\nFormato esperado:",
+        "detail": "projects.A1_chat_structured.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "ChatRequest",
+        "kind": 6,
+        "importPath": "projects.A1_chat_structured.router",
+        "description": "projects.A1_chat_structured.router",
+        "peekOfCode": "class ChatRequest(BaseModel):\n    message: str\n@router.post(\"/chat\")\nasync def structured_chat(req: ChatRequest):\n    prompt = chat_template.format(user_message=req.message)\n    response = await llm(prompt)\n    try:\n        data = json.loads(response)\n    except json.JSONDecodeError:\n        data = {\"response\": response.strip(), \"razonamiento\": \"El modelo no devolvió JSON puro.\"}",
+        "detail": "projects.A1_chat_structured.router",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "projects.A1_chat_structured.router",
+        "description": "projects.A1_chat_structured.router",
+        "peekOfCode": "router = APIRouter(prefix=\"/a1\", tags=[\"A1 - Chat estructurado\"])\nclass ChatRequest(BaseModel):\n    message: str\n@router.post(\"/chat\")\nasync def structured_chat(req: ChatRequest):\n    prompt = chat_template.format(user_message=req.message)\n    response = await llm(prompt)\n    try:\n        data = json.loads(response)\n    except json.JSONDecodeError:",
+        "detail": "projects.A1_chat_structured.router",
+        "documentation": {}
+    }
+]

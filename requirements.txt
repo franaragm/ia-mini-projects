@@ -1,9 +1,22 @@
-fastapi               # Framework HTTP para exponer endpoints
-uvicorn[standard]     # Servidor ASGI para FastAPI
-langchain             # Orquestación de LLM, RAG, agents
-openai                # Compatibilidad con API schemas para OpenRouter
-httpx                 # Cliente HTTP async para llamar APIs
-pydantic              # Validación de inputs/outputs
-python-dotenv         # Gestión de variables .env
-sentence-transformers # Creación de embeddings
-chromadb              # Vector DB local para RAG
+fastapi
+uvicorn[standard]
+
+# Núcleo de LangChain (PromptTemplate, OutputParser, etc.)
+langchain-core
+
+# Integraciones generales y utilidades (sin modelos OpenAI)
+langchain-community
+
+# Cliente OpenAI compatible con OpenRouter
+openai
+
+# Para usar modelos de embeddings locales (MiniLM, etc.)
+sentence-transformers
+
+# Vector DB local para RAG
+chromadb
+
+# Utilidades comunes
+python-dotenv
+pydantic
+httpx
