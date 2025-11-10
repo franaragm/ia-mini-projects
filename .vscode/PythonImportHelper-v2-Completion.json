@@ -57,11 +57,35 @@
         "documentation": {}
     },
     {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
         "label": "router",
         "importPath": "projects.A1_chat_structured.main",
         "description": "projects.A1_chat_structured.main",
         "isExtraImport": true,
         "detail": "projects.A1_chat_structured.main",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "importPath": "projects.A2_output_parser.router",
+        "description": "projects.A2_output_parser.router",
+        "isExtraImport": true,
+        "detail": "projects.A2_output_parser.router",
+        "documentation": {}
+    },
+    {
+        "label": "PromptTemplate",
+        "importPath": "langchain_core.prompts",
+        "description": "langchain_core.prompts",
+        "isExtraImport": true,
+        "detail": "langchain_core.prompts",
         "documentation": {}
     },
     {
@@ -78,6 +102,46 @@
         "description": "pydantic",
         "isExtraImport": true,
         "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "llm",
+        "importPath": "app.services.llm_client",
+        "description": "app.services.llm_client",
+        "isExtraImport": true,
+        "detail": "app.services.llm_client",
         "documentation": {}
     },
     {
@@ -156,7 +220,7 @@
         "kind": 2,
         "importPath": "app.routes",
         "description": "app.routes",
-        "peekOfCode": "def health():\n    return {\"status\": \"ok\"}\n@router.get(\"/test-llm\")\nasync def test_llm():\n    answer = await llm(\"Dime una frase corta divertida como un astronauta para confirmar conexión.\")\n    return {\"response\": answer}\n# Rutas de los mini-proyectos\nrouter.include_router(a1_router)",
+        "peekOfCode": "def health():\n    return {\"status\": \"ok\"}\n@router.get(\"/test-llm\")\nasync def test_llm():\n    answer = await llm(\"Dime una frase corta divertida como un astronauta para confirmar conexión.\")\n    return {\"response\": answer}\n# Rutas de los mini-proyectos\nrouter.include_router(a1_router)\nrouter.include_router(a2_router)",
         "detail": "app.routes",
         "documentation": {}
     },
@@ -203,6 +267,42 @@
         "description": "projects.A1_chat_structured.router",
         "peekOfCode": "router = APIRouter(prefix=\"/a1\", tags=[\"A1 - Chat estructurado\"])\nclass ChatRequest(BaseModel):\n    message: str\n@router.post(\"/chat\")\nasync def structured_chat(req: ChatRequest):\n    prompt = chat_template.format(user_message=req.message)\n    response = await llm(prompt)\n    try:\n        data = json.loads(response)\n    except json.JSONDecodeError:",
         "detail": "projects.A1_chat_structured.router",
+        "documentation": {}
+    },
+    {
+        "label": "intent_prompt",
+        "kind": 5,
+        "importPath": "projects.A2_output_parser.prompts",
+        "description": "projects.A2_output_parser.prompts",
+        "peekOfCode": "intent_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente que analiza mensajes de usuario y devuelve un JSON con intención estructurada.\nFormato obligatorio (usa exactamente este formato, sin texto fuera del JSON):\n{{\n  \"action\": \"create_task | update_task | get_status | other\",\n  \"title\": \"texto o null\",\n  \"due_date\": \"YYYY-MM-DD o null\"\n}}\nNo expliques tu razonamiento.\nNo añadas texto extra.",
+        "detail": "projects.A2_output_parser.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "projects.A2_output_parser.router",
+        "description": "projects.A2_output_parser.router",
+        "peekOfCode": "router = APIRouter(prefix=\"/a2\", tags=[\"A2 - Output Parser & Validación\"])\n@router.post(\"/parse-intent\", response_model=IntentResponse)\nasync def parse_intent(req: IntentRequest):\n    prompt = intent_prompt.format(user_message=req.message)\n    raw = await llm(prompt)\n    # Intentamos parsear JSON del modelo\n    try:\n        data = json.loads(raw)\n    except json.JSONDecodeError:\n        return {",
+        "detail": "projects.A2_output_parser.router",
+        "documentation": {}
+    },
+    {
+        "label": "IntentRequest",
+        "kind": 6,
+        "importPath": "projects.A2_output_parser.schemas",
+        "description": "projects.A2_output_parser.schemas",
+        "peekOfCode": "class IntentRequest(BaseModel):\n    message: str = Field(..., description=\"Mensaje del usuario\")\nclass IntentResponse(BaseModel):\n    action: str = Field(..., description=\"Tipo de acción que el usuario quiere realizar\")\n    title: str | None = Field(None, description=\"Título si aplica (por ejemplo crear tarea)\")\n    due_date: str | None = Field(None, description=\"Fecha en formato YYYY-MM-DD si aplica\")",
+        "detail": "projects.A2_output_parser.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "IntentResponse",
+        "kind": 6,
+        "importPath": "projects.A2_output_parser.schemas",
+        "description": "projects.A2_output_parser.schemas",
+        "peekOfCode": "class IntentResponse(BaseModel):\n    action: str = Field(..., description=\"Tipo de acción que el usuario quiere realizar\")\n    title: str | None = Field(None, description=\"Título si aplica (por ejemplo crear tarea)\")\n    due_date: str | None = Field(None, description=\"Fecha en formato YYYY-MM-DD si aplica\")",
+        "detail": "projects.A2_output_parser.schemas",
         "documentation": {}
     }
 ]
