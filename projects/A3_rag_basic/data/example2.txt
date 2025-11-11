@@ -1,0 +1,5 @@
+Un modelo de lenguaje de gran tamaño (Large Language Model, o LLM) es un tipo de sistema de IA entrenado sobre enormes cantidades de texto. El objetivo es predecir la siguiente palabra en una secuencia. Sin embargo, a partir de esta capacidad básica, emergen habilidades más complejas como la comprensión semántica y la generación fluida de texto.
+
+Los modelos de lenguaje no "recuerdan" hechos en el sentido humano, sino que identifican patrones estadísticos. Por esta razón, pueden cometer errores conocidos como alucinaciones. Una alucinación ocurre cuando el modelo inventa datos que suenan razonables pero que no provienen de información real.
+
+Para reducir estas alucinaciones se utiliza una técnica llamada RAG (Retrieval Augmented Generation). Esta técnica consiste en recuperar primero información relevante desde una base documental y usar esa información como contexto para que el modelo responda. De esta forma, la generación se basa en conocimiento verificable en lugar de depender exclusivamente de la probabilidad estadística del modelo.

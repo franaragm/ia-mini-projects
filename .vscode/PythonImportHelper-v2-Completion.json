@@ -57,6 +57,14 @@
         "documentation": {}
     },
     {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
         "label": "router",
         "importPath": "projects.A1_chat_structured.router",
         "description": "projects.A1_chat_structured.router",
@@ -73,6 +81,14 @@
         "documentation": {}
     },
     {
+        "label": "router",
+        "importPath": "projects.A3_rag_basic.router",
+        "description": "projects.A3_rag_basic.router",
+        "isExtraImport": true,
+        "detail": "projects.A3_rag_basic.router",
+        "documentation": {}
+    },
+    {
         "label": "PromptTemplate",
         "importPath": "langchain_core.prompts",
         "description": "langchain_core.prompts",
@@ -86,6 +102,22 @@
         "description": "langchain_core.prompts",
         "isExtraImport": true,
         "detail": "langchain_core.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "PromptTemplate",
+        "importPath": "langchain_core.prompts",
+        "description": "langchain_core.prompts",
+        "isExtraImport": true,
+        "detail": "langchain_core.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "llm",
+        "importPath": "app.services.llm_client",
+        "description": "app.services.llm_client",
+        "isExtraImport": true,
+        "detail": "app.services.llm_client",
         "documentation": {}
     },
     {
@@ -146,11 +178,52 @@
         "documentation": {}
     },
     {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
         "label": "date",
         "importPath": "datetime",
         "description": "datetime",
         "isExtraImport": true,
         "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "SentenceTransformer",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
+        "documentation": {}
+    },
+    {
+        "label": "chromadb",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "chromadb",
+        "description": "chromadb",
+        "detail": "chromadb",
         "documentation": {}
     },
     {
@@ -212,7 +285,7 @@
         "kind": 2,
         "importPath": "app.routes",
         "description": "app.routes",
-        "peekOfCode": "def health():\n    return {\"status\": \"ok\"}\n@router.get(\"/test-llm\")\nasync def test_llm():\n    answer = await llm(\"Dime una frase corta divertida como un astronauta para confirmar conexión.\")\n    return {\"response\": answer}\n# Rutas de los mini-proyectos\nrouter.include_router(a1_router)\nrouter.include_router(a2_router)",
+        "peekOfCode": "def health():\n    return {\"status\": \"ok\"}\n@router.get(\"/test-llm\")\nasync def test_llm():\n    answer = await llm(\"Dime una frase corta divertida como un astronauta para confirmar conexión.\")\n    return {\"response\": answer}\n# Rutas de los mini-proyectos\nrouter.include_router(a1_router)\nrouter.include_router(a2_router)\nrouter.include_router(a3_router)",
         "detail": "app.routes",
         "documentation": {}
     },
@@ -313,6 +386,114 @@
         "description": "projects.A2_output_parser.schemas",
         "peekOfCode": "class IntentResponse(BaseModel):\n    action: str = Field(..., description=\"Tipo de acción que el usuario quiere realizar\")\n    title: str | None = Field(None, description=\"Título si aplica (por ejemplo crear tarea)\")\n    due_date: str | None = Field(None, description=\"Fecha en formato YYYY-MM-DD si aplica\")",
         "detail": "projects.A2_output_parser.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "load_documents",
+        "kind": 2,
+        "importPath": "projects.A3_rag_basic.loader",
+        "description": "projects.A3_rag_basic.loader",
+        "peekOfCode": "def load_documents(data_path: str):\n    docs = []\n    for file in os.listdir(data_path):\n        full_path = os.path.join(data_path, file)\n        if file.endswith(\".txt\"):\n            with open(full_path, \"r\", encoding=\"utf-8\") as f:\n                docs.append(f.read())\n    return docs",
+        "detail": "projects.A3_rag_basic.loader",
+        "documentation": {}
+    },
+    {
+        "label": "rag_prompt",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic.prompts",
+        "description": "projects.A3_rag_basic.prompts",
+        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nUtiliza únicamente la información proporcionada para responder al usuario.\nSi no encuentras la respuesta en los documentos, responde:\n\"No encuentro esa información en los documentos.\"\nDocumentos relevantes:\n{context}\nPregunta del usuario:\n{question}\n\"\"\")",
+        "detail": "projects.A3_rag_basic.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "build_index",
+        "kind": 2,
+        "importPath": "projects.A3_rag_basic.rag",
+        "description": "projects.A3_rag_basic.rag",
+        "peekOfCode": "def build_index(documents):\n    vectors = model.encode(documents).tolist() # Convierte los documentos a vectores\n    ids = [f\"doc_{i}\" for i in range(len(documents))] # Genera IDs únicas para cada documento\n    collection.add(documents=documents, embeddings=vectors, ids=ids) # Añade los documentos y sus vectores a la colección\ndef retrieve(question: str):\n    query_vec = model.encode([question]).tolist()[0] # Convierte la pregunta a vector\n    results = collection.query(query_embeddings=[query_vec], n_results=3) # Recupera los 3 documentos más similares\n    return results[\"documents\"][0] # Devuelve los documentos recuperados",
+        "detail": "projects.A3_rag_basic.rag",
+        "documentation": {}
+    },
+    {
+        "label": "retrieve",
+        "kind": 2,
+        "importPath": "projects.A3_rag_basic.rag",
+        "description": "projects.A3_rag_basic.rag",
+        "peekOfCode": "def retrieve(question: str):\n    query_vec = model.encode([question]).tolist()[0] # Convierte la pregunta a vector\n    results = collection.query(query_embeddings=[query_vec], n_results=3) # Recupera los 3 documentos más similares\n    return results[\"documents\"][0] # Devuelve los documentos recuperados",
+        "detail": "projects.A3_rag_basic.rag",
+        "documentation": {}
+    },
+    {
+        "label": "model",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic.rag",
+        "description": "projects.A3_rag_basic.rag",
+        "peekOfCode": "model = SentenceTransformer(\"all-MiniLM-L6-v2\") # Modelo ligero para embeddings\nclient = chromadb.PersistentClient(path=\"./chroma_db\") # Cliente persistente para almacenar datos\ncollection = client.get_or_create_collection(\"a3_docs\") # Colección para documentos\ndef build_index(documents):\n    vectors = model.encode(documents).tolist() # Convierte los documentos a vectores\n    ids = [f\"doc_{i}\" for i in range(len(documents))] # Genera IDs únicas para cada documento\n    collection.add(documents=documents, embeddings=vectors, ids=ids) # Añade los documentos y sus vectores a la colección\ndef retrieve(question: str):\n    query_vec = model.encode([question]).tolist()[0] # Convierte la pregunta a vector\n    results = collection.query(query_embeddings=[query_vec], n_results=3) # Recupera los 3 documentos más similares",
+        "detail": "projects.A3_rag_basic.rag",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic.rag",
+        "description": "projects.A3_rag_basic.rag",
+        "peekOfCode": "client = chromadb.PersistentClient(path=\"./chroma_db\") # Cliente persistente para almacenar datos\ncollection = client.get_or_create_collection(\"a3_docs\") # Colección para documentos\ndef build_index(documents):\n    vectors = model.encode(documents).tolist() # Convierte los documentos a vectores\n    ids = [f\"doc_{i}\" for i in range(len(documents))] # Genera IDs únicas para cada documento\n    collection.add(documents=documents, embeddings=vectors, ids=ids) # Añade los documentos y sus vectores a la colección\ndef retrieve(question: str):\n    query_vec = model.encode([question]).tolist()[0] # Convierte la pregunta a vector\n    results = collection.query(query_embeddings=[query_vec], n_results=3) # Recupera los 3 documentos más similares\n    return results[\"documents\"][0] # Devuelve los documentos recuperados",
+        "detail": "projects.A3_rag_basic.rag",
+        "documentation": {}
+    },
+    {
+        "label": "collection",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic.rag",
+        "description": "projects.A3_rag_basic.rag",
+        "peekOfCode": "collection = client.get_or_create_collection(\"a3_docs\") # Colección para documentos\ndef build_index(documents):\n    vectors = model.encode(documents).tolist() # Convierte los documentos a vectores\n    ids = [f\"doc_{i}\" for i in range(len(documents))] # Genera IDs únicas para cada documento\n    collection.add(documents=documents, embeddings=vectors, ids=ids) # Añade los documentos y sus vectores a la colección\ndef retrieve(question: str):\n    query_vec = model.encode([question]).tolist()[0] # Convierte la pregunta a vector\n    results = collection.query(query_embeddings=[query_vec], n_results=3) # Recupera los 3 documentos más similares\n    return results[\"documents\"][0] # Devuelve los documentos recuperados",
+        "detail": "projects.A3_rag_basic.rag",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic.router",
+        "description": "projects.A3_rag_basic.router",
+        "peekOfCode": "router = APIRouter(prefix=\"/a3\", tags=[\"A3 - RAG básico\"])\nDATA_PATH = \"projects/A3_rag_basic/data\"\n# Construye el índice on startup:\ndocuments = load_documents(DATA_PATH)\nbuild_index(documents)\n@router.post(\n    \"/ask\",\n    summary=\"Realiza una pregunta utilizando RAG básico\",\n    description=\"\"\"\n    Realiza una pregunta utilizando un enfoque de Recuperación Augmentada por Generación (RAG) básico.",
+        "detail": "projects.A3_rag_basic.router",
+        "documentation": {}
+    },
+    {
+        "label": "DATA_PATH",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic.router",
+        "description": "projects.A3_rag_basic.router",
+        "peekOfCode": "DATA_PATH = \"projects/A3_rag_basic/data\"\n# Construye el índice on startup:\ndocuments = load_documents(DATA_PATH)\nbuild_index(documents)\n@router.post(\n    \"/ask\",\n    summary=\"Realiza una pregunta utilizando RAG básico\",\n    description=\"\"\"\n    Realiza una pregunta utilizando un enfoque de Recuperación Augmentada por Generación (RAG) básico.\n    1. Recupera documentos relevantes basados en la pregunta del usuario.",
+        "detail": "projects.A3_rag_basic.router",
+        "documentation": {}
+    },
+    {
+        "label": "documents",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic.router",
+        "description": "projects.A3_rag_basic.router",
+        "peekOfCode": "documents = load_documents(DATA_PATH)\nbuild_index(documents)\n@router.post(\n    \"/ask\",\n    summary=\"Realiza una pregunta utilizando RAG básico\",\n    description=\"\"\"\n    Realiza una pregunta utilizando un enfoque de Recuperación Augmentada por Generación (RAG) básico.\n    1. Recupera documentos relevantes basados en la pregunta del usuario.\n    2. Usa un modelo de lenguaje para generar una respuesta basada en esos documentos.\n    \"\"\",",
+        "detail": "projects.A3_rag_basic.router",
+        "documentation": {}
+    },
+    {
+        "label": "QueryRequest",
+        "kind": 6,
+        "importPath": "projects.A3_rag_basic.schemas",
+        "description": "projects.A3_rag_basic.schemas",
+        "peekOfCode": "class QueryRequest(BaseModel):\n    question: str = Field(..., example=\"Qué es la inteligencia artificial?\")\nclass QueryResponse(BaseModel):\n    response: str = Field(..., description=\"Respuesta generada por el modelo LLM\")\n    sources: list[str] = Field(..., description=\"Documentos utilizados para generar la respuesta\")",
+        "detail": "projects.A3_rag_basic.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "QueryResponse",
+        "kind": 6,
+        "importPath": "projects.A3_rag_basic.schemas",
+        "description": "projects.A3_rag_basic.schemas",
+        "peekOfCode": "class QueryResponse(BaseModel):\n    response: str = Field(..., description=\"Respuesta generada por el modelo LLM\")\n    sources: list[str] = Field(..., description=\"Documentos utilizados para generar la respuesta\")",
+        "detail": "projects.A3_rag_basic.schemas",
         "documentation": {}
     }
 ]

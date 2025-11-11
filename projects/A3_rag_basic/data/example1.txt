@@ -1,0 +1,5 @@
+La inteligencia artificial (IA) es un campo de la informática que busca crear sistemas capaces de realizar tareas que normalmente requieren inteligencia humana. Entre estas tareas se encuentran el reconocimiento de patrones, la toma de decisiones, la comprensión del lenguaje natural y el aprendizaje a partir de datos.
+
+Un subcampo importante de la IA es el aprendizaje automático o Machine Learning. En este enfoque, los sistemas aprenden de ejemplos anteriores en lugar de ser programados explícitamente para realizar cada tarea. Por ejemplo, un modelo puede analizar miles de imágenes de gatos para aprender a reconocer nuevos gatos por sí mismo.
+
+En años recientes, un área llamada modelos de lenguaje se ha vuelto especialmente relevante. Estos modelos son capaces de generar texto, resumir información y responder preguntas. Algunos modelos avanzados pueden incluso mantener conversaciones de forma coherente.
