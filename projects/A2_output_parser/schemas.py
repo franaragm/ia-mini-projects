@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 
 class IntentRequest(BaseModel):
-    message: str = Field(..., description="Mensaje del usuario")
+    message: str = Field(..., example="Crea una tarea llamada Preparar informe para mañana")
 
 class IntentResponse(BaseModel):
     action: str = Field(..., description="Tipo de acción que el usuario quiere realizar")

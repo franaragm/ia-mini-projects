@@ -9,7 +9,6 @@ Este endpoint recibe un `prompt` y devuelve una respuesta que **siempre cumple**
   "answer": "texto",
   "tone": "educational | casual | formal",
   "metadata": {
-    "model": "string",
-    "tokens_used": number
+    "model": "string"
   }
 }

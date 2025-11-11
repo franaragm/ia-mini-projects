@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from .services.llm_client import llm
-from projects.A1_chat_structured.main import router as a1_router
+from projects.A1_chat_structured.router import router as a1_router
 from projects.A2_output_parser.router import router as a2_router
 
 router = APIRouter()

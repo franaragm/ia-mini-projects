@@ -57,19 +57,11 @@
         "documentation": {}
     },
     {
-        "label": "APIRouter",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
         "label": "router",
-        "importPath": "projects.A1_chat_structured.main",
-        "description": "projects.A1_chat_structured.main",
+        "importPath": "projects.A1_chat_structured.router",
+        "description": "projects.A1_chat_structured.router",
         "isExtraImport": true,
-        "detail": "projects.A1_chat_structured.main",
+        "detail": "projects.A1_chat_structured.router",
         "documentation": {}
     },
     {
@@ -97,46 +89,6 @@
         "documentation": {}
     },
     {
-        "label": "BaseModel",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "BaseModel",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "Field",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "BaseModel",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "Field",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
         "label": "llm",
         "importPath": "app.services.llm_client",
         "description": "app.services.llm_client",
@@ -159,6 +111,46 @@
         "importPath": "json",
         "description": "json",
         "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "date",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -234,15 +226,6 @@
         "documentation": {}
     },
     {
-        "label": "router",
-        "kind": 5,
-        "importPath": "projects.A1_chat_structured.main",
-        "description": "projects.A1_chat_structured.main",
-        "peekOfCode": "router = APIRouter()\nrouter.include_router(a1_router)",
-        "detail": "projects.A1_chat_structured.main",
-        "documentation": {}
-    },
-    {
         "label": "chat_template",
         "kind": 5,
         "importPath": "projects.A1_chat_structured.prompts",
@@ -252,21 +235,48 @@
         "documentation": {}
     },
     {
-        "label": "ChatRequest",
-        "kind": 6,
-        "importPath": "projects.A1_chat_structured.router",
-        "description": "projects.A1_chat_structured.router",
-        "peekOfCode": "class ChatRequest(BaseModel):\n    message: str\n@router.post(\"/chat\")\nasync def structured_chat(req: ChatRequest):\n    prompt = chat_template.format(user_message=req.message)\n    response = await llm(prompt)\n    try:\n        data = json.loads(response)\n    except json.JSONDecodeError:\n        data = {\"response\": response.strip(), \"razonamiento\": \"El modelo no devolvió JSON puro.\"}",
-        "detail": "projects.A1_chat_structured.router",
-        "documentation": {}
-    },
-    {
         "label": "router",
         "kind": 5,
         "importPath": "projects.A1_chat_structured.router",
         "description": "projects.A1_chat_structured.router",
-        "peekOfCode": "router = APIRouter(prefix=\"/a1\", tags=[\"A1 - Chat estructurado\"])\nclass ChatRequest(BaseModel):\n    message: str\n@router.post(\"/chat\")\nasync def structured_chat(req: ChatRequest):\n    prompt = chat_template.format(user_message=req.message)\n    response = await llm(prompt)\n    try:\n        data = json.loads(response)\n    except json.JSONDecodeError:",
+        "peekOfCode": "router = APIRouter(prefix=\"/a1\", tags=[\"A1 - Chat estructurado\"])\n@router.post(\n    \"/chat\",\n    summary=\"Chat con respuesta estructurada en JSON\",\n    description=\"\"\"\n    Recibe un mensaje de usuario, lo envía a un modelo de lenguaje y devuelve una respuesta en formato JSON válido.\n    El JSON incluye la respuesta del asistente, el tono y metadatos sobre el modelo utilizado.\n    \"\"\",\n    response_description=\"JSON estructurado con la respuesta del asistente\",\n    response_model=ChatResponse",
         "detail": "projects.A1_chat_structured.router",
+        "documentation": {}
+    },
+    {
+        "label": "ChatRequest",
+        "kind": 6,
+        "importPath": "projects.A1_chat_structured.schemas",
+        "description": "projects.A1_chat_structured.schemas",
+        "peekOfCode": "class ChatRequest(BaseModel):\n    message: str = Field(..., example=\"Define que es un chatbot estructurado\")\nclass ResponseMetadata(BaseModel):\n    model: str = Field(..., description=\"Nombre del modelo usado para generar la respuesta\")\nclass ChatResponse(BaseModel):\n    answer: str = Field(..., description=\"Texto final que entregamos al usuario\")\n    tone: str = Field(..., description=\"Tono de la respuesta (por ejemplo: educational, friendly, formal, etc.)\")\n    metadata: ResponseMetadata = Field(..., description=\"Información adicional sobre la generación\")",
+        "detail": "projects.A1_chat_structured.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "ResponseMetadata",
+        "kind": 6,
+        "importPath": "projects.A1_chat_structured.schemas",
+        "description": "projects.A1_chat_structured.schemas",
+        "peekOfCode": "class ResponseMetadata(BaseModel):\n    model: str = Field(..., description=\"Nombre del modelo usado para generar la respuesta\")\nclass ChatResponse(BaseModel):\n    answer: str = Field(..., description=\"Texto final que entregamos al usuario\")\n    tone: str = Field(..., description=\"Tono de la respuesta (por ejemplo: educational, friendly, formal, etc.)\")\n    metadata: ResponseMetadata = Field(..., description=\"Información adicional sobre la generación\")",
+        "detail": "projects.A1_chat_structured.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "ChatResponse",
+        "kind": 6,
+        "importPath": "projects.A1_chat_structured.schemas",
+        "description": "projects.A1_chat_structured.schemas",
+        "peekOfCode": "class ChatResponse(BaseModel):\n    answer: str = Field(..., description=\"Texto final que entregamos al usuario\")\n    tone: str = Field(..., description=\"Tono de la respuesta (por ejemplo: educational, friendly, formal, etc.)\")\n    metadata: ResponseMetadata = Field(..., description=\"Información adicional sobre la generación\")",
+        "detail": "projects.A1_chat_structured.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "today",
+        "kind": 5,
+        "importPath": "projects.A2_output_parser.prompts",
+        "description": "projects.A2_output_parser.prompts",
+        "peekOfCode": "today = date.today().strftime(\"%Y-%m-%d\")\nintent_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente que analiza mensajes de usuario y devuelve un JSON con intención estructurada.\nLa fecha actual es: {today}\nFormato esperado del JSON (usa exactamente este formato, sin texto fuera del JSON):\n{{\n  \"action\": \"create_task | update_task | get_status | other\",\n  \"title\": \"texto o null\",\n  \"due_date\": \"YYYY-MM-DD o null\"\n}}",
+        "detail": "projects.A2_output_parser.prompts",
         "documentation": {}
     },
     {
@@ -274,7 +284,7 @@
         "kind": 5,
         "importPath": "projects.A2_output_parser.prompts",
         "description": "projects.A2_output_parser.prompts",
-        "peekOfCode": "intent_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente que analiza mensajes de usuario y devuelve un JSON con intención estructurada.\nFormato obligatorio (usa exactamente este formato, sin texto fuera del JSON):\n{{\n  \"action\": \"create_task | update_task | get_status | other\",\n  \"title\": \"texto o null\",\n  \"due_date\": \"YYYY-MM-DD o null\"\n}}\nNo expliques tu razonamiento.\nNo añadas texto extra.",
+        "peekOfCode": "intent_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente que analiza mensajes de usuario y devuelve un JSON con intención estructurada.\nLa fecha actual es: {today}\nFormato esperado del JSON (usa exactamente este formato, sin texto fuera del JSON):\n{{\n  \"action\": \"create_task | update_task | get_status | other\",\n  \"title\": \"texto o null\",\n  \"due_date\": \"YYYY-MM-DD o null\"\n}}\nInstrucciones:",
         "detail": "projects.A2_output_parser.prompts",
         "documentation": {}
     },
@@ -283,7 +293,7 @@
         "kind": 5,
         "importPath": "projects.A2_output_parser.router",
         "description": "projects.A2_output_parser.router",
-        "peekOfCode": "router = APIRouter(prefix=\"/a2\", tags=[\"A2 - Output Parser & Validación\"])\n@router.post(\"/parse-intent\", response_model=IntentResponse)\nasync def parse_intent(req: IntentRequest):\n    prompt = intent_prompt.format(user_message=req.message)\n    raw = await llm(prompt)\n    # Intentamos parsear JSON del modelo\n    try:\n        data = json.loads(raw)\n    except json.JSONDecodeError:\n        return {",
+        "peekOfCode": "router = APIRouter(prefix=\"/a2\", tags=[\"A2 - Output Parser & Validación\"])\n@router.post(\n    \"/parse-intent\",\n    summary=\"Analiza el mensaje del usuario y devuelve la intención en un JSON validado\",\n    description=\"\"\"\n    Recibe un mensaje de usuario, lo envía a un modelo de lenguaje para analizar la intención y devuelve un JSON estructurado y validado con Pydantic.\n    Se puede usar para crear tareas, actualizar tareas o consultar el estado de tareas.\n    Si se indica una fecha relativa, se calcula en base a la fecha actual.\n    \"\"\",\n    response_description=\"JSON estructurado con la respuesta del asistente\",",
         "detail": "projects.A2_output_parser.router",
         "documentation": {}
     },
@@ -292,7 +302,7 @@
         "kind": 6,
         "importPath": "projects.A2_output_parser.schemas",
         "description": "projects.A2_output_parser.schemas",
-        "peekOfCode": "class IntentRequest(BaseModel):\n    message: str = Field(..., description=\"Mensaje del usuario\")\nclass IntentResponse(BaseModel):\n    action: str = Field(..., description=\"Tipo de acción que el usuario quiere realizar\")\n    title: str | None = Field(None, description=\"Título si aplica (por ejemplo crear tarea)\")\n    due_date: str | None = Field(None, description=\"Fecha en formato YYYY-MM-DD si aplica\")",
+        "peekOfCode": "class IntentRequest(BaseModel):\n    message: str = Field(..., example=\"Crea una tarea llamada Preparar informe para mañana\")\nclass IntentResponse(BaseModel):\n    action: str = Field(..., description=\"Tipo de acción que el usuario quiere realizar\")\n    title: str | None = Field(None, description=\"Título si aplica (por ejemplo crear tarea)\")\n    due_date: str | None = Field(None, description=\"Fecha en formato YYYY-MM-DD si aplica\")",
         "detail": "projects.A2_output_parser.schemas",
         "documentation": {}
     },
