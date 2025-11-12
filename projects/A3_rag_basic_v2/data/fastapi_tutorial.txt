@@ -1,0 +1,17 @@
+FastAPI es un framework moderno, rápido y asíncrono para construir APIs en Python, basado en Starlette y Pydantic.
+
+Su principal característica es el tipado fuerte mediante anotaciones de tipo, lo que permite generar automáticamente documentación interactiva con Swagger UI y Redoc.
+
+FastAPI valida automáticamente los datos de entrada usando Pydantic y convierte las respuestas en JSON de forma eficiente.
+
+Ejemplo básico:
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/hello")
+def hello():
+    return {"message": "Hola mundo"}
+
+Además, FastAPI es compatible con WebSockets, OAuth2, middlewares y background tasks, lo que lo convierte en una excelente opción para APIs modernas y escalables.

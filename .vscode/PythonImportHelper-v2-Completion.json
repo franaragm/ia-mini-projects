@@ -65,6 +65,14 @@
         "documentation": {}
     },
     {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
         "label": "router",
         "importPath": "projects.A1_chat_structured.router",
         "description": "projects.A1_chat_structured.router",
@@ -89,6 +97,22 @@
         "documentation": {}
     },
     {
+        "label": "router",
+        "importPath": "projects.A3_rag_basic_v2.router",
+        "description": "projects.A3_rag_basic_v2.router",
+        "isExtraImport": true,
+        "detail": "projects.A3_rag_basic_v2.router",
+        "documentation": {}
+    },
+    {
+        "label": "PromptTemplate",
+        "importPath": "langchain_core.prompts",
+        "description": "langchain_core.prompts",
+        "isExtraImport": true,
+        "detail": "langchain_core.prompts",
+        "documentation": {}
+    },
+    {
         "label": "PromptTemplate",
         "importPath": "langchain_core.prompts",
         "description": "langchain_core.prompts",
@@ -110,6 +134,14 @@
         "description": "langchain_core.prompts",
         "isExtraImport": true,
         "detail": "langchain_core.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "llm",
+        "importPath": "app.services.llm_client",
+        "description": "app.services.llm_client",
+        "isExtraImport": true,
+        "detail": "app.services.llm_client",
         "documentation": {}
     },
     {
@@ -202,11 +234,35 @@
         "documentation": {}
     },
     {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
         "label": "date",
         "importPath": "datetime",
         "description": "datetime",
         "isExtraImport": true,
         "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "SentenceTransformer",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
         "documentation": {}
     },
     {
@@ -224,6 +280,24 @@
         "importPath": "chromadb",
         "description": "chromadb",
         "detail": "chromadb",
+        "documentation": {}
+    },
+    {
+        "label": "hashlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "hashlib",
+        "description": "hashlib",
+        "detail": "hashlib",
+        "documentation": {}
+    },
+    {
+        "label": "threading",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "threading",
+        "description": "threading",
+        "detail": "threading",
         "documentation": {}
     },
     {
@@ -494,6 +568,105 @@
         "description": "projects.A3_rag_basic.schemas",
         "peekOfCode": "class QueryResponse(BaseModel):\n    response: str = Field(..., description=\"Respuesta generada por el modelo LLM\")\n    sources: list[str] = Field(..., description=\"Documentos utilizados para generar la respuesta\")",
         "detail": "projects.A3_rag_basic.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "rag_prompt",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic_v2.prompts",
+        "description": "projects.A3_rag_basic_v2.prompts",
+        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente que responde usando la información de contexto proporcionada.\nUsa **solo** la información del contexto si es relevante.\nSi no hay suficiente información, indica que no puedes responder con precisión.\n### Contexto:\n{context}\n### Pregunta:\n{question}\nDevuelve un JSON con este formato:\n{{",
+        "detail": "projects.A3_rag_basic_v2.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "build_index_from_folder",
+        "kind": 2,
+        "importPath": "projects.A3_rag_basic_v2.rag",
+        "description": "projects.A3_rag_basic_v2.rag",
+        "peekOfCode": "def build_index_from_folder(folder_path: str):\n    docs = []\n    ids = []\n    for fname in os.listdir(folder_path):\n        if not fname.endswith((\".txt\", \".md\")):\n            continue\n        with open(os.path.join(folder_path, fname), \"r\", encoding=\"utf-8\") as f:\n            content = f.read()\n        # Fragmentar en chunks de 400 caracteres\n        chunks = [content[i:i+400] for i in range(0, len(content), 400)]",
+        "detail": "projects.A3_rag_basic_v2.rag",
+        "documentation": {}
+    },
+    {
+        "label": "retrieve",
+        "kind": 2,
+        "importPath": "projects.A3_rag_basic_v2.rag",
+        "description": "projects.A3_rag_basic_v2.rag",
+        "peekOfCode": "def retrieve(question: str, top_k: int = 3):\n    query_vec = model.encode([question]).tolist()[0]\n    results = collection.query(query_embeddings=[query_vec], n_results=top_k)\n    documents = results.get(\"documents\", [[]])[0]\n    return documents",
+        "detail": "projects.A3_rag_basic_v2.rag",
+        "documentation": {}
+    },
+    {
+        "label": "model",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic_v2.rag",
+        "description": "projects.A3_rag_basic_v2.rag",
+        "peekOfCode": "model = SentenceTransformer(\"all-MiniLM-L6-v2\")\n# Crear cliente persistente de ChromaDB\nclient = chromadb.PersistentClient(path=\"./chroma_db\")\ncollection = client.get_or_create_collection(\"a3_docs_v2\")\n# Utilidad para hashear texto y generar IDs únicos\ndef _hash_text(text: str) -> str:\n    return hashlib.sha256(text.encode(\"utf-8\")).hexdigest()\n# Construye el índice desde una carpeta de documentos\ndef build_index_from_folder(folder_path: str):\n    docs = []",
+        "detail": "projects.A3_rag_basic_v2.rag",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic_v2.rag",
+        "description": "projects.A3_rag_basic_v2.rag",
+        "peekOfCode": "client = chromadb.PersistentClient(path=\"./chroma_db\")\ncollection = client.get_or_create_collection(\"a3_docs_v2\")\n# Utilidad para hashear texto y generar IDs únicos\ndef _hash_text(text: str) -> str:\n    return hashlib.sha256(text.encode(\"utf-8\")).hexdigest()\n# Construye el índice desde una carpeta de documentos\ndef build_index_from_folder(folder_path: str):\n    docs = []\n    ids = []\n    for fname in os.listdir(folder_path):",
+        "detail": "projects.A3_rag_basic_v2.rag",
+        "documentation": {}
+    },
+    {
+        "label": "collection",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic_v2.rag",
+        "description": "projects.A3_rag_basic_v2.rag",
+        "peekOfCode": "collection = client.get_or_create_collection(\"a3_docs_v2\")\n# Utilidad para hashear texto y generar IDs únicos\ndef _hash_text(text: str) -> str:\n    return hashlib.sha256(text.encode(\"utf-8\")).hexdigest()\n# Construye el índice desde una carpeta de documentos\ndef build_index_from_folder(folder_path: str):\n    docs = []\n    ids = []\n    for fname in os.listdir(folder_path):\n        if not fname.endswith((\".txt\", \".md\")):",
+        "detail": "projects.A3_rag_basic_v2.rag",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic_v2.router",
+        "description": "projects.A3_rag_basic_v2.router",
+        "peekOfCode": "router = APIRouter(prefix=\"/a3v2\", tags=[\"A3 - RAG Básico v2\"])\nDATA_PATH = \"projects/A3_rag_basic_v2/data\"\n# Indexado automático en segundo plano al cargar el módulo \ndef _auto_build_index():\n    try:\n        build_index_from_folder(DATA_PATH)\n    except Exception as e:\n        print(f\"[RAG] Error durante el indexado automático: {e}\")\n# Lanzamos el indexado en un hilo para no bloquear FastAPI al arrancar\nthreading.Thread(target=_auto_build_index, daemon=True).start()",
+        "detail": "projects.A3_rag_basic_v2.router",
+        "documentation": {}
+    },
+    {
+        "label": "DATA_PATH",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic_v2.router",
+        "description": "projects.A3_rag_basic_v2.router",
+        "peekOfCode": "DATA_PATH = \"projects/A3_rag_basic_v2/data\"\n# Indexado automático en segundo plano al cargar el módulo \ndef _auto_build_index():\n    try:\n        build_index_from_folder(DATA_PATH)\n    except Exception as e:\n        print(f\"[RAG] Error durante el indexado automático: {e}\")\n# Lanzamos el indexado en un hilo para no bloquear FastAPI al arrancar\nthreading.Thread(target=_auto_build_index, daemon=True).start()\n@router.post(",
+        "detail": "projects.A3_rag_basic_v2.router",
+        "documentation": {}
+    },
+    {
+        "label": "QueryRequest",
+        "kind": 6,
+        "importPath": "projects.A3_rag_basic_v2.schemas",
+        "description": "projects.A3_rag_basic_v2.schemas",
+        "peekOfCode": "class QueryRequest(BaseModel):\n    question: str = Field(..., example=\"Qué es LangChain?\")\nclass QueryResponse(BaseModel):\n    answer: str = Field(..., description=\"Respuesta generada por el modelo LLM\")\n    sources: list[str] = Field(..., description=\"Documentos utilizados para generar la respuesta\")",
+        "detail": "projects.A3_rag_basic_v2.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "QueryResponse",
+        "kind": 6,
+        "importPath": "projects.A3_rag_basic_v2.schemas",
+        "description": "projects.A3_rag_basic_v2.schemas",
+        "peekOfCode": "class QueryResponse(BaseModel):\n    answer: str = Field(..., description=\"Respuesta generada por el modelo LLM\")\n    sources: list[str] = Field(..., description=\"Documentos utilizados para generar la respuesta\")",
+        "detail": "projects.A3_rag_basic_v2.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "safe_json_parse",
+        "kind": 2,
+        "importPath": "projects.A3_rag_basic_v2.utils",
+        "description": "projects.A3_rag_basic_v2.utils",
+        "peekOfCode": "def safe_json_parse(text: str):\n    try:\n        data = json.loads(text)\n    except json.JSONDecodeError:\n        return {\"answer\": text.strip(), \"sources\": []}\n    # Validamos estructura con Pydantic\n    try:\n        parsed = QueryResponse(**data)\n    except Exception as e:\n        return {",
+        "detail": "projects.A3_rag_basic_v2.utils",
         "documentation": {}
     }
 ]

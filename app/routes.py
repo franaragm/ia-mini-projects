@@ -3,6 +3,7 @@ from .services.llm_client import llm
 from projects.A1_chat_structured.router import router as a1_router
 from projects.A2_output_parser.router import router as a2_router
 from projects.A3_rag_basic.router import router as a3_router
+from projects.A3_rag_basic_v2.router import router as a3v2_router
 
 router = APIRouter()
 
@@ -19,3 +20,5 @@ async def test_llm():
 router.include_router(a1_router)
 router.include_router(a2_router)
 router.include_router(a3_router)
+router.include_router(a3v2_router)
+

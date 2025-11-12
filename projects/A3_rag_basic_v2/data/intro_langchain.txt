@@ -1,0 +1,14 @@
+LangChain es un framework de Python diseñado para crear aplicaciones que utilizan modelos de lenguaje de gran tamaño (LLMs). 
+
+Su objetivo principal es facilitar la integración de los LLM con otras fuentes de datos y entornos, permitiendo construir agentes, chatbots o sistemas de recuperación aumentada (RAG).
+
+LangChain ofrece módulos para gestionar prompts, cadenas de procesamiento, memoria conversacional, herramientas, y conectores a bases vectoriales como Chroma o FAISS.
+
+Uno de sus puntos fuertes es la modularidad: puedes combinar diferentes modelos, orquestar flujos de trabajo y conectar datos estructurados o no estructurados.
+
+Ejemplo de uso típico:
+- Cargar documentos
+- Crear embeddings
+- Almacenar en un vector store
+- Recuperar contexto relevante
+- Generar respuesta contextualizada con un LLM

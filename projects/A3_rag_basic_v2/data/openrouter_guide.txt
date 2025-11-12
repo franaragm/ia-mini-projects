@@ -1,0 +1,14 @@
+OpenRouter es una plataforma que actúa como pasarela unificada para acceder a múltiples modelos de lenguaje de distintas empresas, usando un API compatible con OpenAI.
+
+Permite probar modelos como Llama, Mistral, Gemma o Claude, sin necesidad de gestionar múltiples claves o endpoints.
+
+Su API es compatible con las librerías de OpenAI, lo que significa que se puede usar el mismo cliente de Python cambiando únicamente la URL base y el modelo.
+
+Ejemplo de inicialización:
+
+from openai import OpenAI
+client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key="...")
+
+También soporta streaming, selección de modelos gratuitos y control de temperatura o top_p.
+
+Ideal para proyectos donde se desea experimentar con diferentes modelos LLM de forma flexible y económica.
