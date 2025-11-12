@@ -47,6 +47,7 @@ mini-projects-langchain/
     ├─ A1_chat_structured/
     ├─ A2_output_parser/
     ├─ A3_rag_basic/
+    ├─ A3_rag_basic_v2/
     ├─ A4_rag_advanced/
     ├─ A5_tools_basic/
     └─ A6_tools_external_api/
@@ -71,6 +72,7 @@ Cada mini-proyecto solo **extiende o monta nuevas rutas**.
 | **A1. Chat estructurado**            | Controlar el tono y formato                       | IA responde siguiendo un prompt fijo        |
 | **A2. Output Parser**                | Validar y tipar respuestas                        | IA devuelve JSON correcto y útil            |
 | **A3. RAG básico**                   | Cargar & dividir documentos, embeddings, búsqueda | IA usa conocimiento real sin inventar       |
+| **A3. RAG básico V2**                | Cargar & dividir documentos, embeddings, búsqueda | IA usa conocimiento real sin inventar       |
 | **A4. RAG avanzado**                 | Anti-alucinaciones (score, top-k, evidencia)      | IA justifica sus respuestas                 |
 | **A5. Tools / Agentes**              | Dar habilidades a la IA                           | IA puede ejecutar funciones automáticamente |
 | **A6. API externa como herramienta** | Integración IA ↔ servicios externos               | IA consulta datos reales desde web/API      |
