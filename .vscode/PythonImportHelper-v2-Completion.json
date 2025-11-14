@@ -469,7 +469,7 @@
         "kind": 5,
         "importPath": "app.main",
         "description": "app.main",
-        "peekOfCode": "ENV = os.getenv(\"ENV\", \"dev\")  # dev | prod\ndocs_url = \"/docs\" if ENV == \"dev\" else None\nredoc_url = \"/redoc\" if ENV == \"dev\" else None\nopenapi_url = \"/openapi.json\" if ENV == \"dev\" else None\napp = FastAPI(\n    title=\"LangChain Lab - AI Server\",\n    description=\"\"\"\n    Servidor de experimentación con modelos de IA, RAG y agentes.\n    Este backend expone APIs para explorar:\n    - Recuperación aumentada con generación (RAG)",
+        "peekOfCode": "ENV = get_env(\"ENV\", \"dev\")  # dev | prod\ndocs_url = \"/docs\" if ENV == \"dev\" else None\nredoc_url = \"/redoc\" if ENV == \"dev\" else None\nopenapi_url = \"/openapi.json\" if ENV == \"dev\" else None\napp = FastAPI(\n    title=\"LangChain Lab - AI Server\",\n    description=\"\"\"\n    Servidor de experimentación con modelos de IA, RAG y agentes.\n    Este backend expone APIs para explorar:\n    - Recuperación aumentada con generación (RAG)",
         "detail": "app.main",
         "documentation": {}
     },

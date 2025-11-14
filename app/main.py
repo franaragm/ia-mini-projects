@@ -1,8 +1,8 @@
-import os
 from fastapi import FastAPI
 from .routes import router
+from .services.utils import get_env
 
-ENV = os.getenv("ENV", "dev")  # dev | prod
+ENV = get_env("ENV", "dev")  # dev | prod
 
 docs_url = "/docs" if ENV == "dev" else None
 redoc_url = "/redoc" if ENV == "dev" else None

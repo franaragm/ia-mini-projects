@@ -1,7 +1,7 @@
 import os
 
 # ==========================================================
-# Configuración base global compartida entre todos los mini proyectos.
+# Configuración base global compartida entre todos los proyectos.
 # Define rutas y parámetros comunes para LLM, RAG y almacenamiento.
 # ==========================================================
 
