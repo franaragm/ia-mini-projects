@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter
 from pydantic import BaseModel
 from app.services.llm_client import llm
@@ -8,7 +9,7 @@ from .schemas import QueryRequest, QueryResponse
 
 router = APIRouter(prefix="/a3", tags=["A3 - RAG Básico"])
 
-DATA_PATH = "projects/A3_rag_basic/data"
+DATA_PATH = os.path.join(os.path.dirname(__file__), "data")
 
 # Construye el índice on startup:
 documents = load_documents(DATA_PATH)

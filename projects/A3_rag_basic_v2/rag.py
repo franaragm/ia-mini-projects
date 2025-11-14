@@ -1,18 +1,11 @@
-from sentence_transformers import SentenceTransformer
-import chromadb
 import os
-import hashlib
+from sentence_transformers import SentenceTransformer
+from .config import EMBEDDING_MODEL
+from .chroma_client import collection
+from .utils import hash_text
 
 # Cargar modelo de embeddings (solo una vez)
-model = SentenceTransformer("all-MiniLM-L6-v2")
-
-# Crear cliente persistente de ChromaDB
-client = chromadb.PersistentClient(path="./chroma_db")
-collection = client.get_or_create_collection("a3_docs_v2")
-
-# Utilidad para hashear texto y generar IDs únicos
-def _hash_text(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+model = SentenceTransformer(EMBEDDING_MODEL)
 
 # Construye el índice desde una carpeta de documentos
 def build_index_from_folder(folder_path: str):
@@ -27,7 +20,7 @@ def build_index_from_folder(folder_path: str):
         # Fragmentar en chunks de 400 caracteres
         chunks = [content[i:i+400] for i in range(0, len(content), 400)]
         for chunk in chunks:
-            doc_id = _hash_text(chunk)
+            doc_id = hash_text(chunk)
             if doc_id not in collection.get(ids=[doc_id])["ids"]:
                 docs.append(chunk)
                 ids.append(doc_id)

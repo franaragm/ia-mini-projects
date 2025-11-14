@@ -1,14 +1,15 @@
+import os
+import threading
 from fastapi import APIRouter
 from app.services.llm_client import llm
 from .rag import build_index_from_folder, retrieve
 from .prompts import rag_prompt
 from .utils import safe_json_parse
 from .schemas import QueryRequest, QueryResponse
-import threading
 
 router = APIRouter(prefix="/a3v2", tags=["A3 - RAG Básico v2"])
 
-DATA_PATH = "projects/A3_rag_basic_v2/data"
+DATA_PATH = os.path.join(os.path.dirname(__file__), "data")
 
 # Indexado automático en segundo plano al cargar el módulo 
 def _auto_build_index():

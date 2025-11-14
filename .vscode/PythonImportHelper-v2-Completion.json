@@ -32,6 +32,38 @@
         "documentation": {}
     },
     {
+        "label": "CHROMA_PATH",
+        "importPath": "config_base",
+        "description": "config_base",
+        "isExtraImport": true,
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_EMBEDDING_MODEL",
+        "importPath": "config_base",
+        "description": "config_base",
+        "isExtraImport": true,
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
+        "label": "CHROMA_PATH",
+        "importPath": "config_base",
+        "description": "config_base",
+        "isExtraImport": true,
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_EMBEDDING_MODEL",
+        "importPath": "config_base",
+        "description": "config_base",
+        "isExtraImport": true,
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
@@ -330,30 +362,6 @@
         "documentation": {}
     },
     {
-        "label": "SentenceTransformer",
-        "importPath": "sentence_transformers",
-        "description": "sentence_transformers",
-        "isExtraImport": true,
-        "detail": "sentence_transformers",
-        "documentation": {}
-    },
-    {
-        "label": "SentenceTransformer",
-        "importPath": "sentence_transformers",
-        "description": "sentence_transformers",
-        "isExtraImport": true,
-        "detail": "sentence_transformers",
-        "documentation": {}
-    },
-    {
-        "label": "SentenceTransformer",
-        "importPath": "sentence_transformers",
-        "description": "sentence_transformers",
-        "isExtraImport": true,
-        "detail": "sentence_transformers",
-        "documentation": {}
-    },
-    {
         "label": "chromadb",
         "kind": 6,
         "isExtraImport": true,
@@ -363,12 +371,27 @@
         "documentation": {}
     },
     {
-        "label": "hashlib",
-        "kind": 6,
+        "label": "SentenceTransformer",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
         "isExtraImport": true,
-        "importPath": "hashlib",
-        "description": "hashlib",
-        "detail": "hashlib",
+        "detail": "sentence_transformers",
+        "documentation": {}
+    },
+    {
+        "label": "SentenceTransformer",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
+        "documentation": {}
+    },
+    {
+        "label": "SentenceTransformer",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
         "documentation": {}
     },
     {
@@ -378,6 +401,15 @@
         "importPath": "threading",
         "description": "threading",
         "detail": "threading",
+        "documentation": {}
+    },
+    {
+        "label": "hashlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "hashlib",
+        "description": "hashlib",
+        "detail": "hashlib",
         "documentation": {}
     },
     {
@@ -550,6 +582,51 @@
         "documentation": {}
     },
     {
+        "label": "client",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic.chroma_client",
+        "description": "projects.A3_rag_basic.chroma_client",
+        "peekOfCode": "client = chromadb.PersistentClient(path=CHROMA_PATH)\ncollection = client.get_or_create_collection(COLLECTION_NAME)",
+        "detail": "projects.A3_rag_basic.chroma_client",
+        "documentation": {}
+    },
+    {
+        "label": "collection",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic.chroma_client",
+        "description": "projects.A3_rag_basic.chroma_client",
+        "peekOfCode": "collection = client.get_or_create_collection(COLLECTION_NAME)",
+        "detail": "projects.A3_rag_basic.chroma_client",
+        "documentation": {}
+    },
+    {
+        "label": "COLLECTION_NAME",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic.config",
+        "description": "projects.A3_rag_basic.config",
+        "peekOfCode": "COLLECTION_NAME = \"a3_docs\"\nEMBEDDING_MODEL = DEFAULT_EMBEDDING_MODEL\nCHROMA_PATH = CHROMA_PATH",
+        "detail": "projects.A3_rag_basic.config",
+        "documentation": {}
+    },
+    {
+        "label": "EMBEDDING_MODEL",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic.config",
+        "description": "projects.A3_rag_basic.config",
+        "peekOfCode": "EMBEDDING_MODEL = DEFAULT_EMBEDDING_MODEL\nCHROMA_PATH = CHROMA_PATH",
+        "detail": "projects.A3_rag_basic.config",
+        "documentation": {}
+    },
+    {
+        "label": "CHROMA_PATH",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic.config",
+        "description": "projects.A3_rag_basic.config",
+        "peekOfCode": "CHROMA_PATH = CHROMA_PATH",
+        "detail": "projects.A3_rag_basic.config",
+        "documentation": {}
+    },
+    {
         "label": "load_documents",
         "kind": 2,
         "importPath": "projects.A3_rag_basic.loader",
@@ -590,25 +667,7 @@
         "kind": 5,
         "importPath": "projects.A3_rag_basic.rag",
         "description": "projects.A3_rag_basic.rag",
-        "peekOfCode": "model = SentenceTransformer(\"all-MiniLM-L6-v2\") # Modelo ligero para embeddings\nclient = chromadb.PersistentClient(path=\"./chroma_db\") # Cliente persistente para almacenar datos\ncollection = client.get_or_create_collection(\"a3_docs\") # Colección para documentos\ndef build_index(documents):\n    vectors = model.encode(documents).tolist() # Convierte los documentos a vectores\n    ids = [f\"doc_{i}\" for i in range(len(documents))] # Genera IDs únicas para cada documento\n    collection.add(documents=documents, embeddings=vectors, ids=ids) # Añade los documentos y sus vectores a la colección\ndef retrieve(question: str):\n    query_vec = model.encode([question]).tolist()[0] # Convierte la pregunta a vector\n    results = collection.query(query_embeddings=[query_vec], n_results=3) # Recupera los 3 documentos más similares",
-        "detail": "projects.A3_rag_basic.rag",
-        "documentation": {}
-    },
-    {
-        "label": "client",
-        "kind": 5,
-        "importPath": "projects.A3_rag_basic.rag",
-        "description": "projects.A3_rag_basic.rag",
-        "peekOfCode": "client = chromadb.PersistentClient(path=\"./chroma_db\") # Cliente persistente para almacenar datos\ncollection = client.get_or_create_collection(\"a3_docs\") # Colección para documentos\ndef build_index(documents):\n    vectors = model.encode(documents).tolist() # Convierte los documentos a vectores\n    ids = [f\"doc_{i}\" for i in range(len(documents))] # Genera IDs únicas para cada documento\n    collection.add(documents=documents, embeddings=vectors, ids=ids) # Añade los documentos y sus vectores a la colección\ndef retrieve(question: str):\n    query_vec = model.encode([question]).tolist()[0] # Convierte la pregunta a vector\n    results = collection.query(query_embeddings=[query_vec], n_results=3) # Recupera los 3 documentos más similares\n    return results[\"documents\"][0] # Devuelve los documentos recuperados",
-        "detail": "projects.A3_rag_basic.rag",
-        "documentation": {}
-    },
-    {
-        "label": "collection",
-        "kind": 5,
-        "importPath": "projects.A3_rag_basic.rag",
-        "description": "projects.A3_rag_basic.rag",
-        "peekOfCode": "collection = client.get_or_create_collection(\"a3_docs\") # Colección para documentos\ndef build_index(documents):\n    vectors = model.encode(documents).tolist() # Convierte los documentos a vectores\n    ids = [f\"doc_{i}\" for i in range(len(documents))] # Genera IDs únicas para cada documento\n    collection.add(documents=documents, embeddings=vectors, ids=ids) # Añade los documentos y sus vectores a la colección\ndef retrieve(question: str):\n    query_vec = model.encode([question]).tolist()[0] # Convierte la pregunta a vector\n    results = collection.query(query_embeddings=[query_vec], n_results=3) # Recupera los 3 documentos más similares\n    return results[\"documents\"][0] # Devuelve los documentos recuperados",
+        "peekOfCode": "model = SentenceTransformer(EMBEDDING_MODEL) # Modelo ligero para embeddings\ndef build_index(documents):\n    vectors = model.encode(documents).tolist() # Convierte los documentos a vectores\n    ids = [f\"doc_{i}\" for i in range(len(documents))] # Genera IDs únicas para cada documento\n    collection.add(documents=documents, embeddings=vectors, ids=ids) # Añade los documentos y sus vectores a la colección\ndef retrieve(question: str):\n    query_vec = model.encode([question]).tolist()[0] # Convierte la pregunta a vector\n    results = collection.query(query_embeddings=[query_vec], n_results=3) # Recupera los 3 documentos más similares\n    return results[\"documents\"][0] # Devuelve los documentos recuperados",
         "detail": "projects.A3_rag_basic.rag",
         "documentation": {}
     },
@@ -617,7 +676,7 @@
         "kind": 5,
         "importPath": "projects.A3_rag_basic.router",
         "description": "projects.A3_rag_basic.router",
-        "peekOfCode": "router = APIRouter(prefix=\"/a3\", tags=[\"A3 - RAG Básico\"])\nDATA_PATH = \"projects/A3_rag_basic/data\"\n# Construye el índice on startup:\ndocuments = load_documents(DATA_PATH)\nbuild_index(documents)\n@router.post(\n    \"/ask\",\n    summary=\"Realiza una pregunta utilizando RAG básico\",\n    description=\"\"\"\n    Realiza una pregunta utilizando un enfoque de Recuperación Augmentada por Generación (RAG) básico.",
+        "peekOfCode": "router = APIRouter(prefix=\"/a3\", tags=[\"A3 - RAG Básico\"])\nDATA_PATH = os.path.join(os.path.dirname(__file__), \"data\")\n# Construye el índice on startup:\ndocuments = load_documents(DATA_PATH)\nbuild_index(documents)\n@router.post(\n    \"/ask\",\n    summary=\"Realiza una pregunta utilizando RAG básico\",\n    description=\"\"\"\n    Realiza una pregunta utilizando un enfoque de Recuperación Augmentada por Generación (RAG) básico.",
         "detail": "projects.A3_rag_basic.router",
         "documentation": {}
     },
@@ -626,7 +685,7 @@
         "kind": 5,
         "importPath": "projects.A3_rag_basic.router",
         "description": "projects.A3_rag_basic.router",
-        "peekOfCode": "DATA_PATH = \"projects/A3_rag_basic/data\"\n# Construye el índice on startup:\ndocuments = load_documents(DATA_PATH)\nbuild_index(documents)\n@router.post(\n    \"/ask\",\n    summary=\"Realiza una pregunta utilizando RAG básico\",\n    description=\"\"\"\n    Realiza una pregunta utilizando un enfoque de Recuperación Augmentada por Generación (RAG) básico.\n    1. Recupera documentos relevantes basados en la pregunta del usuario.",
+        "peekOfCode": "DATA_PATH = os.path.join(os.path.dirname(__file__), \"data\")\n# Construye el índice on startup:\ndocuments = load_documents(DATA_PATH)\nbuild_index(documents)\n@router.post(\n    \"/ask\",\n    summary=\"Realiza una pregunta utilizando RAG básico\",\n    description=\"\"\"\n    Realiza una pregunta utilizando un enfoque de Recuperación Augmentada por Generación (RAG) básico.\n    1. Recupera documentos relevantes basados en la pregunta del usuario.",
         "detail": "projects.A3_rag_basic.router",
         "documentation": {}
     },
@@ -655,6 +714,51 @@
         "description": "projects.A3_rag_basic.schemas",
         "peekOfCode": "class QueryResponse(BaseModel):\n    response: str = Field(..., description=\"Respuesta generada por el modelo LLM\")\n    sources: list[str] = Field(..., description=\"Documentos utilizados para generar la respuesta\")",
         "detail": "projects.A3_rag_basic.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic_v2.chroma_client",
+        "description": "projects.A3_rag_basic_v2.chroma_client",
+        "peekOfCode": "client = chromadb.PersistentClient(path=CHROMA_PATH)\ncollection = client.get_or_create_collection(COLLECTION_NAME)",
+        "detail": "projects.A3_rag_basic_v2.chroma_client",
+        "documentation": {}
+    },
+    {
+        "label": "collection",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic_v2.chroma_client",
+        "description": "projects.A3_rag_basic_v2.chroma_client",
+        "peekOfCode": "collection = client.get_or_create_collection(COLLECTION_NAME)",
+        "detail": "projects.A3_rag_basic_v2.chroma_client",
+        "documentation": {}
+    },
+    {
+        "label": "COLLECTION_NAME",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic_v2.config",
+        "description": "projects.A3_rag_basic_v2.config",
+        "peekOfCode": "COLLECTION_NAME = \"a3_docs_v2\"\nEMBEDDING_MODEL = DEFAULT_EMBEDDING_MODEL\nCHROMA_PATH = CHROMA_PATH",
+        "detail": "projects.A3_rag_basic_v2.config",
+        "documentation": {}
+    },
+    {
+        "label": "EMBEDDING_MODEL",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic_v2.config",
+        "description": "projects.A3_rag_basic_v2.config",
+        "peekOfCode": "EMBEDDING_MODEL = DEFAULT_EMBEDDING_MODEL\nCHROMA_PATH = CHROMA_PATH",
+        "detail": "projects.A3_rag_basic_v2.config",
+        "documentation": {}
+    },
+    {
+        "label": "CHROMA_PATH",
+        "kind": 5,
+        "importPath": "projects.A3_rag_basic_v2.config",
+        "description": "projects.A3_rag_basic_v2.config",
+        "peekOfCode": "CHROMA_PATH = CHROMA_PATH",
+        "detail": "projects.A3_rag_basic_v2.config",
         "documentation": {}
     },
     {
@@ -689,25 +793,7 @@
         "kind": 5,
         "importPath": "projects.A3_rag_basic_v2.rag",
         "description": "projects.A3_rag_basic_v2.rag",
-        "peekOfCode": "model = SentenceTransformer(\"all-MiniLM-L6-v2\")\n# Crear cliente persistente de ChromaDB\nclient = chromadb.PersistentClient(path=\"./chroma_db\")\ncollection = client.get_or_create_collection(\"a3_docs_v2\")\n# Utilidad para hashear texto y generar IDs únicos\ndef _hash_text(text: str) -> str:\n    return hashlib.sha256(text.encode(\"utf-8\")).hexdigest()\n# Construye el índice desde una carpeta de documentos\ndef build_index_from_folder(folder_path: str):\n    docs = []",
-        "detail": "projects.A3_rag_basic_v2.rag",
-        "documentation": {}
-    },
-    {
-        "label": "client",
-        "kind": 5,
-        "importPath": "projects.A3_rag_basic_v2.rag",
-        "description": "projects.A3_rag_basic_v2.rag",
-        "peekOfCode": "client = chromadb.PersistentClient(path=\"./chroma_db\")\ncollection = client.get_or_create_collection(\"a3_docs_v2\")\n# Utilidad para hashear texto y generar IDs únicos\ndef _hash_text(text: str) -> str:\n    return hashlib.sha256(text.encode(\"utf-8\")).hexdigest()\n# Construye el índice desde una carpeta de documentos\ndef build_index_from_folder(folder_path: str):\n    docs = []\n    ids = []\n    for fname in os.listdir(folder_path):",
-        "detail": "projects.A3_rag_basic_v2.rag",
-        "documentation": {}
-    },
-    {
-        "label": "collection",
-        "kind": 5,
-        "importPath": "projects.A3_rag_basic_v2.rag",
-        "description": "projects.A3_rag_basic_v2.rag",
-        "peekOfCode": "collection = client.get_or_create_collection(\"a3_docs_v2\")\n# Utilidad para hashear texto y generar IDs únicos\ndef _hash_text(text: str) -> str:\n    return hashlib.sha256(text.encode(\"utf-8\")).hexdigest()\n# Construye el índice desde una carpeta de documentos\ndef build_index_from_folder(folder_path: str):\n    docs = []\n    ids = []\n    for fname in os.listdir(folder_path):\n        if not fname.endswith((\".txt\", \".md\")):",
+        "peekOfCode": "model = SentenceTransformer(EMBEDDING_MODEL)\n# Construye el índice desde una carpeta de documentos\ndef build_index_from_folder(folder_path: str):\n    docs = []\n    ids = []\n    for fname in os.listdir(folder_path):\n        if not fname.endswith((\".txt\", \".md\")):\n            continue\n        with open(os.path.join(folder_path, fname), \"r\", encoding=\"utf-8\") as f:\n            content = f.read()",
         "detail": "projects.A3_rag_basic_v2.rag",
         "documentation": {}
     },
@@ -716,7 +802,7 @@
         "kind": 5,
         "importPath": "projects.A3_rag_basic_v2.router",
         "description": "projects.A3_rag_basic_v2.router",
-        "peekOfCode": "router = APIRouter(prefix=\"/a3v2\", tags=[\"A3 - RAG Básico v2\"])\nDATA_PATH = \"projects/A3_rag_basic_v2/data\"\n# Indexado automático en segundo plano al cargar el módulo \ndef _auto_build_index():\n    try:\n        build_index_from_folder(DATA_PATH)\n    except Exception as e:\n        print(f\"[RAG] Error durante el indexado automático: {e}\")\n# Lanzamos el indexado en un hilo para no bloquear FastAPI al arrancar\nthreading.Thread(target=_auto_build_index, daemon=True).start()",
+        "peekOfCode": "router = APIRouter(prefix=\"/a3v2\", tags=[\"A3 - RAG Básico v2\"])\nDATA_PATH = os.path.join(os.path.dirname(__file__), \"data\")\n# Indexado automático en segundo plano al cargar el módulo \ndef _auto_build_index():\n    try:\n        build_index_from_folder(DATA_PATH)\n    except Exception as e:\n        print(f\"[RAG] Error durante el indexado automático: {e}\")\n# Lanzamos el indexado en un hilo para no bloquear FastAPI al arrancar\nthreading.Thread(target=_auto_build_index, daemon=True).start()",
         "detail": "projects.A3_rag_basic_v2.router",
         "documentation": {}
     },
@@ -725,7 +811,7 @@
         "kind": 5,
         "importPath": "projects.A3_rag_basic_v2.router",
         "description": "projects.A3_rag_basic_v2.router",
-        "peekOfCode": "DATA_PATH = \"projects/A3_rag_basic_v2/data\"\n# Indexado automático en segundo plano al cargar el módulo \ndef _auto_build_index():\n    try:\n        build_index_from_folder(DATA_PATH)\n    except Exception as e:\n        print(f\"[RAG] Error durante el indexado automático: {e}\")\n# Lanzamos el indexado en un hilo para no bloquear FastAPI al arrancar\nthreading.Thread(target=_auto_build_index, daemon=True).start()\n@router.post(",
+        "peekOfCode": "DATA_PATH = os.path.join(os.path.dirname(__file__), \"data\")\n# Indexado automático en segundo plano al cargar el módulo \ndef _auto_build_index():\n    try:\n        build_index_from_folder(DATA_PATH)\n    except Exception as e:\n        print(f\"[RAG] Error durante el indexado automático: {e}\")\n# Lanzamos el indexado en un hilo para no bloquear FastAPI al arrancar\nthreading.Thread(target=_auto_build_index, daemon=True).start()\n@router.post(",
         "detail": "projects.A3_rag_basic_v2.router",
         "documentation": {}
     },
@@ -745,6 +831,15 @@
         "description": "projects.A3_rag_basic_v2.schemas",
         "peekOfCode": "class QueryResponse(BaseModel):\n    answer: str = Field(..., description=\"Respuesta generada por el modelo LLM\")\n    sources: list[str] = Field(..., description=\"Documentos utilizados para generar la respuesta\")",
         "detail": "projects.A3_rag_basic_v2.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "hash_text",
+        "kind": 2,
+        "importPath": "projects.A3_rag_basic_v2.utils",
+        "description": "projects.A3_rag_basic_v2.utils",
+        "peekOfCode": "def hash_text(text: str) -> str:\n    return hashlib.sha256(text.encode(\"utf-8\")).hexdigest()\ndef safe_json_parse(text: str):\n    try:\n        data = json.loads(text)\n    except json.JSONDecodeError:\n        return {\"answer\": text.strip(), \"sources\": []}\n    # Validamos estructura con Pydantic\n    try:\n        parsed = QueryResponse(**data)",
+        "detail": "projects.A3_rag_basic_v2.utils",
         "documentation": {}
     },
     {
@@ -779,7 +874,7 @@
         "kind": 5,
         "importPath": "projects.A4_rag_advanced.config",
         "description": "projects.A4_rag_advanced.config",
-        "peekOfCode": "COLLECTION_NAME = \"a4_docs_v2\"\nEMBEDDING_MODEL = DEFAULT_EMBEDDING_MODEL\nCHROMA_PATH = CHROMA_PATH",
+        "peekOfCode": "COLLECTION_NAME = \"a4_docs\"\nEMBEDDING_MODEL = DEFAULT_EMBEDDING_MODEL\nCHROMA_PATH = CHROMA_PATH",
         "detail": "projects.A4_rag_advanced.config",
         "documentation": {}
     },

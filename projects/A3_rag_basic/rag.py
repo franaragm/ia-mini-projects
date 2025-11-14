@@ -1,10 +1,8 @@
 from sentence_transformers import SentenceTransformer
-import chromadb
+from .config import EMBEDDING_MODEL
+from .chroma_client import collection
 
-model = SentenceTransformer("all-MiniLM-L6-v2") # Modelo ligero para embeddings
-
-client = chromadb.PersistentClient(path="./chroma_db") # Cliente persistente para almacenar datos
-collection = client.get_or_create_collection("a3_docs") # Colección para documentos
+model = SentenceTransformer(EMBEDDING_MODEL) # Modelo ligero para embeddings
 
 def build_index(documents):
     vectors = model.encode(documents).tolist() # Convierte los documentos a vectores

@@ -1,5 +1,10 @@
 import json
 from .schemas import QueryResponse
+import hashlib
+
+# Utilidad para hashear texto y generar IDs únicos
+def hash_text(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 def safe_json_parse(text: str):
     try:
