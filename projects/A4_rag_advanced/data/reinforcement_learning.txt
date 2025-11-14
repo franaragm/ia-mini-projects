@@ -1,0 +1,3 @@
+El Aprendizaje por Refuerzo es un área del aprendizaje automático en la que un agente aprende a tomar decisiones mediante prueba y error, recibiendo recompensas o castigos según su desempeño. 
+Este enfoque es ampliamente utilizado en robótica, juegos y sistemas de recomendación. 
+Algoritmos populares incluyen Q-Learning, DQN y Proximal Policy Optimization (PPO), que permiten optimizar políticas de comportamiento en entornos complejos.

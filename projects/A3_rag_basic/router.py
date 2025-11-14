@@ -6,7 +6,7 @@ from .rag import build_index, retrieve
 from .prompts import rag_prompt
 from .schemas import QueryRequest, QueryResponse
 
-router = APIRouter(prefix="/a3", tags=["A3 - RAG básico"])
+router = APIRouter(prefix="/a3", tags=["A3 - RAG Básico"])
 
 DATA_PATH = "projects/A3_rag_basic/data"
 

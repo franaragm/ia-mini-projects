@@ -8,6 +8,30 @@
         "documentation": {}
     },
     {
+        "label": "DEFAULT_LLM_MODEL",
+        "importPath": "config_base",
+        "description": "config_base",
+        "isExtraImport": true,
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
+        "label": "CHROMA_PATH",
+        "importPath": "config_base",
+        "description": "config_base",
+        "isExtraImport": true,
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_EMBEDDING_MODEL",
+        "importPath": "config_base",
+        "description": "config_base",
+        "isExtraImport": true,
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
@@ -26,6 +50,14 @@
     },
     {
         "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
         "importPath": "fastapi",
         "description": "fastapi",
         "isExtraImport": true,
@@ -105,11 +137,11 @@
         "documentation": {}
     },
     {
-        "label": "PromptTemplate",
-        "importPath": "langchain_core.prompts",
-        "description": "langchain_core.prompts",
+        "label": "router",
+        "importPath": "projects.A4_rag_advanced.router",
+        "description": "projects.A4_rag_advanced.router",
         "isExtraImport": true,
-        "detail": "langchain_core.prompts",
+        "detail": "projects.A4_rag_advanced.router",
         "documentation": {}
     },
     {
@@ -134,6 +166,30 @@
         "description": "langchain_core.prompts",
         "isExtraImport": true,
         "detail": "langchain_core.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "PromptTemplate",
+        "importPath": "langchain_core.prompts",
+        "description": "langchain_core.prompts",
+        "isExtraImport": true,
+        "detail": "langchain_core.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "PromptTemplate",
+        "importPath": "langchain_core.prompts",
+        "description": "langchain_core.prompts",
+        "isExtraImport": true,
+        "detail": "langchain_core.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "llm",
+        "importPath": "app.services.llm_client",
+        "description": "app.services.llm_client",
+        "isExtraImport": true,
+        "detail": "app.services.llm_client",
         "documentation": {}
     },
     {
@@ -250,11 +306,35 @@
         "documentation": {}
     },
     {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
         "label": "date",
         "importPath": "datetime",
         "description": "datetime",
         "isExtraImport": true,
         "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "SentenceTransformer",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
         "documentation": {}
     },
     {
@@ -301,11 +381,27 @@
         "documentation": {}
     },
     {
+        "label": "TextLoader",
+        "importPath": "langchain_community.document_loaders",
+        "description": "langchain_community.document_loaders",
+        "isExtraImport": true,
+        "detail": "langchain_community.document_loaders",
+        "documentation": {}
+    },
+    {
+        "label": "RecursiveCharacterTextSplitter",
+        "importPath": "langchain_text_splitters",
+        "description": "langchain_text_splitters",
+        "isExtraImport": true,
+        "detail": "langchain_text_splitters",
+        "documentation": {}
+    },
+    {
         "label": "OPENROUTER_API_KEY",
         "kind": 5,
         "importPath": "app.services.llm_client",
         "description": "app.services.llm_client",
-        "peekOfCode": "OPENROUTER_API_KEY = get_env(\"OPENROUTER_API_KEY\")\nOPENROUTER_BASE_URL = get_env(\"OPENROUTER_BASE_URL\", \"https://openrouter.ai/api/v1\")\nOPENROUTER_DEFAULT_MODEL = get_env(\"DEFAULT_MODEL\", \"meta-llama/llama-3.3-8b-instruct:free\")\n# Cliente compatible con OpenAI, apuntado a OpenRouter\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str):\n    response = await client.chat.completions.create(",
+        "peekOfCode": "OPENROUTER_API_KEY = get_env(\"OPENROUTER_API_KEY\")\nOPENROUTER_BASE_URL = get_env(\"OPENROUTER_BASE_URL\", \"https://openrouter.ai/api/v1\")\n# Cliente compatible con OpenAI, apuntado a OpenRouter\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str):\n    response = await client.chat.completions.create(\n        model=DEFAULT_LLM_MODEL,",
         "detail": "app.services.llm_client",
         "documentation": {}
     },
@@ -314,16 +410,7 @@
         "kind": 5,
         "importPath": "app.services.llm_client",
         "description": "app.services.llm_client",
-        "peekOfCode": "OPENROUTER_BASE_URL = get_env(\"OPENROUTER_BASE_URL\", \"https://openrouter.ai/api/v1\")\nOPENROUTER_DEFAULT_MODEL = get_env(\"DEFAULT_MODEL\", \"meta-llama/llama-3.3-8b-instruct:free\")\n# Cliente compatible con OpenAI, apuntado a OpenRouter\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str):\n    response = await client.chat.completions.create(\n        model=OPENROUTER_DEFAULT_MODEL,",
-        "detail": "app.services.llm_client",
-        "documentation": {}
-    },
-    {
-        "label": "OPENROUTER_DEFAULT_MODEL",
-        "kind": 5,
-        "importPath": "app.services.llm_client",
-        "description": "app.services.llm_client",
-        "peekOfCode": "OPENROUTER_DEFAULT_MODEL = get_env(\"DEFAULT_MODEL\", \"meta-llama/llama-3.3-8b-instruct:free\")\n# Cliente compatible con OpenAI, apuntado a OpenRouter\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str):\n    response = await client.chat.completions.create(\n        model=OPENROUTER_DEFAULT_MODEL,\n        messages=[{\"role\": \"user\", \"content\": prompt}],",
+        "peekOfCode": "OPENROUTER_BASE_URL = get_env(\"OPENROUTER_BASE_URL\", \"https://openrouter.ai/api/v1\")\n# Cliente compatible con OpenAI, apuntado a OpenRouter\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str):\n    response = await client.chat.completions.create(\n        model=DEFAULT_LLM_MODEL,\n        messages=[{\"role\": \"user\", \"content\": prompt}],",
         "detail": "app.services.llm_client",
         "documentation": {}
     },
@@ -332,7 +419,7 @@
         "kind": 5,
         "importPath": "app.services.llm_client",
         "description": "app.services.llm_client",
-        "peekOfCode": "client = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str):\n    response = await client.chat.completions.create(\n        model=OPENROUTER_DEFAULT_MODEL,\n        messages=[{\"role\": \"user\", \"content\": prompt}],\n        max_tokens=400,\n        temperature=0.7,",
+        "peekOfCode": "client = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str):\n    response = await client.chat.completions.create(\n        model=DEFAULT_LLM_MODEL,\n        messages=[{\"role\": \"user\", \"content\": prompt}],\n        max_tokens=400,\n        temperature=0.7,",
         "detail": "app.services.llm_client",
         "documentation": {}
     },
@@ -350,7 +437,7 @@
         "kind": 5,
         "importPath": "app.main",
         "description": "app.main",
-        "peekOfCode": "app = FastAPI(title=\"Mini Projects LangChain - Base Server\")\napp.include_router(router)",
+        "peekOfCode": "app = FastAPI(title=\"LangChain Lab - AI Server\")\napp.include_router(router)",
         "detail": "app.main",
         "documentation": {}
     },
@@ -530,7 +617,7 @@
         "kind": 5,
         "importPath": "projects.A3_rag_basic.router",
         "description": "projects.A3_rag_basic.router",
-        "peekOfCode": "router = APIRouter(prefix=\"/a3\", tags=[\"A3 - RAG básico\"])\nDATA_PATH = \"projects/A3_rag_basic/data\"\n# Construye el índice on startup:\ndocuments = load_documents(DATA_PATH)\nbuild_index(documents)\n@router.post(\n    \"/ask\",\n    summary=\"Realiza una pregunta utilizando RAG básico\",\n    description=\"\"\"\n    Realiza una pregunta utilizando un enfoque de Recuperación Augmentada por Generación (RAG) básico.",
+        "peekOfCode": "router = APIRouter(prefix=\"/a3\", tags=[\"A3 - RAG Básico\"])\nDATA_PATH = \"projects/A3_rag_basic/data\"\n# Construye el índice on startup:\ndocuments = load_documents(DATA_PATH)\nbuild_index(documents)\n@router.post(\n    \"/ask\",\n    summary=\"Realiza una pregunta utilizando RAG básico\",\n    description=\"\"\"\n    Realiza una pregunta utilizando un enfoque de Recuperación Augmentada por Generación (RAG) básico.",
         "detail": "projects.A3_rag_basic.router",
         "documentation": {}
     },
@@ -667,6 +754,231 @@
         "description": "projects.A3_rag_basic_v2.utils",
         "peekOfCode": "def safe_json_parse(text: str):\n    try:\n        data = json.loads(text)\n    except json.JSONDecodeError:\n        return {\"answer\": text.strip(), \"sources\": []}\n    # Validamos estructura con Pydantic\n    try:\n        parsed = QueryResponse(**data)\n    except Exception as e:\n        return {",
         "detail": "projects.A3_rag_basic_v2.utils",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "projects.A4_rag_advanced.chroma_client",
+        "description": "projects.A4_rag_advanced.chroma_client",
+        "peekOfCode": "client = chromadb.PersistentClient(path=CHROMA_PATH)\ncollection = client.get_or_create_collection(COLLECTION_NAME)",
+        "detail": "projects.A4_rag_advanced.chroma_client",
+        "documentation": {}
+    },
+    {
+        "label": "collection",
+        "kind": 5,
+        "importPath": "projects.A4_rag_advanced.chroma_client",
+        "description": "projects.A4_rag_advanced.chroma_client",
+        "peekOfCode": "collection = client.get_or_create_collection(COLLECTION_NAME)",
+        "detail": "projects.A4_rag_advanced.chroma_client",
+        "documentation": {}
+    },
+    {
+        "label": "COLLECTION_NAME",
+        "kind": 5,
+        "importPath": "projects.A4_rag_advanced.config",
+        "description": "projects.A4_rag_advanced.config",
+        "peekOfCode": "COLLECTION_NAME = \"a4_docs_v2\"\nEMBEDDING_MODEL = DEFAULT_EMBEDDING_MODEL\nCHROMA_PATH = CHROMA_PATH",
+        "detail": "projects.A4_rag_advanced.config",
+        "documentation": {}
+    },
+    {
+        "label": "EMBEDDING_MODEL",
+        "kind": 5,
+        "importPath": "projects.A4_rag_advanced.config",
+        "description": "projects.A4_rag_advanced.config",
+        "peekOfCode": "EMBEDDING_MODEL = DEFAULT_EMBEDDING_MODEL\nCHROMA_PATH = CHROMA_PATH",
+        "detail": "projects.A4_rag_advanced.config",
+        "documentation": {}
+    },
+    {
+        "label": "CHROMA_PATH",
+        "kind": 5,
+        "importPath": "projects.A4_rag_advanced.config",
+        "description": "projects.A4_rag_advanced.config",
+        "peekOfCode": "CHROMA_PATH = CHROMA_PATH",
+        "detail": "projects.A4_rag_advanced.config",
+        "documentation": {}
+    },
+    {
+        "label": "load_documents",
+        "kind": 2,
+        "importPath": "projects.A4_rag_advanced.loader",
+        "description": "projects.A4_rag_advanced.loader",
+        "peekOfCode": "def load_documents():\n    docs = []\n    for file in os.listdir(DATA_PATH):\n        if file.endswith((\".txt\", \".md\")):\n            loader = TextLoader(os.path.join(DATA_PATH, file), encoding=\"utf-8\") # Crear cargador de texto\n            docs.extend(loader.load()) # Cargar y agregar documentos\n    return docs\n# Divide documentos en chunks con solapamiento\ndef split_documents(documents, chunk_size=600, chunk_overlap=100):\n    splitter = RecursiveCharacterTextSplitter(",
+        "detail": "projects.A4_rag_advanced.loader",
+        "documentation": {}
+    },
+    {
+        "label": "split_documents",
+        "kind": 2,
+        "importPath": "projects.A4_rag_advanced.loader",
+        "description": "projects.A4_rag_advanced.loader",
+        "peekOfCode": "def split_documents(documents, chunk_size=600, chunk_overlap=100):\n    splitter = RecursiveCharacterTextSplitter(\n        chunk_size=chunk_size,\n        chunk_overlap=chunk_overlap,\n        separators=[\"\\n\\n\", \"\\n\", \".\", \"!\", \"?\", \" \"]\n    )\n    return splitter.split_documents(documents)",
+        "detail": "projects.A4_rag_advanced.loader",
+        "documentation": {}
+    },
+    {
+        "label": "DATA_PATH",
+        "kind": 5,
+        "importPath": "projects.A4_rag_advanced.loader",
+        "description": "projects.A4_rag_advanced.loader",
+        "peekOfCode": "DATA_PATH = os.path.join(os.path.dirname(__file__), \"data\")\n# Carga todos los documentos TXT y MD desde /data/\ndef load_documents():\n    docs = []\n    for file in os.listdir(DATA_PATH):\n        if file.endswith((\".txt\", \".md\")):\n            loader = TextLoader(os.path.join(DATA_PATH, file), encoding=\"utf-8\") # Crear cargador de texto\n            docs.extend(loader.load()) # Cargar y agregar documentos\n    return docs\n# Divide documentos en chunks con solapamiento",
+        "detail": "projects.A4_rag_advanced.loader",
+        "documentation": {}
+    },
+    {
+        "label": "rag_prompt",
+        "kind": 5,
+        "importPath": "projects.A4_rag_advanced.prompts",
+        "description": "projects.A4_rag_advanced.prompts",
+        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente experto en IA. Usa el siguiente contexto recuperado de los documentos\npara responder a la pregunta del usuario de manera precisa, concisa y verificada.\nNo inventes información. Si no sabes algo, di \"No tengo información suficiente en los documentos\".\n=== CONTEXTO ===\n{context}\n=== PREGUNTA ===\n{question}\n\"\"\")",
+        "detail": "projects.A4_rag_advanced.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "build_vectorstore",
+        "kind": 2,
+        "importPath": "projects.A4_rag_advanced.rag",
+        "description": "projects.A4_rag_advanced.rag",
+        "peekOfCode": "def build_vectorstore():\n    print(f\"Construyendo colección persistente '{COLLECTION_NAME}'...\")\n    # Cargar y dividir documentos\n    raw_chunks = split_documents(load_documents())\n    if not raw_chunks:\n        print(\"No se encontraron documentos para procesar.\")\n        return collection\n    # Lista de nuevos chunks a indexar\n    new_chunks = []\n    # Recorrer raw_chunks que es un list[Document] con documentos fragmentados y verificar duplicados, ",
+        "detail": "projects.A4_rag_advanced.rag",
+        "documentation": {}
+    },
+    {
+        "label": "retrieve_context",
+        "kind": 2,
+        "importPath": "projects.A4_rag_advanced.rag",
+        "description": "projects.A4_rag_advanced.rag",
+        "peekOfCode": "def retrieve_context(question: str, n_results: int = 3):\n    # Convertir pregunta → embedding\n    query_vec = model.encode([question]).tolist()[0]\n    # Consultar la colección en ChromaDB\n    results = collection.query(\n        query_embeddings=[query_vec],\n        n_results=n_results\n    )\n    # Extraer documentos y metadatos (si no existen, usar listas vacías), distancias para posibles futuros usos\n    retrieved_docs = results.get(\"documents\", [[]])[0]",
+        "detail": "projects.A4_rag_advanced.rag",
+        "documentation": {}
+    },
+    {
+        "label": "model",
+        "kind": 5,
+        "importPath": "projects.A4_rag_advanced.rag",
+        "description": "projects.A4_rag_advanced.rag",
+        "peekOfCode": "model = SentenceTransformer(EMBEDDING_MODEL)\n# ==========================================================\n# Construcción del índice (siempre se reconstruye si hay nuevos documentos)\n# ==========================================================\n# Crea embeddings y guarda documentos nuevos en la colección persistente.\ndef build_vectorstore():\n    print(f\"Construyendo colección persistente '{COLLECTION_NAME}'...\")\n    # Cargar y dividir documentos\n    raw_chunks = split_documents(load_documents())\n    if not raw_chunks:",
+        "detail": "projects.A4_rag_advanced.rag",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "projects.A4_rag_advanced.router",
+        "description": "projects.A4_rag_advanced.router",
+        "peekOfCode": "router = APIRouter(prefix=\"/a4\", tags=[\"A4 - RAG Avanzado\"])\n# Lanzamos indexado en segundo plano al importar el router\ndef _auto_build_index():\n    try:\n        print(\"Construyendo índice RAG avanzado en background...\")\n        build_vectorstore()\n        print(\"Índice RAG avanzado listo.\")\n    except Exception as e:\n        print(f\"[RAG] Error durante el indexado automático: {e}\")\nthreading.Thread(target=_auto_build_index, daemon=True).start()",
+        "detail": "projects.A4_rag_advanced.router",
+        "documentation": {}
+    },
+    {
+        "label": "QueryRequest",
+        "kind": 6,
+        "importPath": "projects.A4_rag_advanced.schemas",
+        "description": "projects.A4_rag_advanced.schemas",
+        "peekOfCode": "class QueryRequest(BaseModel):\n    question: str = Field(..., example=\"Qué son las Redes Neuronales Convolucionales?\")\nclass SourceDocument(BaseModel):\n    source: str = Field(..., description=\"Ruta o nombre del documento de origen\")\n    score: float = Field(..., description=\"Similitud o relevancia del documento recuperado\")\nclass QueryResponse(BaseModel):\n    answer: str = Field(..., description=\"Respuesta generada por el modelo\")\n    sources: list[SourceDocument] = Field(..., description=\"Documentos usados para generar la respuesta\")",
+        "detail": "projects.A4_rag_advanced.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "SourceDocument",
+        "kind": 6,
+        "importPath": "projects.A4_rag_advanced.schemas",
+        "description": "projects.A4_rag_advanced.schemas",
+        "peekOfCode": "class SourceDocument(BaseModel):\n    source: str = Field(..., description=\"Ruta o nombre del documento de origen\")\n    score: float = Field(..., description=\"Similitud o relevancia del documento recuperado\")\nclass QueryResponse(BaseModel):\n    answer: str = Field(..., description=\"Respuesta generada por el modelo\")\n    sources: list[SourceDocument] = Field(..., description=\"Documentos usados para generar la respuesta\")",
+        "detail": "projects.A4_rag_advanced.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "QueryResponse",
+        "kind": 6,
+        "importPath": "projects.A4_rag_advanced.schemas",
+        "description": "projects.A4_rag_advanced.schemas",
+        "peekOfCode": "class QueryResponse(BaseModel):\n    answer: str = Field(..., description=\"Respuesta generada por el modelo\")\n    sources: list[SourceDocument] = Field(..., description=\"Documentos usados para generar la respuesta\")",
+        "detail": "projects.A4_rag_advanced.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "hash_text",
+        "kind": 2,
+        "importPath": "projects.A4_rag_advanced.utils",
+        "description": "projects.A4_rag_advanced.utils",
+        "peekOfCode": "def hash_text(text: str) -> str:\n    return hashlib.sha256(text.encode(\"utf-8\")).hexdigest()\n# Comprueba si un chunk ya está almacenado en la colección.\ndef is_chunk_indexed(chunk_id: str) -> bool:\n    try:\n        existing = collection.get(ids=[chunk_id])\n        return bool(existing and existing[\"ids\"])\n    except Exception:\n        return False\n# Convierte metadatos y distancias en una lista de fuentes formateadas.",
+        "detail": "projects.A4_rag_advanced.utils",
+        "documentation": {}
+    },
+    {
+        "label": "is_chunk_indexed",
+        "kind": 2,
+        "importPath": "projects.A4_rag_advanced.utils",
+        "description": "projects.A4_rag_advanced.utils",
+        "peekOfCode": "def is_chunk_indexed(chunk_id: str) -> bool:\n    try:\n        existing = collection.get(ids=[chunk_id])\n        return bool(existing and existing[\"ids\"])\n    except Exception:\n        return False\n# Convierte metadatos y distancias en una lista de fuentes formateadas.\ndef format_sources(metadatas: list, distances: list) -> list:\n    formatted = []\n    for meta, dist in zip(metadatas, distances):",
+        "detail": "projects.A4_rag_advanced.utils",
+        "documentation": {}
+    },
+    {
+        "label": "format_sources",
+        "kind": 2,
+        "importPath": "projects.A4_rag_advanced.utils",
+        "description": "projects.A4_rag_advanced.utils",
+        "peekOfCode": "def format_sources(metadatas: list, distances: list) -> list:\n    formatted = []\n    for meta, dist in zip(metadatas, distances):\n        # Convertir distancia a similitud (asumiendo distancia >= 0)\n        similarity = 1 / (1 + dist)\n        formatted.append({\n            \"source\": meta.get(\"source\", \"desconocido\"),\n            \"score\": round(similarity, 4) # Redondear a 4 decimales\n        })\n    return formatted",
+        "detail": "projects.A4_rag_advanced.utils",
+        "documentation": {}
+    },
+    {
+        "label": "ROOT_DIR",
+        "kind": 5,
+        "importPath": "config_base",
+        "description": "config_base",
+        "peekOfCode": "ROOT_DIR = os.path.abspath(os.path.dirname(__file__))\n# Carpeta global compartida de bases vectoriales persistentes (ChromaDB)\nCHROMA_PATH = os.path.join(ROOT_DIR, \"chroma_db\")\n# Carpeta de proyectos\nPROJECTS_PATH = os.path.join(ROOT_DIR, \"projects\")\n# Carpeta de aplicación común (FastAPI, servicios, utilidades)\nAPP_PATH = os.path.join(ROOT_DIR, \"app\")\n# === Configuración técnica compartida ===\n# Modelo de embeddings por defecto (SentenceTransformers)\nDEFAULT_EMBEDDING_MODEL = \"all-MiniLM-L6-v2\"",
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
+        "label": "CHROMA_PATH",
+        "kind": 5,
+        "importPath": "config_base",
+        "description": "config_base",
+        "peekOfCode": "CHROMA_PATH = os.path.join(ROOT_DIR, \"chroma_db\")\n# Carpeta de proyectos\nPROJECTS_PATH = os.path.join(ROOT_DIR, \"projects\")\n# Carpeta de aplicación común (FastAPI, servicios, utilidades)\nAPP_PATH = os.path.join(ROOT_DIR, \"app\")\n# === Configuración técnica compartida ===\n# Modelo de embeddings por defecto (SentenceTransformers)\nDEFAULT_EMBEDDING_MODEL = \"all-MiniLM-L6-v2\"\n# Modelo LLM por defecto (para OpenRouter / OpenAI compatible)\nDEFAULT_LLM_MODEL = \"meta-llama/llama-3.3-8b-instruct:free\"",
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
+        "label": "PROJECTS_PATH",
+        "kind": 5,
+        "importPath": "config_base",
+        "description": "config_base",
+        "peekOfCode": "PROJECTS_PATH = os.path.join(ROOT_DIR, \"projects\")\n# Carpeta de aplicación común (FastAPI, servicios, utilidades)\nAPP_PATH = os.path.join(ROOT_DIR, \"app\")\n# === Configuración técnica compartida ===\n# Modelo de embeddings por defecto (SentenceTransformers)\nDEFAULT_EMBEDDING_MODEL = \"all-MiniLM-L6-v2\"\n# Modelo LLM por defecto (para OpenRouter / OpenAI compatible)\nDEFAULT_LLM_MODEL = \"meta-llama/llama-3.3-8b-instruct:free\"",
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
+        "label": "APP_PATH",
+        "kind": 5,
+        "importPath": "config_base",
+        "description": "config_base",
+        "peekOfCode": "APP_PATH = os.path.join(ROOT_DIR, \"app\")\n# === Configuración técnica compartida ===\n# Modelo de embeddings por defecto (SentenceTransformers)\nDEFAULT_EMBEDDING_MODEL = \"all-MiniLM-L6-v2\"\n# Modelo LLM por defecto (para OpenRouter / OpenAI compatible)\nDEFAULT_LLM_MODEL = \"meta-llama/llama-3.3-8b-instruct:free\"",
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_EMBEDDING_MODEL",
+        "kind": 5,
+        "importPath": "config_base",
+        "description": "config_base",
+        "peekOfCode": "DEFAULT_EMBEDDING_MODEL = \"all-MiniLM-L6-v2\"\n# Modelo LLM por defecto (para OpenRouter / OpenAI compatible)\nDEFAULT_LLM_MODEL = \"meta-llama/llama-3.3-8b-instruct:free\"",
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_LLM_MODEL",
+        "kind": 5,
+        "importPath": "config_base",
+        "description": "config_base",
+        "peekOfCode": "DEFAULT_LLM_MODEL = \"meta-llama/llama-3.3-8b-instruct:free\"",
+        "detail": "config_base",
         "documentation": {}
     }
 ]

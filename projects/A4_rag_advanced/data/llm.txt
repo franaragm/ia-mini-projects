@@ -1,0 +1,3 @@
+Los Modelos de Lenguaje Grande, como GPT y LLaMA, son redes neuronales entrenadas con grandes cantidades de texto para comprender y generar lenguaje natural. 
+Estos modelos pueden realizar tareas como traducción automática, resumen de texto, generación de código y chat conversacional. 
+Su capacidad de generalización depende de la cantidad y diversidad de datos de entrenamiento, así como de la arquitectura de la red y el tamaño del modelo.

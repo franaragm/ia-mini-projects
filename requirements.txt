@@ -3,6 +3,8 @@ uvicorn[standard]
 
 # Núcleo de LangChain (PromptTemplate, OutputParser, etc.)
 langchain-core
+langchain
+langchain-text-splitters
 
 # Integraciones generales y utilidades (sin modelos OpenAI)
 langchain-community
