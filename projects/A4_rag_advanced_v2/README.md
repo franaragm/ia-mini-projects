@@ -1,8 +1,11 @@
-# 🧠 Mini Proyecto A4: RAG Avanzado con LangChain
+# 🧠 Mini Proyecto A4: RAG Avanzado con web scraping, compresión contextual y fuentes puntuadas
 
 ## Objetivo
 Implementar un pipeline **RAG completo** usando **LangChain**, con:
+
 - Carga automática de documentos locales.
+- Web scraping de URLs especificadas.
+- Compresión contextual.
 - Chunking inteligente.
 - Indexación persistente con **ChromaDB**.
 - Recuperación semántica.

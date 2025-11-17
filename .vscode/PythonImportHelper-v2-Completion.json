@@ -16,6 +16,14 @@
         "documentation": {}
     },
     {
+        "label": "FALLBACK_LLM_MODEL",
+        "importPath": "config_base",
+        "description": "config_base",
+        "isExtraImport": true,
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
         "label": "CHROMA_PATH",
         "importPath": "config_base",
         "description": "config_base",
@@ -198,6 +206,14 @@
         "description": "projects.A4_rag_advanced.router",
         "isExtraImport": true,
         "detail": "projects.A4_rag_advanced.router",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "importPath": "projects.A4_rag_advanced_v2.router",
+        "description": "projects.A4_rag_advanced_v2.router",
+        "isExtraImport": true,
+        "detail": "projects.A4_rag_advanced_v2.router",
         "documentation": {}
     },
     {
@@ -538,7 +554,7 @@
         "kind": 5,
         "importPath": "app.services.llm_client",
         "description": "app.services.llm_client",
-        "peekOfCode": "OPENROUTER_API_KEY = get_env(\"OPENROUTER_API_KEY\")\nOPENROUTER_BASE_URL = get_env(\"OPENROUTER_BASE_URL\", \"https://openrouter.ai/api/v1\")\n# Cliente compatible con OpenAI, apuntado a OpenRouter\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str):\n    response = await client.chat.completions.create(\n        model=DEFAULT_LLM_MODEL,",
+        "peekOfCode": "OPENROUTER_API_KEY = get_env(\"OPENROUTER_API_KEY\")\nOPENROUTER_BASE_URL = get_env(\"OPENROUTER_BASE_URL\", \"https://openrouter.ai/api/v1\")\n# Cliente compatible con OpenAI, apuntado a OpenRouter\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str, model: str | None = None) -> str:\n    model_to_use = model or DEFAULT_LLM_MODEL\n    params = {",
         "detail": "app.services.llm_client",
         "documentation": {}
     },
@@ -547,7 +563,7 @@
         "kind": 5,
         "importPath": "app.services.llm_client",
         "description": "app.services.llm_client",
-        "peekOfCode": "OPENROUTER_BASE_URL = get_env(\"OPENROUTER_BASE_URL\", \"https://openrouter.ai/api/v1\")\n# Cliente compatible con OpenAI, apuntado a OpenRouter\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str):\n    response = await client.chat.completions.create(\n        model=DEFAULT_LLM_MODEL,\n        messages=[{\"role\": \"user\", \"content\": prompt}],",
+        "peekOfCode": "OPENROUTER_BASE_URL = get_env(\"OPENROUTER_BASE_URL\", \"https://openrouter.ai/api/v1\")\n# Cliente compatible con OpenAI, apuntado a OpenRouter\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str, model: str | None = None) -> str:\n    model_to_use = model or DEFAULT_LLM_MODEL\n    params = {\n        \"messages\": [{\"role\": \"user\", \"content\": prompt}],",
         "detail": "app.services.llm_client",
         "documentation": {}
     },
@@ -556,7 +572,7 @@
         "kind": 5,
         "importPath": "app.services.llm_client",
         "description": "app.services.llm_client",
-        "peekOfCode": "client = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str):\n    response = await client.chat.completions.create(\n        model=DEFAULT_LLM_MODEL,\n        messages=[{\"role\": \"user\", \"content\": prompt}],\n        max_tokens=400,\n        temperature=0.7,",
+        "peekOfCode": "client = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str, model: str | None = None) -> str:\n    model_to_use = model or DEFAULT_LLM_MODEL\n    params = {\n        \"messages\": [{\"role\": \"user\", \"content\": prompt}],\n        \"max_tokens\": 400,\n        \"temperature\": 0.7,",
         "detail": "app.services.llm_client",
         "documentation": {}
     },
@@ -1249,7 +1265,7 @@
         "kind": 5,
         "importPath": "projects.A4_rag_advanced_v2.prompts",
         "description": "projects.A4_rag_advanced_v2.prompts",
-        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente experto en IA. Usa el siguiente contexto recuperado de los documentos\npara responder a la pregunta del usuario de manera precisa, concisa y verificada.\nNo inventes información. Si no sabes algo, di \"No tengo información suficiente en los documentos\".\n=== CONTEXTO ===\n{context}\n=== PREGUNTA ===\n{question}\n\"\"\")",
+        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente experto en IA. Usa el siguiente contexto comprimido para responder con precisión a la pregunta planteada.\nNo inventes información. Si no sabes algo, di \"No tengo información suficiente en los documentos\".\n=== CONTEXTO ===\n{context}\n=== PREGUNTA ===\n{question}\n\"\"\")",
         "detail": "projects.A4_rag_advanced_v2.prompts",
         "documentation": {}
     },
@@ -1267,7 +1283,7 @@
         "kind": 2,
         "importPath": "projects.A4_rag_advanced_v2.rag",
         "description": "projects.A4_rag_advanced_v2.rag",
-        "peekOfCode": "def retrieve_context(question: str, n_results: int = 3):\n    # Convertir pregunta → embedding\n    query_vec = model.encode([question]).tolist()[0]\n    # Consultar la colección en ChromaDB\n    results = collection.query(\n        query_embeddings=[query_vec],\n        n_results=n_results\n    )\n    # Extraer documentos y metadatos (si no existen, usar listas vacías), distancias para posibles futuros usos\n    retrieved_docs = results.get(\"documents\", [[]])[0]",
+        "peekOfCode": "def retrieve_context(question: str, n_results: int = 3) -> (tuple[list[str], list[dict]]):\n    # Convertir pregunta → embedding\n    query_vec = model.encode([question]).tolist()[0]\n    # Consultar la colección en ChromaDB\n    results = collection.query(\n        query_embeddings=[query_vec],\n        n_results=n_results\n    )\n    # Extraer documentos y metadatos (si no existen, usar listas vacías), distancias para posibles futuros usos\n    retrieved_docs = results.get(\"documents\", [[]])[0]",
         "detail": "projects.A4_rag_advanced_v2.rag",
         "documentation": {}
     },
@@ -1276,7 +1292,7 @@
         "kind": 5,
         "importPath": "projects.A4_rag_advanced_v2.rag",
         "description": "projects.A4_rag_advanced_v2.rag",
-        "peekOfCode": "model = SentenceTransformer(EMBEDDING_MODEL)\n# ==========================================================\n# Construcción del índice (siempre se reconstruye si hay nuevos documentos)\n# ==========================================================\n# Crea embeddings y guarda documentos nuevos en la colección persistente.\ndef build_vectorstore(urls: list[str] = None):\n    print(\"📌 Iniciando indexado...\")\n    # list[Document] con todos los chunks sin procesar\n    raw_chunks = []\n    # Documentos locales desde /data/",
+        "peekOfCode": "model = SentenceTransformer(EMBEDDING_MODEL)\n# ==========================================================\n# Construcción del índice (local + web) (siempre se reconstruye si hay nuevos documentos)\n# ==========================================================\n# Crea embeddings y guarda documentos nuevos en la colección persistente.\ndef build_vectorstore(urls: list[str] = None):\n    print(\"📌 Iniciando indexado...\")\n    # list[Document] con todos los chunks sin procesar\n    raw_chunks = []\n    # Documentos locales desde /data/",
         "detail": "projects.A4_rag_advanced_v2.rag",
         "documentation": {}
     },
@@ -1285,7 +1301,7 @@
         "kind": 5,
         "importPath": "projects.A4_rag_advanced_v2.router",
         "description": "projects.A4_rag_advanced_v2.router",
-        "peekOfCode": "router = APIRouter(prefix=\"/a4\", tags=[\"A4 - RAG Avanzado\"])\n# Lanzamos indexado en segundo plano al importar el router\ndef _auto_build_index():\n    try:\n        print(\"Construyendo índice RAG avanzado en background...\")\n        build_vectorstore(URLS_TO_SCRAPE)\n        print(\"Índice RAG avanzado listo.\")\n    except Exception as e:\n        print(f\"[RAG] Error durante el indexado automático: {e}\")\nthreading.Thread(target=_auto_build_index, daemon=True).start()",
+        "peekOfCode": "router = APIRouter(prefix=\"/a4v2\", tags=[\"A4 - RAG Avanzado con web scraping, compresión contextual y fuentes puntuadas\"])\n# Lanzamos indexado en segundo plano al importar el router\ndef _auto_build_index():\n    try:\n        print(\"Construyendo índice RAG avanzado en background...\")\n        build_vectorstore(URLS_TO_SCRAPE)\n        print(\"Índice RAG avanzado listo.\")\n    except Exception as e:\n        print(f\"[RAG] Error durante el indexado automático: {e}\")\nthreading.Thread(target=_auto_build_index, daemon=True).start()",
         "detail": "projects.A4_rag_advanced_v2.router",
         "documentation": {}
     },
@@ -1294,7 +1310,7 @@
         "kind": 6,
         "importPath": "projects.A4_rag_advanced_v2.schemas",
         "description": "projects.A4_rag_advanced_v2.schemas",
-        "peekOfCode": "class QueryRequest(BaseModel):\n    question: str = Field(..., example=\"Qué son las Redes Neuronales Convolucionales?\")\nclass SourceDocument(BaseModel):\n    source: str = Field(..., description=\"Ruta o nombre del documento de origen\")\n    score: float = Field(..., description=\"Similitud o relevancia del documento recuperado\")\nclass QueryResponse(BaseModel):\n    answer: str = Field(..., description=\"Respuesta generada por el modelo\")\n    sources: list[SourceDocument] = Field(..., description=\"Documentos usados para generar la respuesta\")",
+        "peekOfCode": "class QueryRequest(BaseModel):\n    question: str = Field(..., example=\"Qué significa escrapear una página web?\")\nclass SourceDocument(BaseModel):\n    source: str = Field(..., description=\"Ruta o nombre del documento de origen\")\n    score: float = Field(..., description=\"Similitud o relevancia del documento recuperado\")\nclass QueryResponse(BaseModel):\n    answer: str = Field(..., description=\"Respuesta generada por el modelo\")\n    sources: list[SourceDocument] = Field(..., description=\"Documentos usados para generar la respuesta\")",
         "detail": "projects.A4_rag_advanced_v2.schemas",
         "documentation": {}
     },
@@ -1321,7 +1337,7 @@
         "kind": 2,
         "importPath": "projects.A4_rag_advanced_v2.scraper",
         "description": "projects.A4_rag_advanced_v2.scraper",
-        "peekOfCode": "def scrape_webpage(url: str) -> list[Document]:\n    resp = requests.get(url, timeout=10)\n    resp.raise_for_status()\n    # Parseamos el contenido HTML, soup contiene el árbol DOM completo\n    soup = BeautifulSoup(resp.text, \"html.parser\")\n    # Extraemos texto visible, obtenemos los tags no deseados y los eliminamos de soup\n    # tag representa cada etiqueta no deseada encontrada y es un apuntador a la misma en el árbol DOM que contiene soup\n    # tag no es un objeto independiente, por lo que al eliminarlo de soup, se elimina del árbol DOM original\n    for tag in soup([\"script\", \"style\", \"noscript\"]):\n        tag.decompose() # Elimina etiquetas no deseadas",
+        "peekOfCode": "def scrape_webpage(url: str) -> list[Document]:\n    headers = {\n        \"User-Agent\": (\n            \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) \"\n            \"AppleWebKit/537.36 (KHTML, like Gecko) \"\n            \"Chrome/123.0.0.0 Safari/537.36\"\n        )\n    }\n    resp = requests.get(url, headers=headers, timeout=10)\n    resp.raise_for_status()",
         "detail": "projects.A4_rag_advanced_v2.scraper",
         "documentation": {}
     },
@@ -1366,7 +1382,7 @@
         "kind": 5,
         "importPath": "config_base",
         "description": "config_base",
-        "peekOfCode": "CHROMA_PATH = os.path.join(ROOT_DIR, \"chroma_db\")\n# Carpeta de proyectos\nPROJECTS_PATH = os.path.join(ROOT_DIR, \"projects\")\n# Carpeta de aplicación común (FastAPI, servicios, utilidades)\nAPP_PATH = os.path.join(ROOT_DIR, \"app\")\n# === Configuración técnica compartida ===\n# Modelo de embeddings por defecto (SentenceTransformers)\nDEFAULT_EMBEDDING_MODEL = \"all-MiniLM-L6-v2\"\n# Modelo LLM por defecto (para OpenRouter / OpenAI compatible)\nDEFAULT_LLM_MODEL = \"meta-llama/llama-3.3-8b-instruct:free\"",
+        "peekOfCode": "CHROMA_PATH = os.path.join(ROOT_DIR, \"chroma_db\")\n# Carpeta de proyectos\nPROJECTS_PATH = os.path.join(ROOT_DIR, \"projects\")\n# Carpeta de aplicación común (FastAPI, servicios, utilidades)\nAPP_PATH = os.path.join(ROOT_DIR, \"app\")\n# === Configuración técnica compartida ===\n# Modelo de embeddings por defecto (SentenceTransformers)\nDEFAULT_EMBEDDING_MODEL = \"all-MiniLM-L6-v2\"\n# Modelo LLM default y modelo LLM fallback (para OpenRouter / OpenAI compatible)\nDEFAULT_LLM_MODEL = \"openai/gpt-oss-20b:free\"",
         "detail": "config_base",
         "documentation": {}
     },
@@ -1375,7 +1391,7 @@
         "kind": 5,
         "importPath": "config_base",
         "description": "config_base",
-        "peekOfCode": "PROJECTS_PATH = os.path.join(ROOT_DIR, \"projects\")\n# Carpeta de aplicación común (FastAPI, servicios, utilidades)\nAPP_PATH = os.path.join(ROOT_DIR, \"app\")\n# === Configuración técnica compartida ===\n# Modelo de embeddings por defecto (SentenceTransformers)\nDEFAULT_EMBEDDING_MODEL = \"all-MiniLM-L6-v2\"\n# Modelo LLM por defecto (para OpenRouter / OpenAI compatible)\nDEFAULT_LLM_MODEL = \"meta-llama/llama-3.3-8b-instruct:free\"",
+        "peekOfCode": "PROJECTS_PATH = os.path.join(ROOT_DIR, \"projects\")\n# Carpeta de aplicación común (FastAPI, servicios, utilidades)\nAPP_PATH = os.path.join(ROOT_DIR, \"app\")\n# === Configuración técnica compartida ===\n# Modelo de embeddings por defecto (SentenceTransformers)\nDEFAULT_EMBEDDING_MODEL = \"all-MiniLM-L6-v2\"\n# Modelo LLM default y modelo LLM fallback (para OpenRouter / OpenAI compatible)\nDEFAULT_LLM_MODEL = \"openai/gpt-oss-20b:free\"\nFALLBACK_LLM_MODEL = \"nvidia/nemotron-nano-12b-v2-vl:free\"",
         "detail": "config_base",
         "documentation": {}
     },
@@ -1384,7 +1400,7 @@
         "kind": 5,
         "importPath": "config_base",
         "description": "config_base",
-        "peekOfCode": "APP_PATH = os.path.join(ROOT_DIR, \"app\")\n# === Configuración técnica compartida ===\n# Modelo de embeddings por defecto (SentenceTransformers)\nDEFAULT_EMBEDDING_MODEL = \"all-MiniLM-L6-v2\"\n# Modelo LLM por defecto (para OpenRouter / OpenAI compatible)\nDEFAULT_LLM_MODEL = \"meta-llama/llama-3.3-8b-instruct:free\"",
+        "peekOfCode": "APP_PATH = os.path.join(ROOT_DIR, \"app\")\n# === Configuración técnica compartida ===\n# Modelo de embeddings por defecto (SentenceTransformers)\nDEFAULT_EMBEDDING_MODEL = \"all-MiniLM-L6-v2\"\n# Modelo LLM default y modelo LLM fallback (para OpenRouter / OpenAI compatible)\nDEFAULT_LLM_MODEL = \"openai/gpt-oss-20b:free\"\nFALLBACK_LLM_MODEL = \"nvidia/nemotron-nano-12b-v2-vl:free\"",
         "detail": "config_base",
         "documentation": {}
     },
@@ -1393,7 +1409,7 @@
         "kind": 5,
         "importPath": "config_base",
         "description": "config_base",
-        "peekOfCode": "DEFAULT_EMBEDDING_MODEL = \"all-MiniLM-L6-v2\"\n# Modelo LLM por defecto (para OpenRouter / OpenAI compatible)\nDEFAULT_LLM_MODEL = \"meta-llama/llama-3.3-8b-instruct:free\"",
+        "peekOfCode": "DEFAULT_EMBEDDING_MODEL = \"all-MiniLM-L6-v2\"\n# Modelo LLM default y modelo LLM fallback (para OpenRouter / OpenAI compatible)\nDEFAULT_LLM_MODEL = \"openai/gpt-oss-20b:free\"\nFALLBACK_LLM_MODEL = \"nvidia/nemotron-nano-12b-v2-vl:free\"",
         "detail": "config_base",
         "documentation": {}
     },
@@ -1402,7 +1418,16 @@
         "kind": 5,
         "importPath": "config_base",
         "description": "config_base",
-        "peekOfCode": "DEFAULT_LLM_MODEL = \"meta-llama/llama-3.3-8b-instruct:free\"",
+        "peekOfCode": "DEFAULT_LLM_MODEL = \"openai/gpt-oss-20b:free\"\nFALLBACK_LLM_MODEL = \"nvidia/nemotron-nano-12b-v2-vl:free\"",
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
+        "label": "FALLBACK_LLM_MODEL",
+        "kind": 5,
+        "importPath": "config_base",
+        "description": "config_base",
+        "peekOfCode": "FALLBACK_LLM_MODEL = \"nvidia/nemotron-nano-12b-v2-vl:free\"",
         "detail": "config_base",
         "documentation": {}
     }

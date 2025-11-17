@@ -4,7 +4,7 @@ from .config import URLS_TO_SCRAPE
 from .schemas import QueryRequest, QueryResponse, SourceDocument
 from .rag import build_vectorstore, answer_query
 
-router = APIRouter(prefix="/a4", tags=["A4 - RAG Avanzado"])
+router = APIRouter(prefix="/a4v2", tags=["A4 - RAG Avanzado con web scraping, compresión contextual y fuentes puntuadas"])
 
 # Lanzamos indexado en segundo plano al importar el router
 def _auto_build_index():
@@ -20,10 +20,12 @@ threading.Thread(target=_auto_build_index, daemon=True).start()
 
 @router.post(
     "/query",
-    summary="RAG Avanzado con LangChain y fuentes puntuadas",
+    summary="RAG Avanzado con web scraping, compresión contextual y fuentes puntuadas",
     description="""
     Implementar un pipeline **RAG completo** usando **LangChain**, con:
     - Carga automática de documentos locales.
+    - Web scraping de URLs especificadas.
+    - Compresión contextual.
     - Chunking inteligente.
     - Indexación persistente con **ChromaDB**.
     - Recuperación semántica.

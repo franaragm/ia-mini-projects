@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 
 class QueryRequest(BaseModel):
-    question: str = Field(..., example="Qué son las Redes Neuronales Convolucionales?")
+    question: str = Field(..., example="Qué significa escrapear una página web?")
 
 class SourceDocument(BaseModel):
     source: str = Field(..., description="Ruta o nombre del documento de origen")

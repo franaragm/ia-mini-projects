@@ -4,7 +4,15 @@ from langchain_core.documents import Document
 
 # Función para scrapear una página web y devolver su contenido como lista de Document
 def scrape_webpage(url: str) -> list[Document]:
-    resp = requests.get(url, timeout=10)
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/123.0.0.0 Safari/537.36"
+        )
+    }
+    
+    resp = requests.get(url, headers=headers, timeout=10)
     resp.raise_for_status()
 
     # Parseamos el contenido HTML, soup contiene el árbol DOM completo

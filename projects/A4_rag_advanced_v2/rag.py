@@ -11,7 +11,7 @@ from .scraper import scrape_webpage
 model = SentenceTransformer(EMBEDDING_MODEL)
 
 # ==========================================================
-# Construcción del índice (siempre se reconstruye si hay nuevos documentos)
+# Construcción del índice (local + web) (siempre se reconstruye si hay nuevos documentos)
 # ==========================================================
 
 # Crea embeddings y guarda documentos nuevos en la colección persistente.
@@ -74,13 +74,29 @@ def build_vectorstore(urls: list[str] = None):
 
     return collection
 
+# ==============================================
+# Compresión contextual
+# ==============================================
+
+# Usa el LLM para comprimir múltiples documentos en un solo contexto.
+async def compress_context(docs: list[str]) -> str:
+    joined = "\n\n".join(docs)
+
+    prompt = f"""
+        Reduce y resume el siguiente texto manteniendo solo la información esencial para contestar preguntas:
+
+        {joined}
+    """
+
+    compressed = await llm(prompt)
+    return compressed
 
 # ==========================================================
 # Recuperación de contexto
 # ==========================================================
 
 # Recupera contexto relevante desde la colección Chroma.
-def retrieve_context(question: str, n_results: int = 3):
+def retrieve_context(question: str, n_results: int = 3) -> (tuple[list[str], list[dict]]):
     # Convertir pregunta → embedding
     query_vec = model.encode([question]).tolist()[0]
 
@@ -94,14 +110,11 @@ def retrieve_context(question: str, n_results: int = 3):
     retrieved_docs = results.get("documents", [[]])[0]
     metadatas = results.get("metadatas", [[]])[0]
     distances = results.get("distances", [[]])[0]
-
-    # Construir el contexto concatenado para el LLM
-    context = "\n\n".join(retrieved_docs)
     
     # Formatear las fuentes para la respuesta
     sources = format_sources(metadatas, distances)
 
-    return context, sources
+    return retrieved_docs, sources
 
 
 # ==========================================================
@@ -119,8 +132,12 @@ async def _answer_with_llm(context: str, question: str) -> str:
 # Pipeline principal RAG
 # ==========================================================
 
-# Ejecuta el pipeline RAG completo: búsqueda + generación.
+# Ejecuta el pipeline RAG completo: recuperación, compresión y respuesta.
 async def answer_query(question: str):
-    context, sources = retrieve_context(question)
-    answer = await _answer_with_llm(context, question)
+    docs, sources = retrieve_context(question)
+    
+    # compresión contextual
+    context_compressed = await compress_context(docs)
+    
+    answer = await _answer_with_llm(context_compressed, question)
     return {"answer": answer, "sources": sources}

@@ -25,5 +25,6 @@ APP_PATH = os.path.join(ROOT_DIR, "app")
 # Modelo de embeddings por defecto (SentenceTransformers)
 DEFAULT_EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 
-# Modelo LLM por defecto (para OpenRouter / OpenAI compatible)
-DEFAULT_LLM_MODEL = "meta-llama/llama-3.3-8b-instruct:free"
+# Modelo LLM default y modelo LLM fallback (para OpenRouter / OpenAI compatible)
+DEFAULT_LLM_MODEL = "openai/gpt-oss-20b:free"
+FALLBACK_LLM_MODEL = "nvidia/nemotron-nano-12b-v2-vl:free"
