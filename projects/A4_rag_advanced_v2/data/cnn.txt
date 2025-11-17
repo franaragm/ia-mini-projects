@@ -1,0 +1,3 @@
+Las Redes Neuronales Convolucionales (CNN) son un tipo de red neuronal profunda especialmente diseñadas para procesar datos con estructura en forma de cuadrícula, como imágenes. 
+Se componen de capas convolucionales, de pooling y totalmente conectadas. 
+Las CNN son ampliamente utilizadas en visión por computadora, reconocimiento de imágenes y análisis de video, destacando por su capacidad de extraer automáticamente características relevantes de los datos.

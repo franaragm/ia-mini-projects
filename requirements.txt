@@ -18,6 +18,10 @@ sentence-transformers
 # Vector DB local para RAG
 chromadb
 
+# Scraping web
+requests
+beautifulsoup4
+
 # Utilidades comunes
 python-dotenv
 pydantic
