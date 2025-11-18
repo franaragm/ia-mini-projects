@@ -1085,7 +1085,7 @@
         "kind": 5,
         "importPath": "projects.A4_rag_advanced.prompts",
         "description": "projects.A4_rag_advanced.prompts",
-        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente experto en IA. Usa el siguiente contexto recuperado de los documentos\npara responder a la pregunta del usuario de manera precisa, concisa y verificada.\nNo inventes información. Si no sabes algo, di \"No tengo información suficiente en los documentos\".\n=== CONTEXTO ===\n{context}\n=== PREGUNTA ===\n{question}\n\"\"\")",
+        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente experto en IA. Usa el siguiente contexto comprimido para responder con precisión a la pregunta planteada.\nUsa **solo** la información del contexto si es relevante.\nNo inventes información. Si no hay suficiente información en el contexto, indica que no puedes responder con precisión.\nSi no hay suficiente información en el contexto, di \"No tengo información suficiente en los documentos\".\nResponde de manera concisa, precisa, verificada y sin limitarse a pegar fragmentos del contexto.\n=== CONTEXTO ===\n{context}\n=== PREGUNTA ===\n{question}",
         "detail": "projects.A4_rag_advanced.prompts",
         "documentation": {}
     },
@@ -1265,7 +1265,7 @@
         "kind": 5,
         "importPath": "projects.A4_rag_advanced_v2.prompts",
         "description": "projects.A4_rag_advanced_v2.prompts",
-        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente experto en IA. Usa el siguiente contexto comprimido para responder con precisión a la pregunta planteada.\nNo inventes información. Si no sabes algo, di \"No tengo información suficiente en los documentos\".\n=== CONTEXTO ===\n{context}\n=== PREGUNTA ===\n{question}\n\"\"\")",
+        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente experto en IA. Usa el siguiente contexto comprimido para responder con precisión a la pregunta planteada.\nUsa **solo** la información del contexto si es relevante.\nNo inventes información. Si no hay suficiente información en el contexto, indica que no puedes responder con precisión.\nSi no hay suficiente información en el contexto, di \"No tengo información suficiente en los documentos\".\nResponde de manera concisa, precisa, verificada y sin limitarse a pegar fragmentos del contexto.\n=== CONTEXTO ===\n{context}\n=== PREGUNTA ===\n{question}",
         "detail": "projects.A4_rag_advanced_v2.prompts",
         "documentation": {}
     },
