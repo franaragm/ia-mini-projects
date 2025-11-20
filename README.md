@@ -1,30 +1,57 @@
-# Mini Proyectos Laboratorio: LangChain — Servidor IA en Python
+# **Mini Proyectos Laboratorio: LangChain — Servidor IA en Python**
 
-Este repositorio contiene una serie de **mini-proyectos progresivos** diseñados para aprender a construir sistemas de **IA aplicados a software real**, usando:
+Este repositorio contiene una serie de **mini-proyectos progresivos** diseñados para aprender a construir sistemas de **IA aplicados a software real**, usando herramientas modernas del ecosistema LLM:
 
-| Tecnología            | Para qué se usa                                                    |
-| --------------------- | ------------------------------------------------------------------ |
-| **Python**            | Lenguaje principal del servidor IA                                 |
-| **FastAPI**           | Crear endpoints HTTP que devuelven JSON                            |
-| **LangChain**         | Orquestar modelos de lenguaje, prompts, RAG y agentes              |
-| **OpenRouter**        | Acceder a modelos avanzados (Mistral, Gemini, LLaMA, Claude, etc.) |
-| **Embeddings**        | Representar texto como vectores para búsqueda semántica            |
-| **ChromaDB / Qdrant** | Bases de datos vectoriales para RAG                                |
+| Tecnología               | Para qué se usa                                                    |
+| ------------------------ | ------------------------------------------------------------------ |
+| **Python**               | Lenguaje principal del servidor IA                                 |
+| **FastAPI**              | Crear endpoints HTTP que devuelven JSON                            |
+| **LangChain**            | Orquestar modelos de lenguaje, prompts, chains, RAG y agentes      |
+| **OpenRouter**           | Acceder a modelos avanzados (Mistral, Gemini, LLaMA, Claude, etc.) |
+| **Embeddings**           | Representar texto como vectores para búsqueda semántica            |
+| **ChromaDB**             | Base vectorial persistente para sistemas RAG                       |
+| **SentenceTransformers** | Generar embeddings locales                                         |
 
 ---
 
-## 🎯 Objetivo del repositorio
+## 🎯 Objetivos del repositorio
 
-Aprender paso a paso a:
+El propósito de estos mini-proyectos es aprender a construir **aplicaciones AI reales**, avanzando desde prompts simples hasta arquitecturas completas con RAG, agentes y routers.
 
-* Controlar y estructurar la salida de un modelo de lenguaje (sin inventos)
-* Validar y tipar respuestas (`OutputParser`)
-* Crear un sistema RAG (consultas basadas en documentos reales)
-* Mitigar alucinaciones y justificar respuestas
-* Darle **herramientas** a la IA (agentes que ejecutan funciones)
-* Conectar la IA con **APIs externas** (ej: Uptask → más adelante)
+Aprenderás a:
 
-Cada mini-proyecto se construye **uno encima del anterior**, pero todos están organizados en carpetas independientes.
+### 🧩 Control del modelo
+
+* Controlar y estructurar la salida de un modelo de lenguaje
+* Validar y tipar respuestas (**OutputParser**)
+* Encadenar pasos de razonamiento y transformar texto
+
+### 📚 RAG (Retrieval Augmented Generation)
+
+* Crear pipelines RAG básicos y avanzados
+* Cargar, dividir y vectorizar documentos
+* Construir y persistir bases de datos vectoriales
+* Recuperar información con precision (top-k, puntajes, compresión contextual)
+* Integrar web scraping en el pipeline RAG
+
+### 🧠 Agentes y Herramientas
+
+* Dar herramientas reales a un LLM
+* Ejecutar funciones automáticamente desde la IA
+* Conectar la IA con APIs externas
+* Gestionar memoria y contexto entre llamadas
+
+### 🧵 Chains (A5)
+
+* Crear **cadenas secuenciales** para combinar modelos
+* Crear cadenas de **transformación**
+* Crear **Router Chains** para enrutar dinámicamente
+* Combinar **RAG + Chains + Clasificación de intención**
+* Construir pipelines complejos estilo:
+
+  ```
+  Pregunta → Clasificador → Transformadores → RAG → LLM → Respuesta final
+  ```
 
 ---
 
@@ -33,10 +60,12 @@ Cada mini-proyecto se construye **uno encima del anterior**, pero todos están o
 ```
 mini-projects-langchain/
 │
-├─ README.md          # Este documento
-├─ .env.example       # Variables de entorno a copiar
-├─ requirements.txt   # Dependencias compartidas
-├─ app/               # Código común (FastAPI base + cliente LLM + utilidades)
+├─ README.md
+├─ config_base.py        # Configuración global compartida
+├─ .env.example
+├─ requirements.txt
+│
+├─ app/
 │   ├─ main.py
 │   ├─ routes.py
 │   └─ services/
@@ -49,42 +78,115 @@ mini-projects-langchain/
     ├─ A3_rag_basic/
     ├─ A3_rag_basic_v2/
     ├─ A4_rag_advanced/
+    ├─ A4_rag_advanced_v2/
+    ├─ A5_chains_and_routers/
     ├─ A5_tools_basic/
     └─ A6_tools_external_api/
+
 ```
 
 ### Sobre el directorio `app/`
 
-`/app` contiene **código base compartido** entre mini-proyectos:
+`/app` contiene **todos los componentes base compartidos**:
 
 * Inicialización de **FastAPI**
-* Cliente para llamar modelos en **OpenRouter**
-* Helpers que se reutilizan
+* Enrutador general del servidor
+* Cliente universal para LLM vía **OpenRouter**
+* Archivos de configuración global
+* Utilidades para cargar variables de entorno
 
-Cada mini-proyecto solo **extiende o monta nuevas rutas**.
+Cada mini-proyecto solo agrega una nueva ruta o endpoint mediante:
+
+```python
+router.include_router(aX_router)
+```
 
 ---
 
-## 🧠 Lista de Mini Proyectos (A1 → A6)
+## 🧠 Lista de Mini Proyectos Completos
 
-| Mini Proyecto                        | Qué aprenderás                                    | Resultado                                   |
-| ------------------------------------ | ------------------------------------------------- | ------------------------------------------- |
-| **A1. Chat estructurado**            | Controlar el tono y formato                       | IA responde siguiendo un prompt fijo        |
-| **A2. Output Parser**                | Validar y tipar respuestas                        | IA devuelve JSON correcto y útil            |
-| **A3. RAG básico**                   | Cargar & dividir documentos, embeddings, búsqueda | IA usa conocimiento real sin inventar       |
-| **A3. RAG básico V2**                | Cargar & dividir documentos, embeddings, búsqueda | IA usa conocimiento real sin inventar       |
-| **A4. RAG avanzado**                 | Anti-alucinaciones (score, top-k, evidencia)      | IA justifica sus respuestas                 |
-| **A5. Tools / Agentes**              | Dar habilidades a la IA                           | IA puede ejecutar funciones automáticamente |
-| **A6. API externa como herramienta** | Integración IA ↔ servicios externos               | IA consulta datos reales desde web/API      |
+### **A1 — Chat estructurado**
 
-Cada carpeta contiene:
+* Prompt fijo
+* Respuesta controlada
+
+### **A2 — Output Parser**
+
+* Validación estricta
+* Tipado de salida
+* Conversión a JSON robusto
+
+### **A3 — RAG Básico**
+
+* Cargar documentos
+* Fragmentarlos
+* Crear embeddings
+* Recuperar contexto
+
+### **A3 V2 — RAG Básico Mejorado**
+
+* Limpieza mejorada
+* Separadores custom
+* Mejor chunking
+
+### **A4 — RAG Avanzado**
+
+* Evidencias
+* Fuentes con puntaje
+* Control anti-alucinaciones
+
+### **A4 V2 — RAG con Web Scraping + Compresión Contextual**
+
+* Scrapeo de páginas web
+* Mezclar documentos locales y online
+* Compresión del contexto
+* RAG de múltiples etapas
+
+---
+
+## 🆕 **A5 — Chains & Routers (Cadenas avanzadas)**
+
+Este mini-proyecto es una expansión importante. Incluye:
+
+### ✔️ Clasificador de intención (Intent Classifier)
+
+Determina si la pregunta es:
+
+* general
+* sobre código
+* RAG
+* resumen
+* matemática
+
+### ✔️ Cadenas específicas (General, Code, Summary, Math)
+
+Cada cadena es un **LLMChain**.
+
+### ✔️ RAGChain integrada
+
+Integración directa con ChromaDB para consultas semánticas dentro de una chain.
+
+### ✔️ Router dinámico
+
+Lógica para enrutar la petición hacia la chain correcta:
 
 ```
-- README.md (explicación detallada)
-- Código paso a paso
-- Ejercicios
-- Pruebas con cURL / Thunder Client
+Input → ClassifierChain → [GeneralChain | CodeChain | SummaryChain | MathChain | RAGChain]
 ```
+
+### ✔️ Cadena secuencial avanzada
+
+Permite construir aplicaciones complejas combinando pasos:
+
+```
+→ Normalizar texto
+→ Clasificar intención
+→ Seleccionar cadena
+→ Ejecutar pipeline RAG si aplica
+→ Generar respuesta final
+```
+
+Este mini-proyecto introduce **la arquitectura que usan aplicaciones reales** (Copilot, ChatGPT Tools, agentes planificadores, etc.).
 
 ---
 
@@ -94,56 +196,122 @@ Cada carpeta contiene:
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate      # mac / linux
-.venv\Scripts\activate         # windows
+source .venv/bin/activate      # Mac / Linux
+.venv\Scripts\activate         # Windows
 ```
 
 ### 2) Instalar dependencias
 
 ```bash
-pip install --upgrade pip # opcional
 pip install -r requirements.txt
 ```
 
-### 3) Configurar `.env`
-
-Crea tu archivo desde la plantilla:
+### 3) Configurar variables de entorno
 
 ```bash
 cp .env.example .env
 ```
 
-Edita OPENROUTER_API_KEY:
-
-Puedes editar también DEFAULT_MODEL si deseas usar otro modelo de OpenRouter.
+Edita tu `.env`:
 
 ```
-OPENROUTER_API_KEY=API_KEY_HERE
+OPENROUTER_API_KEY=TU_API_KEY
 OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
-DEFAULT_MODEL=meta-llama/llama-3.3-8b-instruct:free
+ENV=dev
 ```
 
-> La API key se obtiene en: [https://openrouter.ai/keys](https://openrouter.ai/keys)
+Obtener API key:
+[https://openrouter.ai/keys](https://openrouter.ai/keys)
 
 ---
 
-## ▶️ Ejecutar el servidor desde entorno virtual
+## ▶️ Ejecutar el servidor
 
 ```bash
 uvicorn app.main:app --reload --port 8000
 ```
 
-Probamos:
+Rutas de prueba:
 
 ```
-GET http://localhost:8000/health
-GET http://localhost:8000/test-llm
+GET /health
+GET /test-llm
 ```
 
 ---
 
 
-¡Perfecto! Aquí tienes un **apartado completo y muy claro**, detallando **pyenv, configuración de shell, entorno virtual, pip y dependencias sin caché**, listo para incluir en tu README para este equipo macOS Intel:
+## 🛠️ **config_base.py (configuración global del repositorio)**
+
+Este archivo centraliza la configuración compartida entre todos los mini-proyectos.
+
+Se encuentra en:
+
+```
+/config_base.py
+```
+
+### ✔️ ¿Por qué existe este archivo?
+
+Evita repetición de lógica en cada mini-proyecto:
+
+* Define rutas absolutas comunes
+* Establece los modelos LLM por defecto
+* Define el modelo de embeddings estándar
+* Mantiene la configuración de almacenamiento del RAG centralizada
+
+Así cualquier mini-proyecto puede simplemente importar:
+
+```python
+from config_base import CHROMA_PATH, DEFAULT_LLM_MODEL
+```
+
+---
+
+## 📄 **Contenido completo de `config_base.py`**
+
+```python
+import os 
+
+# ==========================================================
+# Configuración base global compartida entre todos los proyectos.
+# Define rutas y parámetros comunes para LLM, RAG y almacenamiento.
+# ==========================================================
+
+# === Rutas base ===
+
+# Ruta absoluta a la raíz del repositorio
+ROOT_DIR = os.path.abspath(os.path.dirname(__file__))
+
+# Carpeta global compartida de bases vectoriales persistentes (ChromaDB)
+CHROMA_PATH = os.path.join(ROOT_DIR, "chroma_db")
+
+# Carpeta de proyectos
+PROJECTS_PATH = os.path.join(ROOT_DIR, "projects")
+
+# Carpeta de aplicación común (FastAPI, servicios, utilidades)
+APP_PATH = os.path.join(ROOT_DIR, "app")
+
+
+# === Configuración técnica compartida ===
+
+# Modelo de embeddings por defecto (SentenceTransformers)
+DEFAULT_EMBEDDING_MODEL = "all-MiniLM-L6-v2"
+
+# Modelo LLM default y modelo LLM fallback (para OpenRouter / OpenAI compatible)
+DEFAULT_LLM_MODEL = "openai/gpt-oss-20b:free"
+FALLBACK_LLM_MODEL = "nvidia/nemotron-nano-12b-v2-vl:free"
+```
+
+## 🚀 ¿Qué sigue?
+
+Puedes continuar con:
+
+* **A6: Tools con APIs externas reales**
+* **A7: Memory, historiales y buffers**
+* **A8: Agents con múltiples herramientas**
+* **A9: Multi-step planning (ReAct / MRKL)**
+* **A10: RAG híbrido (web + local + embeddings mixtos)**
 
 ---
 
