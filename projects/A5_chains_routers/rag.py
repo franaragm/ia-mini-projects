@@ -24,7 +24,7 @@ def retrieve_context(question: str, n_results: int = 3) -> str:
     return "\n\n".join(retrieved_docs)
 
 # Pipeline RAG: recuperación y respuesta
-async def rag_answer(question: str):
+async def rag_chain(question: str):
     context = retrieve_context(question)
     prompt = rag_prompt.format(context=context, input=question)
     return await llm(prompt)

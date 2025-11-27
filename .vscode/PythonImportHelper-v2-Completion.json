@@ -638,6 +638,22 @@
         "documentation": {}
     },
     {
+        "label": "RunnableBranch",
+        "importPath": "langchain_core.runnables",
+        "description": "langchain_core.runnables",
+        "isExtraImport": true,
+        "detail": "langchain_core.runnables",
+        "documentation": {}
+    },
+    {
+        "label": "RunnableLambda",
+        "importPath": "langchain_core.runnables",
+        "description": "langchain_core.runnables",
+        "isExtraImport": true,
+        "detail": "langchain_core.runnables",
+        "documentation": {}
+    },
+    {
         "label": "collection",
         "importPath": "projects.A4_rag_advanced_v2.chroma_client",
         "description": "projects.A4_rag_advanced_v2.chroma_client",
@@ -1478,7 +1494,7 @@
         "kind": 5,
         "importPath": "projects.A5_chains_routers.chains",
         "description": "projects.A5_chains_routers.chains",
-        "peekOfCode": "llm = llm_chain() # Cliente LangChain para cadenas. LLM sincronizado para LCEL\nparser = StrOutputParser() # Parser simple para cadenas, limita la salida a str limpio\n# ======================================================\n# 1) Chains LCEL\n# ======================================================\nclassifier_chain = classifier_prompt | llm | parser\ngeneral_chain = general_prompt | llm | parser\ncode_chain = code_prompt | llm | parser\nsummary_chain = summary_prompt | llm | parser\nmath_chain = math_prompt | llm | parser",
+        "peekOfCode": "llm = llm_chain()\nparser = StrOutputParser()\n# ======================================================\n# Definición de Chains LCEL\n# Cada Chain:\n# - Prompt → LLM → Parser\n# - Se encapsula la salida en {\"answer\": ..., \"chain_used\": ...}\n# ======================================================\nclassifier_chain = classifier_prompt | llm | parser\ngeneral_chain = (",
         "detail": "projects.A5_chains_routers.chains",
         "documentation": {}
     },
@@ -1487,7 +1503,7 @@
         "kind": 5,
         "importPath": "projects.A5_chains_routers.chains",
         "description": "projects.A5_chains_routers.chains",
-        "peekOfCode": "parser = StrOutputParser() # Parser simple para cadenas, limita la salida a str limpio\n# ======================================================\n# 1) Chains LCEL\n# ======================================================\nclassifier_chain = classifier_prompt | llm | parser\ngeneral_chain = general_prompt | llm | parser\ncode_chain = code_prompt | llm | parser\nsummary_chain = summary_prompt | llm | parser\nmath_chain = math_prompt | llm | parser\n# ======================================================",
+        "peekOfCode": "parser = StrOutputParser()\n# ======================================================\n# Definición de Chains LCEL\n# Cada Chain:\n# - Prompt → LLM → Parser\n# - Se encapsula la salida en {\"answer\": ..., \"chain_used\": ...}\n# ======================================================\nclassifier_chain = classifier_prompt | llm | parser\ngeneral_chain = (\n    general_prompt",
         "detail": "projects.A5_chains_routers.chains",
         "documentation": {}
     },
@@ -1496,7 +1512,7 @@
         "kind": 5,
         "importPath": "projects.A5_chains_routers.chains",
         "description": "projects.A5_chains_routers.chains",
-        "peekOfCode": "classifier_chain = classifier_prompt | llm | parser\ngeneral_chain = general_prompt | llm | parser\ncode_chain = code_prompt | llm | parser\nsummary_chain = summary_prompt | llm | parser\nmath_chain = math_prompt | llm | parser\n# ======================================================\n# 2) Router manual usando LCEL\n# ======================================================\nasync def run_router_chain(question: str):\n    # Ejecutar classifier (sync)",
+        "peekOfCode": "classifier_chain = classifier_prompt | llm | parser\ngeneral_chain = (\n    general_prompt\n    | llm\n    | parser\n    | RunnableLambda(lambda x: {\"answer\": x, \"chain_used\": \"general_chain\"})\n)\ncode_chain = (\n    code_prompt\n    | llm",
         "detail": "projects.A5_chains_routers.chains",
         "documentation": {}
     },
@@ -1505,7 +1521,7 @@
         "kind": 5,
         "importPath": "projects.A5_chains_routers.chains",
         "description": "projects.A5_chains_routers.chains",
-        "peekOfCode": "general_chain = general_prompt | llm | parser\ncode_chain = code_prompt | llm | parser\nsummary_chain = summary_prompt | llm | parser\nmath_chain = math_prompt | llm | parser\n# ======================================================\n# 2) Router manual usando LCEL\n# ======================================================\nasync def run_router_chain(question: str):\n    # Ejecutar classifier (sync)\n    intent = classifier_chain.invoke({\"input\": question}).strip().lower()",
+        "peekOfCode": "general_chain = (\n    general_prompt\n    | llm\n    | parser\n    | RunnableLambda(lambda x: {\"answer\": x, \"chain_used\": \"general_chain\"})\n)\ncode_chain = (\n    code_prompt\n    | llm\n    | parser",
         "detail": "projects.A5_chains_routers.chains",
         "documentation": {}
     },
@@ -1514,7 +1530,7 @@
         "kind": 5,
         "importPath": "projects.A5_chains_routers.chains",
         "description": "projects.A5_chains_routers.chains",
-        "peekOfCode": "code_chain = code_prompt | llm | parser\nsummary_chain = summary_prompt | llm | parser\nmath_chain = math_prompt | llm | parser\n# ======================================================\n# 2) Router manual usando LCEL\n# ======================================================\nasync def run_router_chain(question: str):\n    # Ejecutar classifier (sync)\n    intent = classifier_chain.invoke({\"input\": question}).strip().lower()\n    if \"rag\" in intent:",
+        "peekOfCode": "code_chain = (\n    code_prompt\n    | llm\n    | parser\n    | RunnableLambda(lambda x: {\"answer\": x, \"chain_used\": \"code_chain\"})\n)\nsummary_chain = (\n    summary_prompt\n    | llm\n    | parser",
         "detail": "projects.A5_chains_routers.chains",
         "documentation": {}
     },
@@ -1523,7 +1539,7 @@
         "kind": 5,
         "importPath": "projects.A5_chains_routers.chains",
         "description": "projects.A5_chains_routers.chains",
-        "peekOfCode": "summary_chain = summary_prompt | llm | parser\nmath_chain = math_prompt | llm | parser\n# ======================================================\n# 2) Router manual usando LCEL\n# ======================================================\nasync def run_router_chain(question: str):\n    # Ejecutar classifier (sync)\n    intent = classifier_chain.invoke({\"input\": question}).strip().lower()\n    if \"rag\" in intent:\n        answer = await rag_answer(question)",
+        "peekOfCode": "summary_chain = (\n    summary_prompt\n    | llm\n    | parser\n    | RunnableLambda(lambda x: {\"answer\": x, \"chain_used\": \"summary_chain\"})\n)\nmath_chain = (\n    math_prompt\n    | llm\n    | parser",
         "detail": "projects.A5_chains_routers.chains",
         "documentation": {}
     },
@@ -1532,7 +1548,25 @@
         "kind": 5,
         "importPath": "projects.A5_chains_routers.chains",
         "description": "projects.A5_chains_routers.chains",
-        "peekOfCode": "math_chain = math_prompt | llm | parser\n# ======================================================\n# 2) Router manual usando LCEL\n# ======================================================\nasync def run_router_chain(question: str):\n    # Ejecutar classifier (sync)\n    intent = classifier_chain.invoke({\"input\": question}).strip().lower()\n    if \"rag\" in intent:\n        answer = await rag_answer(question)\n        chain_used = \"rag_chain\"",
+        "peekOfCode": "math_chain = (\n    math_prompt\n    | llm\n    | parser\n    | RunnableLambda(lambda x: {\"answer\": x, \"chain_used\": \"math_chain\"})\n)\nrag_chain = (\n    rag_chain\n    | RunnableLambda(lambda x: {\"answer\": x, \"chain_used\": \"rag_chain\"})\n)",
+        "detail": "projects.A5_chains_routers.chains",
+        "documentation": {}
+    },
+    {
+        "label": "rag_chain",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.chains",
+        "description": "projects.A5_chains_routers.chains",
+        "peekOfCode": "rag_chain = (\n    rag_chain\n    | RunnableLambda(lambda x: {\"answer\": x, \"chain_used\": \"rag_chain\"})\n)\n# ======================================================\n# Router LCEL profesional con RunnableBranch\n# Evalúa el campo \"intent\" y ejecuta la chain correcta\n# ======================================================\nrouter_chain = RunnableBranch(\n    (lambda x: \"rag\" in x[\"intent\"], rag_chain),",
+        "detail": "projects.A5_chains_routers.chains",
+        "documentation": {}
+    },
+    {
+        "label": "router_chain",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.chains",
+        "description": "projects.A5_chains_routers.chains",
+        "peekOfCode": "router_chain = RunnableBranch(\n    (lambda x: \"rag\" in x[\"intent\"], rag_chain),\n    (lambda x: \"code\" in x[\"intent\"], code_chain),\n    (lambda x: \"summary\" in x[\"intent\"], summary_chain),\n    (lambda x: \"math\" in x[\"intent\"], math_chain),\n    general_chain,  # Default\n)\n# ======================================================\n# Función principal async\n# ======================================================",
         "detail": "projects.A5_chains_routers.chains",
         "documentation": {}
     },
