@@ -8,6 +8,14 @@
         "documentation": {}
     },
     {
+        "label": "ChatOpenAI",
+        "importPath": "langchain_openai",
+        "description": "langchain_openai",
+        "isExtraImport": true,
+        "detail": "langchain_openai",
+        "documentation": {}
+    },
+    {
         "label": "DEFAULT_LLM_MODEL",
         "importPath": "config_base",
         "description": "config_base",
@@ -88,6 +96,14 @@
         "documentation": {}
     },
     {
+        "label": "DEFAULT_EMBEDDING_MODEL",
+        "importPath": "config_base",
+        "description": "config_base",
+        "isExtraImport": true,
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
@@ -106,6 +122,14 @@
     },
     {
         "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
         "importPath": "fastapi",
         "description": "fastapi",
         "isExtraImport": true,
@@ -217,6 +241,22 @@
         "documentation": {}
     },
     {
+        "label": "router",
+        "importPath": "projects.A5_chains_routers.router",
+        "description": "projects.A5_chains_routers.router",
+        "isExtraImport": true,
+        "detail": "projects.A5_chains_routers.router",
+        "documentation": {}
+    },
+    {
+        "label": "PromptTemplate",
+        "importPath": "langchain_core.prompts",
+        "description": "langchain_core.prompts",
+        "isExtraImport": true,
+        "detail": "langchain_core.prompts",
+        "documentation": {}
+    },
+    {
         "label": "PromptTemplate",
         "importPath": "langchain_core.prompts",
         "description": "langchain_core.prompts",
@@ -298,6 +338,22 @@
     },
     {
         "label": "llm",
+        "importPath": "app.services.llm_client",
+        "description": "app.services.llm_client",
+        "isExtraImport": true,
+        "detail": "app.services.llm_client",
+        "documentation": {}
+    },
+    {
+        "label": "llm",
+        "importPath": "app.services.llm_client",
+        "description": "app.services.llm_client",
+        "isExtraImport": true,
+        "detail": "app.services.llm_client",
+        "documentation": {}
+    },
+    {
+        "label": "llm_chain",
         "importPath": "app.services.llm_client",
         "description": "app.services.llm_client",
         "isExtraImport": true,
@@ -426,6 +482,22 @@
         "documentation": {}
     },
     {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
         "label": "date",
         "importPath": "datetime",
         "description": "datetime",
@@ -440,6 +512,14 @@
         "importPath": "chromadb",
         "description": "chromadb",
         "detail": "chromadb",
+        "documentation": {}
+    },
+    {
+        "label": "SentenceTransformer",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
         "documentation": {}
     },
     {
@@ -550,11 +630,36 @@
         "documentation": {}
     },
     {
+        "label": "StrOutputParser",
+        "importPath": "langchain_core.output_parsers",
+        "description": "langchain_core.output_parsers",
+        "isExtraImport": true,
+        "detail": "langchain_core.output_parsers",
+        "documentation": {}
+    },
+    {
+        "label": "collection",
+        "importPath": "projects.A4_rag_advanced_v2.chroma_client",
+        "description": "projects.A4_rag_advanced_v2.chroma_client",
+        "isExtraImport": true,
+        "detail": "projects.A4_rag_advanced_v2.chroma_client",
+        "documentation": {}
+    },
+    {
+        "label": "llm_chain",
+        "kind": 2,
+        "importPath": "app.services.llm_client",
+        "description": "app.services.llm_client",
+        "peekOfCode": "def llm_chain(model: str | None = None, temperature: float = 0.0,) -> ChatOpenAI:\n    model_to_use = model or DEFAULT_LLM_MODEL\n    llm_params = {\n        \"api_key\": OPENROUTER_API_KEY,\n        \"base_url\": OPENROUTER_BASE_URL,\n        \"temperature\": temperature,\n    }\n    try:\n        return ChatOpenAI(model=model_to_use, **llm_params)\n    except Exception:",
+        "detail": "app.services.llm_client",
+        "documentation": {}
+    },
+    {
         "label": "OPENROUTER_API_KEY",
         "kind": 5,
         "importPath": "app.services.llm_client",
         "description": "app.services.llm_client",
-        "peekOfCode": "OPENROUTER_API_KEY = get_env(\"OPENROUTER_API_KEY\")\nOPENROUTER_BASE_URL = get_env(\"OPENROUTER_BASE_URL\", \"https://openrouter.ai/api/v1\")\n# Cliente compatible con OpenAI, apuntado a OpenRouter\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str, model: str | None = None) -> str:\n    model_to_use = model or DEFAULT_LLM_MODEL\n    params = {",
+        "peekOfCode": "OPENROUTER_API_KEY = get_env(\"OPENROUTER_API_KEY\")\nOPENROUTER_BASE_URL = get_env(\"OPENROUTER_BASE_URL\", \"https://openrouter.ai/api/v1\")\n# Cliente OpenRouter compatible con AsyncOpenAI\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\n# ============================================================\n# 1) Cliente simple (para proyectos casuales o endpoints básicos)\n# ============================================================",
         "detail": "app.services.llm_client",
         "documentation": {}
     },
@@ -563,7 +668,7 @@
         "kind": 5,
         "importPath": "app.services.llm_client",
         "description": "app.services.llm_client",
-        "peekOfCode": "OPENROUTER_BASE_URL = get_env(\"OPENROUTER_BASE_URL\", \"https://openrouter.ai/api/v1\")\n# Cliente compatible con OpenAI, apuntado a OpenRouter\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str, model: str | None = None) -> str:\n    model_to_use = model or DEFAULT_LLM_MODEL\n    params = {\n        \"messages\": [{\"role\": \"user\", \"content\": prompt}],",
+        "peekOfCode": "OPENROUTER_BASE_URL = get_env(\"OPENROUTER_BASE_URL\", \"https://openrouter.ai/api/v1\")\n# Cliente OpenRouter compatible con AsyncOpenAI\nclient = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\n# ============================================================\n# 1) Cliente simple (para proyectos casuales o endpoints básicos)\n# ============================================================\n# Cliente minimalista para prompts directos sin LangChain. Devuelve solo texto. Ideal para endpoints simples.",
         "detail": "app.services.llm_client",
         "documentation": {}
     },
@@ -572,7 +677,7 @@
         "kind": 5,
         "importPath": "app.services.llm_client",
         "description": "app.services.llm_client",
-        "peekOfCode": "client = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\nasync def llm(prompt: str, model: str | None = None) -> str:\n    model_to_use = model or DEFAULT_LLM_MODEL\n    params = {\n        \"messages\": [{\"role\": \"user\", \"content\": prompt}],\n        \"max_tokens\": 400,\n        \"temperature\": 0.7,",
+        "peekOfCode": "client = AsyncOpenAI(\n    api_key=OPENROUTER_API_KEY,\n    base_url=OPENROUTER_BASE_URL,\n)\n# ============================================================\n# 1) Cliente simple (para proyectos casuales o endpoints básicos)\n# ============================================================\n# Cliente minimalista para prompts directos sin LangChain. Devuelve solo texto. Ideal para endpoints simples.\nasync def llm(prompt: str, model: str | None = None) -> str:\n    model_to_use = model or DEFAULT_LLM_MODEL",
         "detail": "app.services.llm_client",
         "documentation": {}
     },
@@ -797,7 +902,7 @@
         "kind": 5,
         "importPath": "projects.A3_rag_basic.prompts",
         "description": "projects.A3_rag_basic.prompts",
-        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nUtiliza únicamente la información proporcionada para responder al usuario.\nSi no encuentras la respuesta en los documentos, responde:\n\"No encuentro esa información en los documentos.\"\nDocumentos relevantes:\n{context}\nPregunta del usuario:\n{question}\n\"\"\")",
+        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente especializado en RAG. Debes responder **únicamente** con la información que aparezca en el siguiente contexto. \nNo inventes datos, no agregues conocimiento externo y no uses información general que no esté contenida explícitamente en el contexto.\nSi el contexto no contiene información suficiente para responder la pregunta, responde exactamente:\n\"Sin suficiente información en la documentación para responder.\"\nProduce una respuesta:\n- Clara, concisa y directa.\n- Basada solo en detalles presentes en el contexto.\n- Sintetizando y explicando, no copiando el contexto textual sin procesarlo.\n- Sin añadir interpretaciones no justificadas por el contenido.",
         "detail": "projects.A3_rag_basic.prompts",
         "documentation": {}
     },
@@ -923,7 +1028,7 @@
         "kind": 5,
         "importPath": "projects.A3_rag_basic_v2.prompts",
         "description": "projects.A3_rag_basic_v2.prompts",
-        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente que responde usando la información de contexto proporcionada.\nUsa **solo** la información del contexto si es relevante.\nSi no hay suficiente información, indica que no puedes responder con precisión.\n### Contexto:\n{context}\n### Pregunta:\n{question}\nDevuelve un JSON con este formato:\n{{",
+        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente especializado en RAG. Debes responder **únicamente** con la información que aparezca en el siguiente contexto. \nNo inventes datos, no agregues conocimiento externo y no uses información general que no esté contenida explícitamente en el contexto.\nSi el contexto no contiene información suficiente para responder la pregunta, responde exactamente:\n\"Sin suficiente información en la documentación para responder.\"\nProduce una respuesta:\n- Clara, concisa y directa.\n- Basada solo en detalles presentes en el contexto.\n- Sintetizando y explicando, no copiando el contexto textual sin procesarlo.\n- Sin añadir interpretaciones no justificadas por el contenido.",
         "detail": "projects.A3_rag_basic_v2.prompts",
         "documentation": {}
     },
@@ -1085,7 +1190,7 @@
         "kind": 5,
         "importPath": "projects.A4_rag_advanced.prompts",
         "description": "projects.A4_rag_advanced.prompts",
-        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente experto en IA. Usa el siguiente contexto comprimido para responder con precisión a la pregunta planteada.\nUsa **solo** la información del contexto si es relevante.\nNo inventes información. Si no hay suficiente información en el contexto, indica que no puedes responder con precisión.\nSi no hay suficiente información en el contexto, di \"No tengo información suficiente en los documentos\".\nResponde de manera concisa, precisa, verificada y sin limitarse a pegar fragmentos del contexto.\n=== CONTEXTO ===\n{context}\n=== PREGUNTA ===\n{question}",
+        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente especializado en RAG. Debes responder **únicamente** con la información que aparezca en el siguiente contexto. \nNo inventes datos, no agregues conocimiento externo y no uses información general que no esté contenida explícitamente en el contexto.\nSi el contexto no contiene información suficiente para responder la pregunta, responde exactamente:\n\"Sin suficiente información en la documentación para responder.\"\nProduce una respuesta:\n- Clara, concisa y directa.\n- Basada solo en detalles presentes en el contexto.\n- Sintetizando y explicando, no copiando el contexto textual sin procesarlo.\n- Sin añadir interpretaciones no justificadas por el contenido.",
         "detail": "projects.A4_rag_advanced.prompts",
         "documentation": {}
     },
@@ -1265,7 +1370,7 @@
         "kind": 5,
         "importPath": "projects.A4_rag_advanced_v2.prompts",
         "description": "projects.A4_rag_advanced_v2.prompts",
-        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente experto en IA. Usa el siguiente contexto comprimido para responder con precisión a la pregunta planteada.\nUsa **solo** la información del contexto si es relevante.\nNo inventes información. Si no hay suficiente información en el contexto, indica que no puedes responder con precisión.\nSi no hay suficiente información en el contexto, di \"No tengo información suficiente en los documentos\".\nResponde de manera concisa, precisa, verificada y sin limitarse a pegar fragmentos del contexto.\n=== CONTEXTO ===\n{context}\n=== PREGUNTA ===\n{question}",
+        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente especializado en RAG. Debes responder **únicamente** con la información que aparezca en el siguiente contexto. \nNo inventes datos, no agregues conocimiento externo y no uses información general que no esté contenida explícitamente en el contexto.\nSi el contexto no contiene información suficiente para responder la pregunta, responde exactamente:\n\"Sin suficiente información en la documentación para responder.\"\nProduce una respuesta:\n- Clara, concisa y directa.\n- Basada solo en detalles presentes en el contexto.\n- Sintetizando y explicando, no copiando el contexto textual sin procesarlo.\n- Sin añadir interpretaciones no justificadas por el contenido.",
         "detail": "projects.A4_rag_advanced_v2.prompts",
         "documentation": {}
     },
@@ -1366,6 +1471,168 @@
         "description": "projects.A4_rag_advanced_v2.utils",
         "peekOfCode": "def format_sources(metadatas: list, distances: list) -> list:\n    formatted = []\n    for meta, dist in zip(metadatas, distances):\n        # Convertir distancia a similitud (asumiendo distancia >= 0)\n        similarity = 1 / (1 + dist)\n        formatted.append({\n            \"source\": meta.get(\"source\", \"desconocido\"),\n            \"score\": round(similarity, 4) # Redondear a 4 decimales\n        })\n    return formatted",
         "detail": "projects.A4_rag_advanced_v2.utils",
+        "documentation": {}
+    },
+    {
+        "label": "llm",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.chains",
+        "description": "projects.A5_chains_routers.chains",
+        "peekOfCode": "llm = llm_chain() # Cliente LangChain para cadenas. LLM sincronizado para LCEL\nparser = StrOutputParser() # Parser simple para cadenas, limita la salida a str limpio\n# ======================================================\n# 1) Chains LCEL\n# ======================================================\nclassifier_chain = classifier_prompt | llm | parser\ngeneral_chain = general_prompt | llm | parser\ncode_chain = code_prompt | llm | parser\nsummary_chain = summary_prompt | llm | parser\nmath_chain = math_prompt | llm | parser",
+        "detail": "projects.A5_chains_routers.chains",
+        "documentation": {}
+    },
+    {
+        "label": "parser",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.chains",
+        "description": "projects.A5_chains_routers.chains",
+        "peekOfCode": "parser = StrOutputParser() # Parser simple para cadenas, limita la salida a str limpio\n# ======================================================\n# 1) Chains LCEL\n# ======================================================\nclassifier_chain = classifier_prompt | llm | parser\ngeneral_chain = general_prompt | llm | parser\ncode_chain = code_prompt | llm | parser\nsummary_chain = summary_prompt | llm | parser\nmath_chain = math_prompt | llm | parser\n# ======================================================",
+        "detail": "projects.A5_chains_routers.chains",
+        "documentation": {}
+    },
+    {
+        "label": "classifier_chain",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.chains",
+        "description": "projects.A5_chains_routers.chains",
+        "peekOfCode": "classifier_chain = classifier_prompt | llm | parser\ngeneral_chain = general_prompt | llm | parser\ncode_chain = code_prompt | llm | parser\nsummary_chain = summary_prompt | llm | parser\nmath_chain = math_prompt | llm | parser\n# ======================================================\n# 2) Router manual usando LCEL\n# ======================================================\nasync def run_router_chain(question: str):\n    # Ejecutar classifier (sync)",
+        "detail": "projects.A5_chains_routers.chains",
+        "documentation": {}
+    },
+    {
+        "label": "general_chain",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.chains",
+        "description": "projects.A5_chains_routers.chains",
+        "peekOfCode": "general_chain = general_prompt | llm | parser\ncode_chain = code_prompt | llm | parser\nsummary_chain = summary_prompt | llm | parser\nmath_chain = math_prompt | llm | parser\n# ======================================================\n# 2) Router manual usando LCEL\n# ======================================================\nasync def run_router_chain(question: str):\n    # Ejecutar classifier (sync)\n    intent = classifier_chain.invoke({\"input\": question}).strip().lower()",
+        "detail": "projects.A5_chains_routers.chains",
+        "documentation": {}
+    },
+    {
+        "label": "code_chain",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.chains",
+        "description": "projects.A5_chains_routers.chains",
+        "peekOfCode": "code_chain = code_prompt | llm | parser\nsummary_chain = summary_prompt | llm | parser\nmath_chain = math_prompt | llm | parser\n# ======================================================\n# 2) Router manual usando LCEL\n# ======================================================\nasync def run_router_chain(question: str):\n    # Ejecutar classifier (sync)\n    intent = classifier_chain.invoke({\"input\": question}).strip().lower()\n    if \"rag\" in intent:",
+        "detail": "projects.A5_chains_routers.chains",
+        "documentation": {}
+    },
+    {
+        "label": "summary_chain",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.chains",
+        "description": "projects.A5_chains_routers.chains",
+        "peekOfCode": "summary_chain = summary_prompt | llm | parser\nmath_chain = math_prompt | llm | parser\n# ======================================================\n# 2) Router manual usando LCEL\n# ======================================================\nasync def run_router_chain(question: str):\n    # Ejecutar classifier (sync)\n    intent = classifier_chain.invoke({\"input\": question}).strip().lower()\n    if \"rag\" in intent:\n        answer = await rag_answer(question)",
+        "detail": "projects.A5_chains_routers.chains",
+        "documentation": {}
+    },
+    {
+        "label": "math_chain",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.chains",
+        "description": "projects.A5_chains_routers.chains",
+        "peekOfCode": "math_chain = math_prompt | llm | parser\n# ======================================================\n# 2) Router manual usando LCEL\n# ======================================================\nasync def run_router_chain(question: str):\n    # Ejecutar classifier (sync)\n    intent = classifier_chain.invoke({\"input\": question}).strip().lower()\n    if \"rag\" in intent:\n        answer = await rag_answer(question)\n        chain_used = \"rag_chain\"",
+        "detail": "projects.A5_chains_routers.chains",
+        "documentation": {}
+    },
+    {
+        "label": "classifier_prompt",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.prompts",
+        "description": "projects.A5_chains_routers.prompts",
+        "peekOfCode": "classifier_prompt = PromptTemplate.from_template(\"\"\"\nClasifica la siguiente pregunta en una de las siguientes categorías:\n- general → preguntas abiertas, explicaciones, creatividad, conversación normal.\n- rag → preguntas que requieren usar información REAL proveniente de documentos, base de conocimiento o datos externos. Palabras clave: \"documento\", \"según el texto\", \"qué dice\", \"extrae del archivo\", \"basado en el material\", \"qué indican los datos\".\n- summary → cuando se pide RESUMIR un texto proporcionado por el usuario. Solo se clasifica como summary si el usuario claramente proporciona texto para ser resumido.\n- code → preguntas relacionadas con programación, errores, generación de funciones, fragmentos de código, debugging.\n- math → problemas matemáticos, cálculos, expresiones numéricas, ecuaciones o razonamiento matemático.\nReglas importantes:\n1. Si la pregunta pide resumir contenido proporcionado por el usuario → summary.\n2. Si la pregunta pide extraer, buscar o consultar información de un documento, PDF, manual o contexto → rag.",
+        "detail": "projects.A5_chains_routers.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "general_prompt",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.prompts",
+        "description": "projects.A5_chains_routers.prompts",
+        "peekOfCode": "general_prompt = PromptTemplate.from_template(\"\"\"\nResponde de forma clara y precisa:\n{input}\n\"\"\")\ncode_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente experto en Python. Ayuda al usuario con su código:\n{input}\n\"\"\")\nsummary_prompt = PromptTemplate.from_template(\"\"\"\nResume el siguiente contenido de manera clara:",
+        "detail": "projects.A5_chains_routers.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "code_prompt",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.prompts",
+        "description": "projects.A5_chains_routers.prompts",
+        "peekOfCode": "code_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente experto en Python. Ayuda al usuario con su código:\n{input}\n\"\"\")\nsummary_prompt = PromptTemplate.from_template(\"\"\"\nResume el siguiente contenido de manera clara:\n{input}\n\"\"\")\nmath_prompt = PromptTemplate.from_template(\"\"\"\nResuelve el siguiente ejercicio paso a paso, pero devuelve solo el resultado final:",
+        "detail": "projects.A5_chains_routers.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "summary_prompt",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.prompts",
+        "description": "projects.A5_chains_routers.prompts",
+        "peekOfCode": "summary_prompt = PromptTemplate.from_template(\"\"\"\nResume el siguiente contenido de manera clara:\n{input}\n\"\"\")\nmath_prompt = PromptTemplate.from_template(\"\"\"\nResuelve el siguiente ejercicio paso a paso, pero devuelve solo el resultado final:\n{input}\n\"\"\")\nrag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente especializado en RAG. Debes responder **únicamente** con la información que aparezca en el siguiente contexto. ",
+        "detail": "projects.A5_chains_routers.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "math_prompt",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.prompts",
+        "description": "projects.A5_chains_routers.prompts",
+        "peekOfCode": "math_prompt = PromptTemplate.from_template(\"\"\"\nResuelve el siguiente ejercicio paso a paso, pero devuelve solo el resultado final:\n{input}\n\"\"\")\nrag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente especializado en RAG. Debes responder **únicamente** con la información que aparezca en el siguiente contexto. \nNo inventes datos, no agregues conocimiento externo y no uses información general que no esté contenida explícitamente en el contexto.\nSi el contexto no contiene información suficiente para responder la pregunta, responde exactamente:\n\"Sin suficiente información en la documentación para responder.\"\nProduce una respuesta:",
+        "detail": "projects.A5_chains_routers.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "rag_prompt",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.prompts",
+        "description": "projects.A5_chains_routers.prompts",
+        "peekOfCode": "rag_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente especializado en RAG. Debes responder **únicamente** con la información que aparezca en el siguiente contexto. \nNo inventes datos, no agregues conocimiento externo y no uses información general que no esté contenida explícitamente en el contexto.\nSi el contexto no contiene información suficiente para responder la pregunta, responde exactamente:\n\"Sin suficiente información en la documentación para responder.\"\nProduce una respuesta:\n- Clara, concisa y directa.\n- Basada solo en detalles presentes en el contexto.\n- Sintetizando y explicando, no copiando el contexto textual sin procesarlo.\n- Sin añadir interpretaciones no justificadas por el contenido.",
+        "detail": "projects.A5_chains_routers.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "retrieve_context",
+        "kind": 2,
+        "importPath": "projects.A5_chains_routers.rag",
+        "description": "projects.A5_chains_routers.rag",
+        "peekOfCode": "def retrieve_context(question: str, n_results: int = 3) -> str:\n    # Convertir pregunta → embedding\n    query_vec = model.encode([question]).tolist()[0]\n    # Consultar la colección en ChromaDB del proyecto A4_rag_advanced_v2\n    results = collection.query(\n        query_embeddings=[query_vec],\n        n_results=n_results\n    )\n    # Extraer documentos (si no existen, usar listas vacías)\n    retrieved_docs = results.get(\"documents\", [[]])[0]",
+        "detail": "projects.A5_chains_routers.rag",
+        "documentation": {}
+    },
+    {
+        "label": "model",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.rag",
+        "description": "projects.A5_chains_routers.rag",
+        "peekOfCode": "model = SentenceTransformer(DEFAULT_EMBEDDING_MODEL)\n# Recupera contexto relevante desde la colección Chroma del proyecto A4_rag_advanced_v2\ndef retrieve_context(question: str, n_results: int = 3) -> str:\n    # Convertir pregunta → embedding\n    query_vec = model.encode([question]).tolist()[0]\n    # Consultar la colección en ChromaDB del proyecto A4_rag_advanced_v2\n    results = collection.query(\n        query_embeddings=[query_vec],\n        n_results=n_results\n    )",
+        "detail": "projects.A5_chains_routers.rag",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "projects.A5_chains_routers.router",
+        "description": "projects.A5_chains_routers.router",
+        "peekOfCode": "router = APIRouter(\n    prefix=\"/a5\",\n    tags=[\"A5 - Chains y Routers (LangChain avanzado)\"]\n)\n@router.post(\n    \"/query\",\n    summary=\"Pipeline con clasificación, enrutado dinámico y cadenas secuenciales\",\n    description=\"\"\"\n    Implementar un pipeline avanzado usando **LangChain** que incluya:\n    - Clasificación de la intención del usuario.",
+        "detail": "projects.A5_chains_routers.router",
+        "documentation": {}
+    },
+    {
+        "label": "A5Request",
+        "kind": 6,
+        "importPath": "projects.A5_chains_routers.schemas",
+        "description": "projects.A5_chains_routers.schemas",
+        "peekOfCode": "class A5Request(BaseModel):\n    question: str = Field(..., example=\"¿Qué es un embedding?\")\nclass A5Response(BaseModel):\n    intent: str\n    chain_used: str\n    answer: str",
+        "detail": "projects.A5_chains_routers.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "A5Response",
+        "kind": 6,
+        "importPath": "projects.A5_chains_routers.schemas",
+        "description": "projects.A5_chains_routers.schemas",
+        "peekOfCode": "class A5Response(BaseModel):\n    intent: str\n    chain_used: str\n    answer: str",
+        "detail": "projects.A5_chains_routers.schemas",
         "documentation": {}
     },
     {
