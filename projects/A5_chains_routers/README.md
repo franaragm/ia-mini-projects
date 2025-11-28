@@ -5,8 +5,8 @@ Este módulo implementa un pipeline profesional basado en **LangChain Expression
 * Crear *chains declarativas y componibles*
 * Enrutar preguntas a la cadena correcta mediante clasificadores
 * Combinar *async* + *sync*
-* Usar `RunnableBranch`, `RunnableLambda`, `RunnableMap`
-* Encapsular un RAG como chain integrada
+* Usar `RunnableBranch`, `RunnableLambda`, `RunnablePassthrough`
+* Integrar RAG como chain LCEL sin funciones externas
 
 El archivo clave del proyecto es:
 
@@ -16,7 +16,7 @@ A5_chains_routers/
 ├── chains.py  ← ⭐ EXPLICADO A DETALLE EN ESTE README
 ├── router.py
 ├── prompts.py
-├── rag.py
+├── rag.py   ← solo contiene retrieve_context()
 └── ...
 ```
 
@@ -72,7 +72,7 @@ Diagrama:
 
   * `RunnableLambda` → transforma inputs/outputs con Python puro
   * `RunnableBranch` → router inteligente
-  * `RunnableMap` → salida estructurada
+  * `RunnablePassthrough` → paso de datos sin modificar
 
 Ventajas:
 
@@ -91,10 +91,7 @@ Ventajas:
 
 ```python
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import (
-    RunnableBranch,
-    RunnableLambda,
-)
+from langchain_core.runnables import RunnableBranch, RunnableLambda, RunnablePassthrough
 from app.services.llm_client import llm_chain
 from .prompts import (
     classifier_prompt,
@@ -102,18 +99,20 @@ from .prompts import (
     code_prompt,
     summary_prompt,
     math_prompt,
+    rag_prompt,
 )
-from .rag import rag_chain
+from .rag import retrieve_context
 ```
 
 ### Explicación
 
 * `StrOutputParser` → Normaliza la salida del LLM como un string limpio.
-* `RunnableBranch` → Router condicional “si X entonces usa esta chain”.
+* `RunnableBranch` → Router condicional.
 * `RunnableLambda` → Funciones Python dentro de una cadena.
-* `llm_chain()` → Devuelve el cliente LLM (OpenAI, OpenRouter, etc.).
+* `RunnablePassthrough` → paso de datos sin transformación.
+* `llm_chain()` → Devuelve el cliente LLM (OpenRouter, OpenAI, etc.).
 * `prompts.py` → Cada chain tiene su prompt.
-* `rag_chain` → RAG declarado como runnable independiente.
+* `retrieve_context()` → Solo recuperación de contexto para RAG.
 
 ---
 
@@ -124,26 +123,17 @@ llm = llm_chain()
 parser = StrOutputParser()
 ```
 
-### Explicación
-
-* `llm` es un runnable — cualquier chain puede recibirlo vía `|`.
-* `parser` convierte la respuesta del LLM en texto sin formato.
-
 ---
 
 # 🏗️ **5. Creación de cada chain con LCEL**
 
-Cada chain sigue este patrón:
+Cada chain sigue el patrón:
 
 ```
 prompt → llm → parser → formateo final (RunnableLambda)
 ```
 
-Ejemplo completo:
-
----
-
-## 🔹 **General Chain**
+Ejemplo:
 
 ```python
 general_chain = (
@@ -154,83 +144,38 @@ general_chain = (
 )
 ```
 
-### Explicación **línea por línea**
-
-#### `general_prompt | llm`
-
-Envía el prompt al modelo y obtiene respuesta cruda.
-
-#### `| parser`
-
-Convierte la salida del modelo a un string limpio.
-
-#### `| RunnableLambda(lambda x: {...})`
-
-**Añade metadatos adicionales** a la salida.
-
-### 🔍 ¿Qué hace exactamente el `lambda`?
-
-La firma es:
-
-```python
-lambda x: {"answer": x, "chain_used": "general_chain"}
-```
-
-Esto significa:
-
-* Recibe la salida del paso anterior (`x = respuesta del LLM`)
-* Produce un diccionario nuevo con:
-
-  * `"answer"`     → texto de la respuesta
-  * `"chain_used"` → nombre de la chain
-
-Así todas las chains devuelven el mismo esquema.
-
 ---
 
-## 🔹 **Otras Chains (idéntico patrón)**
+## 🔹 **RAG Chain totalmente LCEL**
 
-Todas siguen el mismo diseño:
-
-```python
-code_chain = (
-    code_prompt
-    | llm
-    | parser
-    | RunnableLambda(lambda x: {"answer": x, "chain_used": "code_chain"})
-)
-
-summary_chain = (
-    summary_prompt
-    | llm
-    | parser
-    | RunnableLambda(lambda x: {"answer": x, "chain_used": "summary_chain"})
-)
-
-math_chain = (
-    math_prompt
-    | llm
-    | parser
-    | RunnableLambda(lambda x: {"answer": x, "chain_used": "math_chain"})
-)
-```
-
----
-
-## 🔹 **RAG Chain**
+Ahora el RAG se construye como un **pipeline declarativo**:
 
 ```python
 rag_chain = (
-    rag_chain
+    {"input": RunnablePassthrough()}  # Paso la pregunta
+    | RunnableLambda(lambda x: {
+        "input": x["input"],
+        "context": retrieve_context(x["input"])
+    })  # Recupera contexto
+    | RunnableLambda(lambda x: rag_prompt.format(
+        context=x["context"],
+        input=x["input"]
+    ))  # Construye prompt
+    | llm
+    | parser
     | RunnableLambda(lambda x: {"answer": x, "chain_used": "rag_chain"})
 )
 ```
 
+**Ventajas**:
+
+* No se necesita función async externa
+* Encapsula todo: recuperación + prompt + LLM + parseo
+* Siempre devuelve `{answer, chain_used}`
+
 ---
 
-# 🚦 **6. Construcción del Router LCEL (RunnableBranch)**
-
-Este es el corazón del sistema.
+# 🚦 **6. Router LCEL (RunnableBranch)**
 
 ```python
 router_chain = RunnableBranch(
@@ -244,78 +189,12 @@ router_chain = RunnableBranch(
 
 ---
 
-## 🧩 Cómo funciona `RunnableBranch`
-
-`RunnableBranch` evalúa cada condición en orden:
-
-```
-(condición1, cadena1)
-(condición2, cadena2)
-...
-default_chain
-```
-
-El primer condicional `True` determina la chain seleccionada.
-
----
-
-## 🔍 Explicación de cada `lambda`
-
-Ejemplo:
-
-```python
-lambda x: "rag" in x["intent"]
-```
-
-Significa:
-
-* Recibe un diccionario `x` con:
-
-  ```json
-  {"intent": "<intención>", "input": "<pregunta>"}
-  ```
-* Evalúa si la intención contiene `"rag"`.
-
-Si es True → se ejecuta `rag_chain`.
-
----
-
-### 🔥 Diagrama del router
-
-```
-                 intent
-                    │
-         ┌──────────┴──────────┐
-         ▼                     ▼
-   (lambda cond1)        ¿True? sí → rag_chain
-         │ no
-         ▼
-   (lambda cond2)        ¿True? sí → code_chain
-         │ no
-         ▼
-   (lambda cond3)        ¿True? sí → summary_chain
-         │ no
-         ▼
-   (lambda cond4)        ¿True? sí → math_chain
-         │ no
-         ▼
-       default → general_chain
-```
-
----
-
 # ⚙️ **7. Función principal: `run_router_chain()`**
 
 ```python
 async def run_router_chain(question: str):
-
-    # Paso 1: Intent
     intent = classifier_chain.invoke({"input": question}).strip().lower()
-
-    # Paso 2: Router async
     block = await router_chain.ainvoke({"intent": intent, "input": question})
-
-    # Paso 3: Resultado final
     return {
         "intent": intent,
         "chain_used": block["chain_used"],
@@ -323,99 +202,37 @@ async def run_router_chain(question: str):
     }
 ```
 
-## Explicación paso a paso
-
 ---
 
-### **1) Clasificación (sync)**
+# 🏁 **8. Resultados**
 
-```python
-intent = classifier_chain.invoke({"input": question})
-```
+Cada llamada devuelve un diccionario uniforme:
 
-* `invoke()` es SÍNCRONO.
-* Devuelve string.
-* Se normaliza `.strip().lower()`.
-
----
-
-### **2) Router (async)**
-
-```python
-block = await router_chain.ainvoke(...)
-```
-
-* `ainvoke()` es *asíncrono*.
-* `router_chain` decide la chain que se ejecuta mediante `RunnableBranch`.
-* `block` contiene:
-
-  ```json
-  {
-    "answer": "...",
-    "chain_used": "summary_chain"
-  }
-  ```
-
----
-
-### **3) Respuesta estructurada**
-
-```python
-return {
-    "intent": intent,
-    "chain_used": block["chain_used"],
-    "answer": block["answer"].strip(),
+```json
+{
+  "intent": "summary",
+  "chain_used": "summary_chain",
+  "answer": "Texto resumido..."
 }
 ```
 
 ---
 
-# ✔️ **8. Resultado final del pipeline**
+# 🎯 **9. Cambios clave respecto a versiones previas**
 
-Cuando llamas a:
-
-```python
-await run_router_chain("resume este texto...")
-```
-
-El sistema sigue este flujo:
-
-```
-input
- ↓
-classifier_chain.invoke()
- ↓ intent="summary"
-router_chain.ainvoke()
- ↓
-summary_chain
- ↓
-{ "answer": "...", "chain_used": "summary_chain" }
-```
+* `rag_chain` ahora **LCEL**, no función async en rag.py
+* `rag.py` solo conserva `retrieve_context()`
+* Uso de `RunnablePassthrough` y `RunnableLambda` para un pipeline 100% declarativo
+* Router con `RunnableBranch` profesional
+* Formato de salida unificado en todas las chains
 
 ---
 
-# 🎯 **9. Ventajas de esta arquitectura**
+# ✔️ **10. Cómo extender el sistema**
 
-| Elemento             | Función                                        |                                 |
-| -------------------- | ---------------------------------------------- | ------------------------------- |
-| **LCEL               | **                                             | Composición clara y declarativa |
-| **RunnableLambda**   | Adjuntar metadata & transformar outputs        |                                 |
-| **RunnableBranch**   | Enrutamiento profesional                       |                                 |
-| **Async + Sync**     | Compatible con FastAPI                         |                                 |
-| **Formato uniforme** | Todas las chains devuelven la misma estructura |                                 |
+1. Crear prompt nuevo en `prompts.py`
+2. Declarar la chain usando `| llm | parser | RunnableLambda`
+3. Añadir condición en `router_chain`
 
----
-
-# 🏁 **10. Conclusión**
-
-Este proyecto demuestra cómo construir un **router inteligente modular**, con una arquitectura clara, mantenible y extensible basada en LangChain LCEL.
-
-Puedes añadir nuevas chains simplemente:
-
-1. Crear prompt
-2. Declarar chain con `| llm | parser | RunnableLambda`
-3. Añadir condición al router
-
-Escalable y 100% profesional.
 
 ---

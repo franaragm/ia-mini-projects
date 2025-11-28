@@ -1565,7 +1565,7 @@
         "kind": 5,
         "importPath": "projects.A5_chains_routers.chains",
         "description": "projects.A5_chains_routers.chains",
-        "peekOfCode": "rag_chain = (\n    # 1) Recibir la pregunta\n    {\"input\": RunnablePassthrough()}\n    # 2) Recuperar contexto\n    | RunnableLambda(\n        lambda x: {\n            \"input\": x[\"input\"],\n            \"context\": retrieve_context(x[\"input\"])\n        }\n    )",
+        "peekOfCode": "rag_chain = (\n    # 1) Recibir la pregunta\n    {\"input\": RunnablePassthrough()} # filtro que solo pasa el input\n    # 2) Recuperar contexto\n    | RunnableLambda(\n        lambda x: {\n            \"input\": x[\"input\"],\n            \"context\": retrieve_context(x[\"input\"])\n        }\n    )",
         "detail": "projects.A5_chains_routers.chains",
         "documentation": {}
     },

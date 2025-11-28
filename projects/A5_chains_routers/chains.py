@@ -62,7 +62,7 @@ math_chain = (
 
 rag_chain = (
     # 1) Recibir la pregunta
-    {"input": RunnablePassthrough()}
+    {"input": RunnablePassthrough()} # filtro que solo pasa el input
 
     # 2) Recuperar contexto
     | RunnableLambda(
