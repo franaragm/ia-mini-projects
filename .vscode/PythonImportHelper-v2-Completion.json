@@ -654,6 +654,14 @@
         "documentation": {}
     },
     {
+        "label": "RunnablePassthrough",
+        "importPath": "langchain_core.runnables",
+        "description": "langchain_core.runnables",
+        "isExtraImport": true,
+        "detail": "langchain_core.runnables",
+        "documentation": {}
+    },
+    {
         "label": "collection",
         "importPath": "projects.A4_rag_advanced_v2.chroma_client",
         "description": "projects.A4_rag_advanced_v2.chroma_client",
@@ -1548,7 +1556,7 @@
         "kind": 5,
         "importPath": "projects.A5_chains_routers.chains",
         "description": "projects.A5_chains_routers.chains",
-        "peekOfCode": "math_chain = (\n    math_prompt\n    | llm\n    | parser\n    | RunnableLambda(lambda x: {\"answer\": x, \"chain_used\": \"math_chain\"})\n)\nrag_chain = (\n    rag_chain\n    | RunnableLambda(lambda x: {\"answer\": x, \"chain_used\": \"rag_chain\"})\n)",
+        "peekOfCode": "math_chain = (\n    math_prompt\n    | llm\n    | parser\n    | RunnableLambda(lambda x: {\"answer\": x, \"chain_used\": \"math_chain\"})\n)\n# rag_chain = (\n#     rag_chain\n#     | RunnableLambda(lambda x: {\"answer\": x, \"chain_used\": \"rag_chain\"})\n# )",
         "detail": "projects.A5_chains_routers.chains",
         "documentation": {}
     },
@@ -1557,7 +1565,7 @@
         "kind": 5,
         "importPath": "projects.A5_chains_routers.chains",
         "description": "projects.A5_chains_routers.chains",
-        "peekOfCode": "rag_chain = (\n    rag_chain\n    | RunnableLambda(lambda x: {\"answer\": x, \"chain_used\": \"rag_chain\"})\n)\n# ======================================================\n# Router LCEL profesional con RunnableBranch\n# Evalúa el campo \"intent\" y ejecuta la chain correcta\n# ======================================================\nrouter_chain = RunnableBranch(\n    (lambda x: \"rag\" in x[\"intent\"], rag_chain),",
+        "peekOfCode": "rag_chain = (\n    # 1) Recibir la pregunta\n    {\"input\": RunnablePassthrough()}\n    # 2) Recuperar contexto\n    | RunnableLambda(\n        lambda x: {\n            \"input\": x[\"input\"],\n            \"context\": retrieve_context(x[\"input\"])\n        }\n    )",
         "detail": "projects.A5_chains_routers.chains",
         "documentation": {}
     },
@@ -1575,7 +1583,7 @@
         "kind": 5,
         "importPath": "projects.A5_chains_routers.prompts",
         "description": "projects.A5_chains_routers.prompts",
-        "peekOfCode": "classifier_prompt = PromptTemplate.from_template(\"\"\"\nClasifica la siguiente pregunta en una de las siguientes categorías:\n- general → preguntas abiertas, explicaciones, creatividad, conversación normal.\n- rag → preguntas que requieren usar información REAL proveniente de documentos, base de conocimiento o datos externos. Palabras clave: \"documento\", \"según el texto\", \"qué dice\", \"extrae del archivo\", \"basado en el material\", \"qué indican los datos\".\n- summary → cuando se pide RESUMIR un texto proporcionado por el usuario. Solo se clasifica como summary si el usuario claramente proporciona texto para ser resumido.\n- code → preguntas relacionadas con programación, errores, generación de funciones, fragmentos de código, debugging.\n- math → problemas matemáticos, cálculos, expresiones numéricas, ecuaciones o razonamiento matemático.\nReglas importantes:\n1. Si la pregunta pide resumir contenido proporcionado por el usuario → summary.\n2. Si la pregunta pide extraer, buscar o consultar información de un documento, PDF, manual o contexto → rag.",
+        "peekOfCode": "classifier_prompt = PromptTemplate.from_template(\"\"\"\nClasifica la siguiente pregunta en una de las siguientes categorías:\n- general → preguntas abiertas, explicaciones, creatividad, conversación normal.\n- rag → preguntas que requieren usar información REAL proveniente de documentos, base de conocimiento o datos externos. Palabras clave: \"basado en documentación\", \"según el textos almacenados\", \"extrae de información almacenada\", \"basado en el material\", \"qué indican los datos almacenados\".\n- summary → cuando se pide RESUMIR un texto proporcionado por el usuario. Solo se clasifica como summary si el usuario claramente proporciona texto para ser resumido.\n- code → preguntas relacionadas con programación, errores, generación de funciones, fragmentos de código, debugging.\n- math → problemas matemáticos, cálculos, expresiones numéricas, ecuaciones o razonamiento matemático.\nReglas importantes:\n1. Si la pregunta pide resumir contenido proporcionado por el usuario → summary.\n2. Si la pregunta pide extraer, buscar o consultar información de un documento, PDF, manual o contexto → rag.",
         "detail": "projects.A5_chains_routers.prompts",
         "documentation": {}
     },
@@ -1584,7 +1592,7 @@
         "kind": 5,
         "importPath": "projects.A5_chains_routers.prompts",
         "description": "projects.A5_chains_routers.prompts",
-        "peekOfCode": "general_prompt = PromptTemplate.from_template(\"\"\"\nResponde de forma clara y precisa:\n{input}\n\"\"\")\ncode_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente experto en Python. Ayuda al usuario con su código:\n{input}\n\"\"\")\nsummary_prompt = PromptTemplate.from_template(\"\"\"\nResume el siguiente contenido de manera clara:",
+        "peekOfCode": "general_prompt = PromptTemplate.from_template(\"\"\"\nResponde de forma clara y precisa, evitando información inventada o no verificada, si no tienes la respuesta di \"No lo sé\":\n{input}\n\"\"\")\ncode_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente experto en Python. Ayuda al usuario con su código:\n{input}\n\"\"\")\nsummary_prompt = PromptTemplate.from_template(\"\"\"\nResume el siguiente contenido de manera clara:",
         "detail": "projects.A5_chains_routers.prompts",
         "documentation": {}
     },

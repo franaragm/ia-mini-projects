@@ -4,7 +4,7 @@ classifier_prompt = PromptTemplate.from_template("""
 Clasifica la siguiente pregunta en una de las siguientes categorías:
 
 - general → preguntas abiertas, explicaciones, creatividad, conversación normal.
-- rag → preguntas que requieren usar información REAL proveniente de documentos, base de conocimiento o datos externos. Palabras clave: "documento", "según el texto", "qué dice", "extrae del archivo", "basado en el material", "qué indican los datos".
+- rag → preguntas que requieren usar información REAL proveniente de documentos, base de conocimiento o datos externos. Palabras clave: "basado en documentación", "según el textos almacenados", "extrae de información almacenada", "basado en el material", "qué indican los datos almacenados".
 - summary → cuando se pide RESUMIR un texto proporcionado por el usuario. Solo se clasifica como summary si el usuario claramente proporciona texto para ser resumido.
 - code → preguntas relacionadas con programación, errores, generación de funciones, fragmentos de código, debugging.
 - math → problemas matemáticos, cálculos, expresiones numéricas, ecuaciones o razonamiento matemático.
@@ -23,7 +23,7 @@ Tu respuesta:
 
 
 general_prompt = PromptTemplate.from_template("""
-Responde de forma clara y precisa:
+Responde de forma clara y precisa, evitando información inventada o no verificada, si no tienes la respuesta di "No lo sé":
 {input}
 """)
 

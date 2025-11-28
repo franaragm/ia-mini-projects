@@ -1,5 +1,5 @@
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnableBranch, RunnableLambda
+from langchain_core.runnables import RunnableBranch, RunnableLambda, RunnablePassthrough
 from app.services.llm_client import llm_chain
 from .prompts import (
     classifier_prompt,
@@ -7,8 +7,9 @@ from .prompts import (
     code_prompt,
     summary_prompt,
     math_prompt,
+    rag_prompt,
 )
-from .rag import rag_chain  # RAG como chain LCEL async
+from .rag import retrieve_context # Importar función de recuperación RAG
 
 # ======================================================
 # Inicialización del LLM y parser
@@ -54,10 +55,39 @@ math_chain = (
     | RunnableLambda(lambda x: {"answer": x, "chain_used": "math_chain"})
 )
 
+# rag_chain = (
+#     rag_chain
+#     | RunnableLambda(lambda x: {"answer": x, "chain_used": "rag_chain"})
+# )
+
 rag_chain = (
-    rag_chain
+    # 1) Recibir la pregunta
+    {"input": RunnablePassthrough()}
+
+    # 2) Recuperar contexto
+    | RunnableLambda(
+        lambda x: {
+            "input": x["input"],
+            "context": retrieve_context(x["input"])
+        }
+    )
+
+    # 3) Construir prompt
+    | RunnableLambda(
+        lambda x: rag_prompt.format(
+            context=x["context"],
+            input=x["input"]
+        )
+    )
+
+    # 4) LLM
+    | llm
+    | parser
+
+    # 5) Envolver salida con metadata
     | RunnableLambda(lambda x: {"answer": x, "chain_used": "rag_chain"})
 )
+
 
 # ======================================================
 # Router LCEL profesional con RunnableBranch
