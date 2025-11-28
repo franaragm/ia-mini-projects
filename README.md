@@ -447,7 +447,3 @@ uvicorn app.main:app --reload --port 8000
 
 ---
 
-Si quieres, puedo hacer una **versión resumida “nota rápida del equipo”**, de unas 10-12 líneas, perfecta para poner **al final del README** y que quede claro para cualquier persona que use este Mac Intel.
-
-¿Quieres que haga eso?
-
