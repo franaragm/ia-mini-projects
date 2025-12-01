@@ -80,8 +80,7 @@ mini-projects-langchain/
     ├─ A4_rag_advanced/
     ├─ A4_rag_advanced_v2/
     ├─ A5_chains_and_routers/
-    ├─ A5_tools_basic/
-    └─ A6_tools_external_api/
+    ├─ A5_memory/
 
 ```
 
