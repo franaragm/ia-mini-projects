@@ -189,6 +189,19 @@ Este mini-proyecto introduce **la arquitectura que usan aplicaciones reales** (C
 
 ---
 
+## 🐍 Requisitos de Python
+
+Este proyecto ha sido desarrollado y probado con las siguientes versiones de Python:
+
+- **Python 3.13.2**: Compatible y probado en **macOS (Apple Silicon)** y **Windows**.
+- **Python 3.11**: Recomendado para equipos **Mac con procesador Intel**, donde Python 3.13 puede no estar disponible o no ser estable.
+
+⚠️ **No se recomienda usar Python 3.14 o superior**, ya que algunas librerías clave todavía no son compatibles:
+
+- **Pydantic** (LangChain y ChromaDB dependen de Pydantic V1)
+- **ChromaDB**
+- **LangChain Core**
+
 ## ⚙️ Instalación del entorno
 
 ### 1) Crear entorno virtual
