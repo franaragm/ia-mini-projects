@@ -28,5 +28,15 @@ python-dotenv
 pydantic
 httpx
 
-# Validación de correos (elimina warning de FastAPI/Pydantic)
+# Validación de correos (evita warnings de FastAPI/Pydantic)
 email-validator
+
+# LangGraph (orquestación moderna para agentes y flujos)
+langgraph
+
+# Extensiones recomendadas para LangGraph (opcional pero útil)
+# Herramientas asincrónicas, monitoreo y tracing
+langsmith
+
+# Soporte para workflows con comportamientos concurrentes
+langgraph-checkpoint

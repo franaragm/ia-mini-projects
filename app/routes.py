@@ -7,6 +7,7 @@ from projects.A3_rag_basic_v2.router import router as a3v2_router
 from projects.A4_rag_advanced.router import router as a4_router
 from projects.A4_rag_advanced_v2.router import router as a4v2_router
 from projects.A5_chains_routers.router import router as a5_router
+from projects.A6_memory.router import router as a6_router
 
 
 router = APIRouter()
@@ -28,4 +29,5 @@ router.include_router(a3v2_router)
 router.include_router(a4_router)
 router.include_router(a4v2_router)
 router.include_router(a5_router)
+router.include_router(a6_router)
 

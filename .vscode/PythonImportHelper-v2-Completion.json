@@ -104,6 +104,14 @@
         "documentation": {}
     },
     {
+        "label": "CHROMA_PATH",
+        "importPath": "config_base",
+        "description": "config_base",
+        "isExtraImport": true,
+        "detail": "config_base",
+        "documentation": {}
+    },
+    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
@@ -193,6 +201,22 @@
         "documentation": {}
     },
     {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
         "label": "router",
         "importPath": "projects.A1_chat_structured.router",
         "description": "projects.A1_chat_structured.router",
@@ -246,6 +270,22 @@
         "description": "projects.A5_chains_routers.router",
         "isExtraImport": true,
         "detail": "projects.A5_chains_routers.router",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "importPath": "projects.A6_memory.router",
+        "description": "projects.A6_memory.router",
+        "isExtraImport": true,
+        "detail": "projects.A6_memory.router",
+        "documentation": {}
+    },
+    {
+        "label": "PromptTemplate",
+        "importPath": "langchain_core.prompts",
+        "description": "langchain_core.prompts",
+        "isExtraImport": true,
+        "detail": "langchain_core.prompts",
         "documentation": {}
     },
     {
@@ -369,6 +409,14 @@
         "documentation": {}
     },
     {
+        "label": "llm",
+        "importPath": "app.services.llm_client",
+        "description": "app.services.llm_client",
+        "isExtraImport": true,
+        "detail": "app.services.llm_client",
+        "documentation": {}
+    },
+    {
         "label": "json",
         "kind": 6,
         "isExtraImport": true,
@@ -411,6 +459,22 @@
     },
     {
         "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
         "importPath": "pydantic",
         "description": "pydantic",
         "isExtraImport": true,
@@ -667,6 +731,112 @@
         "description": "projects.A4_rag_advanced_v2.chroma_client",
         "isExtraImport": true,
         "detail": "projects.A4_rag_advanced_v2.chroma_client",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "uuid",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uuid",
+        "description": "uuid",
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "StateGraph",
+        "importPath": "langgraph.graph",
+        "description": "langgraph.graph",
+        "isExtraImport": true,
+        "detail": "langgraph.graph",
+        "documentation": {}
+    },
+    {
+        "label": "START",
+        "importPath": "langgraph.graph",
+        "description": "langgraph.graph",
+        "isExtraImport": true,
+        "detail": "langgraph.graph",
+        "documentation": {}
+    },
+    {
+        "label": "END",
+        "importPath": "langgraph.graph",
+        "description": "langgraph.graph",
+        "isExtraImport": true,
+        "detail": "langgraph.graph",
         "documentation": {}
     },
     {
@@ -1675,6 +1845,159 @@
         "description": "projects.A5_chains_routers.schemas",
         "peekOfCode": "class A5Response(BaseModel):\n    intent: str\n    chain_used: str\n    answer: str",
         "detail": "projects.A5_chains_routers.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "projects.A6_memory.chroma_client",
+        "description": "projects.A6_memory.chroma_client",
+        "peekOfCode": "client = chromadb.PersistentClient(path=CHROMA_PATH)\ncollection = client.get_or_create_collection(COLLECTION_NAME)",
+        "detail": "projects.A6_memory.chroma_client",
+        "documentation": {}
+    },
+    {
+        "label": "collection",
+        "kind": 5,
+        "importPath": "projects.A6_memory.chroma_client",
+        "description": "projects.A6_memory.chroma_client",
+        "peekOfCode": "collection = client.get_or_create_collection(COLLECTION_NAME)",
+        "detail": "projects.A6_memory.chroma_client",
+        "documentation": {}
+    },
+    {
+        "label": "COLLECTION_NAME",
+        "kind": 5,
+        "importPath": "projects.A6_memory.config",
+        "description": "projects.A6_memory.config",
+        "peekOfCode": "COLLECTION_NAME = \"a6_memory\"\nCHROMA_PATH = CHROMA_PATH",
+        "detail": "projects.A6_memory.config",
+        "documentation": {}
+    },
+    {
+        "label": "CHROMA_PATH",
+        "kind": 5,
+        "importPath": "projects.A6_memory.config",
+        "description": "projects.A6_memory.config",
+        "peekOfCode": "CHROMA_PATH = CHROMA_PATH",
+        "detail": "projects.A6_memory.config",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "projects.A6_memory.llm_node",
+        "description": "projects.A6_memory.llm_node",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nasync def call_llm_node(state: Union[ChatState, Dict[str, Any]]) -> Dict[str, Any]:\n    \"\"\"\n    Nodo del grafo que maneja:\n    - Normalización del estado\n    - Preparación de memoria mediante LLM\n    - Consulta de memoria más reciente\n    - Llamada al LLM para generar respuesta\n    - Persistencia de memorias de usuario en ChromaDB\n    - Devolver estado consistente (dicts, no Pydantic)",
+        "detail": "projects.A6_memory.llm_node",
+        "documentation": {}
+    },
+    {
+        "label": "build_chat_graph",
+        "kind": 2,
+        "importPath": "projects.A6_memory.memory_graph",
+        "description": "projects.A6_memory.memory_graph",
+        "peekOfCode": "def build_chat_graph():\n    graph = StateGraph(dict)\n    graph.add_node(\"add_user_message\", add_user_message_node)\n    graph.add_node(\"maybe_summarize\", maybe_summarize_node)\n    graph.add_node(\"call_llm\", call_llm_node)\n    graph.add_edge(START, \"add_user_message\")\n    graph.add_edge(\"add_user_message\", \"maybe_summarize\")\n    graph.add_edge(\"maybe_summarize\", \"call_llm\")\n    graph.add_edge(\"call_llm\", END)\n    return graph.compile()",
+        "detail": "projects.A6_memory.memory_graph",
+        "documentation": {}
+    },
+    {
+        "label": "get_chat_graph",
+        "kind": 2,
+        "importPath": "projects.A6_memory.memory_graph",
+        "description": "projects.A6_memory.memory_graph",
+        "peekOfCode": "def get_chat_graph():\n    global _COMPILED_CHAT_GRAPH\n    if _COMPILED_CHAT_GRAPH is None:\n        _COMPILED_CHAT_GRAPH = build_chat_graph()\n    return _COMPILED_CHAT_GRAPH",
+        "detail": "projects.A6_memory.memory_graph",
+        "documentation": {}
+    },
+    {
+        "label": "_COMPILED_CHAT_GRAPH",
+        "kind": 5,
+        "importPath": "projects.A6_memory.memory_graph",
+        "description": "projects.A6_memory.memory_graph",
+        "peekOfCode": "_COMPILED_CHAT_GRAPH = None\ndef build_chat_graph():\n    graph = StateGraph(dict)\n    graph.add_node(\"add_user_message\", add_user_message_node)\n    graph.add_node(\"maybe_summarize\", maybe_summarize_node)\n    graph.add_node(\"call_llm\", call_llm_node)\n    graph.add_edge(START, \"add_user_message\")\n    graph.add_edge(\"add_user_message\", \"maybe_summarize\")\n    graph.add_edge(\"maybe_summarize\", \"call_llm\")\n    graph.add_edge(\"call_llm\", END)",
+        "detail": "projects.A6_memory.memory_graph",
+        "documentation": {}
+    },
+    {
+        "label": "memory_preparation_prompt",
+        "kind": 5,
+        "importPath": "projects.A6_memory.prompts",
+        "description": "projects.A6_memory.prompts",
+        "peekOfCode": "memory_preparation_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente que transforma la información relevante del usuario en memoria estructurada.\nUsuario dice:\n{input}\nExtrae la información que deba ser recordada y devuelve solo el texto a guardar en memoria.\nSi no hay información para recordar, devuelve un string vacío.\n\"\"\")\nmemory_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente que recuerda información del usuario.\nMemoria relevante del usuario:",
+        "detail": "projects.A6_memory.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "memory_prompt",
+        "kind": 5,
+        "importPath": "projects.A6_memory.prompts",
+        "description": "projects.A6_memory.prompts",
+        "peekOfCode": "memory_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente que recuerda información del usuario.\nMemoria relevante del usuario:\n{memory}\nPregunta del usuario:\n{input}\nInstrucciones:\n- Responde únicamente a la pregunta que se hace.\n- No incluyas información de la memoria que no sea estrictamente necesaria.\n- Sé concreto, claro y breve.",
+        "detail": "projects.A6_memory.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "get_field",
+        "kind": 2,
+        "importPath": "projects.A6_memory.router",
+        "description": "projects.A6_memory.router",
+        "peekOfCode": "def get_field(obj, key):\n    \"\"\"Extrae atributo seguro desde dict o Pydantic.\"\"\"\n    if isinstance(obj, dict):\n        return obj.get(key)\n    return getattr(obj, key, None)\n@router.post(\"/query\", response_model=MemoryResponse)\nasync def query_memory(req: MemoryQuery):\n    graph = get_chat_graph()\n    initial_state = {\n        \"user_id\": req.user_id,",
+        "detail": "projects.A6_memory.router",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "projects.A6_memory.router",
+        "description": "projects.A6_memory.router",
+        "peekOfCode": "router = APIRouter(prefix=\"/a6memory\", tags=[\"A6 - Memory (LangGraph)\"])\ndef get_field(obj, key):\n    \"\"\"Extrae atributo seguro desde dict o Pydantic.\"\"\"\n    if isinstance(obj, dict):\n        return obj.get(key)\n    return getattr(obj, key, None)\n@router.post(\"/query\", response_model=MemoryResponse)\nasync def query_memory(req: MemoryQuery):\n    graph = get_chat_graph()\n    initial_state = {",
+        "detail": "projects.A6_memory.router",
+        "documentation": {}
+    },
+    {
+        "label": "Message",
+        "kind": 6,
+        "importPath": "projects.A6_memory.schemas",
+        "description": "projects.A6_memory.schemas",
+        "peekOfCode": "class Message(BaseModel):\n    role: str            # \"user\" o \"assistant\"\n    content: str         # Texto del mensaje\n# Estado completo utilizado por el grafo de LangGraph.\n# Contiene la información necesaria para ejecutar cada nodo\n# y pasar datos entre ellos.\nclass ChatState(BaseModel):\n    user_id: Optional[str] = None            # Identificador del usuario (para memoria en ChromaDB)\n    messages: Optional[List[Message]] = None # Conversación hasta el momento\n    summary: Optional[str] = None            # Resumen de los últimos mensajes (generado por el grafo)",
+        "detail": "projects.A6_memory.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "ChatState",
+        "kind": 6,
+        "importPath": "projects.A6_memory.schemas",
+        "description": "projects.A6_memory.schemas",
+        "peekOfCode": "class ChatState(BaseModel):\n    user_id: Optional[str] = None            # Identificador del usuario (para memoria en ChromaDB)\n    messages: Optional[List[Message]] = None # Conversación hasta el momento\n    summary: Optional[str] = None            # Resumen de los últimos mensajes (generado por el grafo)\n    meta: Optional[Dict[str, Any]] = None    # Información adicional para seguimiento del flujo (última pregunta, etc.)\n# Esquema del body recibido por el endpoint POST /query.\n# Representa la pregunta del usuario junto con su user_id.\nclass MemoryQuery(BaseModel):\n    user_id: str = Field(..., example=\"fran.aragon\")  \n    question: str = Field(..., example=\"Mi número de cliente era 9843, recuérdalo.\")",
+        "detail": "projects.A6_memory.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "MemoryQuery",
+        "kind": 6,
+        "importPath": "projects.A6_memory.schemas",
+        "description": "projects.A6_memory.schemas",
+        "peekOfCode": "class MemoryQuery(BaseModel):\n    user_id: str = Field(..., example=\"fran.aragon\")  \n    question: str = Field(..., example=\"Mi número de cliente era 9843, recuérdalo.\")\n# Respuesta del endpoint /query.\n# Contiene la respuesta generada por el asistente\n# y qué tipo de memoria fue utilizada (summary, buffer, etc.).\nclass MemoryResponse(BaseModel):\n    answer: str              # Respuesta final del asistente\n    memory_used: List[str]   # Lista de memorias consultadas o generadas durante el proceso\n# Respuesta estándar para endpoints que solo deben indicar éxito,",
+        "detail": "projects.A6_memory.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "MemoryResponse",
+        "kind": 6,
+        "importPath": "projects.A6_memory.schemas",
+        "description": "projects.A6_memory.schemas",
+        "peekOfCode": "class MemoryResponse(BaseModel):\n    answer: str              # Respuesta final del asistente\n    memory_used: List[str]   # Lista de memorias consultadas o generadas durante el proceso\n# Respuesta estándar para endpoints que solo deben indicar éxito,\n# como el borrado de memoria.\nclass EmptyResponse(BaseModel):\n    ok: bool                 # True si la operación fue exitosa",
+        "detail": "projects.A6_memory.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "EmptyResponse",
+        "kind": 6,
+        "importPath": "projects.A6_memory.schemas",
+        "description": "projects.A6_memory.schemas",
+        "peekOfCode": "class EmptyResponse(BaseModel):\n    ok: bool                 # True si la operación fue exitosa",
+        "detail": "projects.A6_memory.schemas",
         "documentation": {}
     },
     {
