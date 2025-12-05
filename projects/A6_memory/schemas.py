@@ -31,7 +31,11 @@ class MemoryQuery(BaseModel):
 class MemoryResponse(BaseModel):
     answer: str              # Respuesta final del asistente
     memory_used: List[str]   # Lista de memorias consultadas o generadas durante el proceso
-
+    
+# Nuevo esquema para el endpoint GET /memory_state/{user_id}
+class MemoryStateResponse(BaseModel):
+    user_id: str               # Identificador del usuario
+    memory: List[str]          # Lista de textos de memoria asociados al usuario
 
 # Respuesta estándar para endpoints que solo deben indicar éxito,
 # como el borrado de memoria.

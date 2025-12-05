@@ -1888,7 +1888,7 @@
         "kind": 5,
         "importPath": "projects.A6_memory.llm_node",
         "description": "projects.A6_memory.llm_node",
-        "peekOfCode": "logger = logging.getLogger(__name__)\nasync def call_llm_node(state: Union[ChatState, Dict[str, Any]]) -> Dict[str, Any]:\n    \"\"\"\n    Nodo del grafo que maneja:\n    - Normalización del estado\n    - Preparación de memoria mediante LLM\n    - Consulta de memoria más reciente\n    - Llamada al LLM para generar respuesta\n    - Persistencia de memorias de usuario en ChromaDB\n    - Devolver estado consistente (dicts, no Pydantic)",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nasync def call_llm_node(state: Union[ChatState, Dict[str, Any]]) -> Dict[str, Any]:\n    \"\"\"\n    Nodo principal del grafo encargado de:\n    - Normalizar el estado entrante (dict o Pydantic)\n    - Preparar memoria nueva con ayuda de un LLM\n    - Guardar memoria del usuario en ChromaDB\n    - Consultar memoria previa relevante\n    - Generar respuesta usando dicha memoria\n    - Devolver un estado consistente para el siguiente nodo",
         "detail": "projects.A6_memory.llm_node",
         "documentation": {}
     },
@@ -1897,7 +1897,7 @@
         "kind": 2,
         "importPath": "projects.A6_memory.memory_graph",
         "description": "projects.A6_memory.memory_graph",
-        "peekOfCode": "def build_chat_graph():\n    graph = StateGraph(dict)\n    graph.add_node(\"add_user_message\", add_user_message_node)\n    graph.add_node(\"maybe_summarize\", maybe_summarize_node)\n    graph.add_node(\"call_llm\", call_llm_node)\n    graph.add_edge(START, \"add_user_message\")\n    graph.add_edge(\"add_user_message\", \"maybe_summarize\")\n    graph.add_edge(\"maybe_summarize\", \"call_llm\")\n    graph.add_edge(\"call_llm\", END)\n    return graph.compile()",
+        "peekOfCode": "def build_chat_graph():\n    # El estado base del grafo es un dict\n    graph = StateGraph(dict)\n    # Añadimos los nodos del flujo\n    graph.add_node(\"add_user_message\", add_user_message_node)\n    graph.add_node(\"maybe_summarize\", maybe_summarize_node)\n    graph.add_node(\"call_llm\", call_llm_node)\n    # Definimos transiciones entre nodos\n    graph.add_edge(START, \"add_user_message\")\n    graph.add_edge(\"add_user_message\", \"maybe_summarize\")",
         "detail": "projects.A6_memory.memory_graph",
         "documentation": {}
     },
@@ -1906,7 +1906,7 @@
         "kind": 2,
         "importPath": "projects.A6_memory.memory_graph",
         "description": "projects.A6_memory.memory_graph",
-        "peekOfCode": "def get_chat_graph():\n    global _COMPILED_CHAT_GRAPH\n    if _COMPILED_CHAT_GRAPH is None:\n        _COMPILED_CHAT_GRAPH = build_chat_graph()\n    return _COMPILED_CHAT_GRAPH",
+        "peekOfCode": "def get_chat_graph():\n    global _COMPILED_CHAT_GRAPH\n    # Si aún no existe, se construye\n    if _COMPILED_CHAT_GRAPH is None:\n        _COMPILED_CHAT_GRAPH = build_chat_graph()\n    # Siempre devuelve el grafo ya compilado\n    return _COMPILED_CHAT_GRAPH",
         "detail": "projects.A6_memory.memory_graph",
         "documentation": {}
     },
@@ -1915,7 +1915,7 @@
         "kind": 5,
         "importPath": "projects.A6_memory.memory_graph",
         "description": "projects.A6_memory.memory_graph",
-        "peekOfCode": "_COMPILED_CHAT_GRAPH = None\ndef build_chat_graph():\n    graph = StateGraph(dict)\n    graph.add_node(\"add_user_message\", add_user_message_node)\n    graph.add_node(\"maybe_summarize\", maybe_summarize_node)\n    graph.add_node(\"call_llm\", call_llm_node)\n    graph.add_edge(START, \"add_user_message\")\n    graph.add_edge(\"add_user_message\", \"maybe_summarize\")\n    graph.add_edge(\"maybe_summarize\", \"call_llm\")\n    graph.add_edge(\"call_llm\", END)",
+        "peekOfCode": "_COMPILED_CHAT_GRAPH = None\n# ======================================================\n# Función: build_chat_graph\n# ------------------------------------------------------\n# Crea el grafo conversacional completo de LangGraph.\n# La estructura del grafo es:\n#\n# START → add_user_message\n#         → maybe_summarize\n#         → call_llm",
         "detail": "projects.A6_memory.memory_graph",
         "documentation": {}
     },
@@ -1924,7 +1924,7 @@
         "kind": 5,
         "importPath": "projects.A6_memory.prompts",
         "description": "projects.A6_memory.prompts",
-        "peekOfCode": "memory_preparation_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente que transforma la información relevante del usuario en memoria estructurada.\nUsuario dice:\n{input}\nExtrae la información que deba ser recordada y devuelve solo el texto a guardar en memoria.\nSi no hay información para recordar, devuelve un string vacío.\n\"\"\")\nmemory_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente que recuerda información del usuario.\nMemoria relevante del usuario:",
+        "peekOfCode": "memory_preparation_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente encargado de convertir en memoria la información relevante que el usuario quiera que recuerdes.\nUsuario dice:\n{input}\nInstrucciones:\n- Extrae únicamente información que sea útil recordar (como datos personales, preferencias, números, bancos, etc.).\n- No te limites a guardar solo un numero o dato, guardalo junto con su contexto para que tenga sentido.\n- No guardes afirmaciones sin contenido útil.\n- No generes espacios en blanco, saltos de línea ni caracteres invisibles.\n- Si no hay nada que recordar, devuelve un guion medio (-) para indicar que no se debe guardar nada.",
         "detail": "projects.A6_memory.prompts",
         "documentation": {}
     },
@@ -1933,17 +1933,8 @@
         "kind": 5,
         "importPath": "projects.A6_memory.prompts",
         "description": "projects.A6_memory.prompts",
-        "peekOfCode": "memory_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente que recuerda información del usuario.\nMemoria relevante del usuario:\n{memory}\nPregunta del usuario:\n{input}\nInstrucciones:\n- Responde únicamente a la pregunta que se hace.\n- No incluyas información de la memoria que no sea estrictamente necesaria.\n- Sé concreto, claro y breve.",
+        "peekOfCode": "memory_prompt = PromptTemplate.from_template(\"\"\"\nEres un asistente que recuerda información del usuario.\nMemoria relevante del usuario:\n{memory}\nPregunta del usuario:\n{input}\nInstrucciones estrictas:\n1. Si el mensaje del usuario es una AFIRMACIÓN (no contiene pregunta y comunica un dato), responde únicamente:\n   ok\n2. Si es una PREGUNTA aunque no tenga signos de interrogación, responde solo a esa pregunta.",
         "detail": "projects.A6_memory.prompts",
-        "documentation": {}
-    },
-    {
-        "label": "get_field",
-        "kind": 2,
-        "importPath": "projects.A6_memory.router",
-        "description": "projects.A6_memory.router",
-        "peekOfCode": "def get_field(obj, key):\n    \"\"\"Extrae atributo seguro desde dict o Pydantic.\"\"\"\n    if isinstance(obj, dict):\n        return obj.get(key)\n    return getattr(obj, key, None)\n@router.post(\"/query\", response_model=MemoryResponse)\nasync def query_memory(req: MemoryQuery):\n    graph = get_chat_graph()\n    initial_state = {\n        \"user_id\": req.user_id,",
-        "detail": "projects.A6_memory.router",
         "documentation": {}
     },
     {
@@ -1951,7 +1942,7 @@
         "kind": 5,
         "importPath": "projects.A6_memory.router",
         "description": "projects.A6_memory.router",
-        "peekOfCode": "router = APIRouter(prefix=\"/a6memory\", tags=[\"A6 - Memory (LangGraph)\"])\ndef get_field(obj, key):\n    \"\"\"Extrae atributo seguro desde dict o Pydantic.\"\"\"\n    if isinstance(obj, dict):\n        return obj.get(key)\n    return getattr(obj, key, None)\n@router.post(\"/query\", response_model=MemoryResponse)\nasync def query_memory(req: MemoryQuery):\n    graph = get_chat_graph()\n    initial_state = {",
+        "peekOfCode": "router = APIRouter(prefix=\"/a6memory\", tags=[\"A6 - Memory (LangGraph)\"])\n# ======================================================\n# POST /a6memory/query\n# ------------------------------------------------------\n# Punto principal para que el usuario interactúe con el\n# sistema de memoria + LangGraph.\n#\n# Flujo interno:\n#   1. Crea un estado inicial con el mensaje del usuario.\n#   2. Ejecuta el grafo conversacional (LangGraph).",
         "detail": "projects.A6_memory.router",
         "documentation": {}
     },
@@ -1978,7 +1969,7 @@
         "kind": 6,
         "importPath": "projects.A6_memory.schemas",
         "description": "projects.A6_memory.schemas",
-        "peekOfCode": "class MemoryQuery(BaseModel):\n    user_id: str = Field(..., example=\"fran.aragon\")  \n    question: str = Field(..., example=\"Mi número de cliente era 9843, recuérdalo.\")\n# Respuesta del endpoint /query.\n# Contiene la respuesta generada por el asistente\n# y qué tipo de memoria fue utilizada (summary, buffer, etc.).\nclass MemoryResponse(BaseModel):\n    answer: str              # Respuesta final del asistente\n    memory_used: List[str]   # Lista de memorias consultadas o generadas durante el proceso\n# Respuesta estándar para endpoints que solo deben indicar éxito,",
+        "peekOfCode": "class MemoryQuery(BaseModel):\n    user_id: str = Field(..., example=\"fran.aragon\")  \n    question: str = Field(..., example=\"Mi número de cliente era 9843, recuérdalo.\")\n# Respuesta del endpoint /query.\n# Contiene la respuesta generada por el asistente\n# y qué tipo de memoria fue utilizada (summary, buffer, etc.).\nclass MemoryResponse(BaseModel):\n    answer: str              # Respuesta final del asistente\n    memory_used: List[str]   # Lista de memorias consultadas o generadas durante el proceso\n# Nuevo esquema para el endpoint GET /memory_state/{user_id}",
         "detail": "projects.A6_memory.schemas",
         "documentation": {}
     },
@@ -1987,7 +1978,16 @@
         "kind": 6,
         "importPath": "projects.A6_memory.schemas",
         "description": "projects.A6_memory.schemas",
-        "peekOfCode": "class MemoryResponse(BaseModel):\n    answer: str              # Respuesta final del asistente\n    memory_used: List[str]   # Lista de memorias consultadas o generadas durante el proceso\n# Respuesta estándar para endpoints que solo deben indicar éxito,\n# como el borrado de memoria.\nclass EmptyResponse(BaseModel):\n    ok: bool                 # True si la operación fue exitosa",
+        "peekOfCode": "class MemoryResponse(BaseModel):\n    answer: str              # Respuesta final del asistente\n    memory_used: List[str]   # Lista de memorias consultadas o generadas durante el proceso\n# Nuevo esquema para el endpoint GET /memory_state/{user_id}\nclass MemoryStateResponse(BaseModel):\n    user_id: str               # Identificador del usuario\n    memory: List[str]          # Lista de textos de memoria asociados al usuario\n# Respuesta estándar para endpoints que solo deben indicar éxito,\n# como el borrado de memoria.\nclass EmptyResponse(BaseModel):",
+        "detail": "projects.A6_memory.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "MemoryStateResponse",
+        "kind": 6,
+        "importPath": "projects.A6_memory.schemas",
+        "description": "projects.A6_memory.schemas",
+        "peekOfCode": "class MemoryStateResponse(BaseModel):\n    user_id: str               # Identificador del usuario\n    memory: List[str]          # Lista de textos de memoria asociados al usuario\n# Respuesta estándar para endpoints que solo deben indicar éxito,\n# como el borrado de memoria.\nclass EmptyResponse(BaseModel):\n    ok: bool                 # True si la operación fue exitosa",
         "detail": "projects.A6_memory.schemas",
         "documentation": {}
     },
@@ -1998,6 +1998,24 @@
         "description": "projects.A6_memory.schemas",
         "peekOfCode": "class EmptyResponse(BaseModel):\n    ok: bool                 # True si la operación fue exitosa",
         "detail": "projects.A6_memory.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "get_field",
+        "kind": 2,
+        "importPath": "projects.A6_memory.utils",
+        "description": "projects.A6_memory.utils",
+        "peekOfCode": "def get_field(obj, key):\n    # Si es un diccionario, usar .get() evita excepciones\n    if isinstance(obj, dict):\n        return obj.get(key)\n    # Para objetos (como Pydantic), getattr devuelve None si no existe\n    return getattr(obj, key, None)\n# ======================================================\n# clean_memory_text\n# ------------------------------------------------------\n# Función encargada de filtrar el texto generado por el",
+        "detail": "projects.A6_memory.utils",
+        "documentation": {}
+    },
+    {
+        "label": "clean_memory_text",
+        "kind": 2,
+        "importPath": "projects.A6_memory.utils",
+        "description": "projects.A6_memory.utils",
+        "peekOfCode": "def clean_memory_text(text: str) -> str:\n    \"\"\"\n    Limpia texto devuelto por el LLM para evitar almacenar:\n    - caracteres invisibles (zero-width, BOM, etc.)\n    - cadenas vacías\n    - marcador \"-\" usado para indicar \"no guardar\"\n    - respuestas no informativas (ok, sí, vale…)\n    \"\"\"\n    # Si viene None o vacío desde el LLM → no guardar\n    if not text:",
+        "detail": "projects.A6_memory.utils",
         "documentation": {}
     },
     {

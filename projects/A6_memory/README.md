@@ -27,7 +27,7 @@ A6_memory/
 ├── llm_node.py          # Nodo principal: prepara memoria, llama al LLM, guarda resultados
 ├── memory_graph.py      # Grafo de LangGraph que define el flujo conversacional
 
-````
+```
 
 ---
 
@@ -42,7 +42,7 @@ El usuario envía:
   "user_id": "user_123",
   "question": "¿Qué acordamos la última vez sobre el presupuesto?"
 }
-````
+```
 
 El proceso completo:
 
