@@ -727,10 +727,10 @@
     },
     {
         "label": "collection",
-        "importPath": "projects.A4_rag_advanced_v2.chroma_client",
-        "description": "projects.A4_rag_advanced_v2.chroma_client",
+        "importPath": "projects.A4_rag_advanced.chroma_client",
+        "description": "projects.A4_rag_advanced.chroma_client",
         "isExtraImport": true,
-        "detail": "projects.A4_rag_advanced_v2.chroma_client",
+        "detail": "projects.A4_rag_advanced.chroma_client",
         "documentation": {}
     },
     {
@@ -1793,7 +1793,7 @@
         "kind": 2,
         "importPath": "projects.A5_chains_routers.rag",
         "description": "projects.A5_chains_routers.rag",
-        "peekOfCode": "def retrieve_context(question: str, n_results: int = 3) -> str:\n    # Convertir pregunta → embedding\n    query_vec = model.encode([question]).tolist()[0]\n    # Consultar la colección en ChromaDB del proyecto A4_rag_advanced_v2\n    results = collection.query(\n        query_embeddings=[query_vec],\n        n_results=n_results\n    )\n    # Extraer documentos (si no existen, usar listas vacías)\n    retrieved_docs = results.get(\"documents\", [[]])[0]",
+        "peekOfCode": "def retrieve_context(question: str, n_results: int = 3) -> str:\n    # Convertir pregunta → embedding\n    query_vec = model.encode([question]).tolist()[0]\n    # Consultar la colección en ChromaDB\n    results = collection.query(\n        query_embeddings=[query_vec],\n        n_results=n_results\n    )\n    # Extraer documentos y metadatos (si no existen, usar listas vacías), distancias para posibles futuros usos\n    retrieved_docs = results.get(\"documents\", [[]])[0]",
         "detail": "projects.A5_chains_routers.rag",
         "documentation": {}
     },
@@ -1802,7 +1802,7 @@
         "kind": 5,
         "importPath": "projects.A5_chains_routers.rag",
         "description": "projects.A5_chains_routers.rag",
-        "peekOfCode": "model = SentenceTransformer(DEFAULT_EMBEDDING_MODEL)\n# Recupera contexto relevante desde la colección Chroma del proyecto A4_rag_advanced_v2\ndef retrieve_context(question: str, n_results: int = 3) -> str:\n    # Convertir pregunta → embedding\n    query_vec = model.encode([question]).tolist()[0]\n    # Consultar la colección en ChromaDB del proyecto A4_rag_advanced_v2\n    results = collection.query(\n        query_embeddings=[query_vec],\n        n_results=n_results\n    )",
+        "peekOfCode": "model = SentenceTransformer(DEFAULT_EMBEDDING_MODEL)\n# Recupera contexto relevante desde la colección Chroma del proyecto A4_rag_advanced_v2\ndef retrieve_context(question: str, n_results: int = 3) -> str:\n    # Convertir pregunta → embedding\n    query_vec = model.encode([question]).tolist()[0]\n    # Consultar la colección en ChromaDB\n    results = collection.query(\n        query_embeddings=[query_vec],\n        n_results=n_results\n    )",
         "detail": "projects.A5_chains_routers.rag",
         "documentation": {}
     },

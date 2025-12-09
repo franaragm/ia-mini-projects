@@ -111,6 +111,11 @@ def retrieve_context(question: str, n_results: int = 3) -> (tuple[list[str], lis
     metadatas = results.get("metadatas", [[]])[0]
     distances = results.get("distances", [[]])[0]
     
+    print("====== DOCUMENTOS RECUPERADOS ======")
+    for i, doc in enumerate(metadatas, 1):
+        print(f"{i}: {doc} ...")
+    print("===================================")
+    
     # Formatear las fuentes para la respuesta
     sources = format_sources(metadatas, distances)
 
