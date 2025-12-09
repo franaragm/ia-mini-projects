@@ -26,5 +26,5 @@ APP_PATH = os.path.join(ROOT_DIR, "app")
 DEFAULT_EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 
 # Modelo LLM default y modelo LLM fallback (para OpenRouter / OpenAI compatible)
-DEFAULT_LLM_MODEL = "openai/gpt-oss-20b:free"
+DEFAULT_LLM_MODEL = "meta-llama/llama-3.2-3b-instruct:free"
 FALLBACK_LLM_MODEL = "nvidia/nemotron-nano-12b-v2-vl:free"

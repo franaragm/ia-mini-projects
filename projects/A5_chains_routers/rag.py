@@ -2,7 +2,6 @@ from sentence_transformers import SentenceTransformer
 from app.services.llm_client import llm
 from config_base import DEFAULT_EMBEDDING_MODEL
 from projects.A4_rag_advanced_v2.chroma_client import collection
-from .prompts import rag_prompt
 
 # Modelo de embeddings
 model = SentenceTransformer(DEFAULT_EMBEDDING_MODEL)
