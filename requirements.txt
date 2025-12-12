@@ -1,42 +1,93 @@
+#########################################
+# Servidor web (API Backend)
+#########################################
+
+# Framework principal para construir APIs rápidas y modernas
 fastapi
+
+# Servidor ASGI recomendado para FastAPI (incluye autoreload, websockets, etc.)
 uvicorn[standard]
 
-# Núcleo de LangChain (PromptTemplate, OutputParser, etc.)
+
+#########################################
+# LangChain – Núcleo y módulos esenciales
+#########################################
+
+# Base interna de LangChain (PromptTemplate, OutputParser, Runnables)
 langchain-core
+
+# Framework principal de LangChain (chains, tools, agentes, etc.)
 langchain
+
+# Herramientas de división de texto (RecursiveTextSplitter, etc.)
 langchain-text-splitters
+
+# Conectores para modelos OpenAI (también funciona con OpenRouter)
 langchain-openai
 
-# Integraciones generales y utilidades (sin modelos OpenAI)
+# Conectores para modelos Gemini (Google AI)
+langchain-google-genai
+
+# Integraciones comunitarias (loaders de documentos, utils, vectorstores, etc.)
 langchain-community
 
-# Cliente OpenAI compatible con OpenRouter
+
+#########################################
+# Modelos LLM y Embeddings
+#########################################
+
+# Cliente OpenAI moderno (requerido por OpenRouter y OpenAI)
 openai
 
-# Para usar modelos de embeddings locales (MiniLM, etc.)
+# Embeddings y modelos locales (MiniLM, MPNet, etc.)
 sentence-transformers
 
-# Vector DB local para RAG
+
+#########################################
+# Vector Database para RAG
+#########################################
+
+# Base de datos de vectores local y ligera (ideal para prototipos y entornos locales)
 chromadb
 
-# Scraping web
+
+#########################################
+# Scraping Web
+#########################################
+
+# Cliente HTTP básico para hacer solicitudes web
 requests
+
+# Librería para parseo de HTML (web scraping)
 beautifulsoup4
 
-# Utilidades comunes
+
+#########################################
+# Utilidades generales y helpers
+#########################################
+
+# Cargar variables desde .env (API keys, configuración)
 python-dotenv
+
+# Validación de datos (Pydantic v2 — requerido por FastAPI y LangChain)
 pydantic
+
+# Cliente HTTP asincrónico usado por muchos SDKs modernos
 httpx
 
-# Validación de correos (evita warnings de FastAPI/Pydantic)
+# Validación de emails (evita warnings en FastAPI/Pydantic)
 email-validator
 
-# LangGraph (orquestación moderna para agentes y flujos)
+
+#########################################
+# LangGraph – Orquestación de agentes y flujos
+#########################################
+
+# Orquestador moderno para agentes, máquinas de estado y flujos LLM
 langgraph
 
-# Extensiones recomendadas para LangGraph (opcional pero útil)
-# Herramientas asincrónicas, monitoreo y tracing
+# SDK para tracing, monitoreo y telemetría en LangChain/LangGraph (opcional)
 langsmith
 
-# Soporte para workflows con comportamientos concurrentes
+# Checkpoints para procesos concurrentes y workflows complejos
 langgraph-checkpoint
